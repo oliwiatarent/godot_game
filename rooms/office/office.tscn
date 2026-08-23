@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://bmdxdw868sapv"]
+
+[ext_resource type="Texture2D" uid="uid://bv3c3qdcmubuq" path="res://assets/rooms/office/office.png" id="1_xcsrs"]
+[ext_resource type="PackedScene" uid="uid://c4ot2tohx1s1d" path="res://rooms/pickable_item.tscn" id="4_6t00p"]
+[ext_resource type="PackedScene" uid="uid://bfkn3d7brjctf" path="res://rooms/action_item.tscn" id="4_rnlhv"]
+[ext_resource type="Texture2D" uid="uid://ckg7w3yuhaqgn" path="res://assets/items/item2.png" id="5_c55dk"]
+[ext_resource type="Texture2D" uid="uid://bs6lxf04pghgg" path="res://assets/items/item3.png" id="5_rnlhv"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_8b08o"]
+vertices = PackedVector2Array(850.0625, 962.14844, 1566, 1013.85156, 1665.8203, 1070, 10, 1070, 129.1875, 970.34375, 226, 930, 307.03125, 930, 710, 953.3906, 1306, 922, 1306, 828.46094, 1366.8984, 842, 654, 930, 710, 930, 1446, 842, 1446, 853.35156, 1500.9688, 890, 1566, 890, 10, 890, 70, 890, 70, 960.46875, 578.5703, 826, 654, 826, 418.5703, 914, 331.03125, 914, 930.35156, 922)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6, 7), PackedInt32Array(8, 9, 10), PackedInt32Array(11, 12, 7), PackedInt32Array(10, 13, 14, 8), PackedInt32Array(15, 16, 1, 8), PackedInt32Array(3, 17, 18, 19), PackedInt32Array(20, 21, 11, 22), PackedInt32Array(3, 19, 4), PackedInt32Array(8, 14, 15), PackedInt32Array(7, 6, 23, 22, 11), PackedInt32Array(0, 24, 8, 1)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 880, 80, 880, 80, 952, 128, 960, 224, 920, 304, 920, 328, 904, 416, 904, 576, 816, 664, 816, 664, 920, 720, 920, 720, 944, 848, 952, 928, 912, 1296, 912, 1296, 816, 1368, 832, 1456, 832, 1456, 848, 1504, 880, 1576, 880, 1576, 1008, 1704, 1080, 0, 1080)])
+agent_radius = 20.0
+
+[node name="Office" type="Node" unique_id=1154915183]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=770633200]
+position = Vector2(960, 540)
+scale = Vector2(1.1111112, 1.125)
+texture = ExtResource("1_xcsrs")
+
+[node name="Boundaries" type="StaticBody2D" parent="." unique_id=1446041254]
+
+[node name="RoomObjects" type="CollisionPolygon2D" parent="Boundaries" unique_id=2081138791]
+polygon = PackedVector2Array(0, 0, 0, 288, 80, 312, 80, 952, 128, 960, 224, 920, 304, 920, 328, 904, 416, 904, 576, 816, 664, 816, 664, 912, 720, 912, 720, 944, 848, 952, 928, 912, 1296, 912, 1296, 816, 1368, 832, 1456, 832, 1456, 856, 1504, 880, 1576, 880, 1576, 1008, 1704, 1080, 1920, 1080, 1920, 0)
+
+[node name="ScreenBoundaries" type="CollisionPolygon2D" parent="Boundaries" unique_id=1456958526]
+polygon = PackedVector2Array(0, 1080, 1920, 1080, 1920, 1088, 0, 1088)
+
+[node name="FloorBoundaries" type="NavigationRegion2D" parent="." unique_id=1882325018]
+navigation_polygon = SubResource("NavigationPolygon_8b08o")
+
+[node name="PickableItem" parent="." unique_id=1486615200 instance=ExtResource("4_6t00p")]
+position = Vector2(552, 832)
+scale = Vector2(2, 2)
+item_id = "arrow"
+
+[node name="ItemIcon" parent="PickableItem" index="0" unique_id=1423757491]
+texture = ExtResource("5_rnlhv")
+
+[node name="ActionItem" parent="." unique_id=799575145 instance=ExtResource("4_rnlhv")]
+position = Vector2(1392, 856)
+scale = Vector2(4, 4)
+riddle_file_name = "example_riddle"
+
+[node name="ItemIcon" parent="ActionItem" index="0" unique_id=868944005]
+texture = ExtResource("5_c55dk")
+
+[editable path="PickableItem"]
+[editable path="ActionItem"]

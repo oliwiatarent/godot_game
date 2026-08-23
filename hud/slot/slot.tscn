@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://d0x6uydaywmbl"]
+
+[ext_resource type="Script" uid="uid://b1s4s6jo7xf7b" path="res://hud/slot/slot.gd" id="1_p28do"]
+
+[node name="Slot" type="PanelContainer" unique_id=1370446212]
+script = ExtResource("1_p28do")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1118204578]
+layout_mode = 2
+
+[node name="ItemIcon" type="TextureRect" parent="." unique_id=97420717]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2

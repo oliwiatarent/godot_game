@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dpfegwuevxcvk"]
+
+[ext_resource type="PackedScene" uid="uid://bmdxdw868sapv" path="res://rooms/office/office.tscn" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bmbg4eocm4yd0" path="res://hud/hud.tscn" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://dw5l8nuqoafh3" path="res://players/player.tscn" id="2_0xm2m"]
+
+[node name="Main" type="Node" unique_id=1848455217]
+
+[node name="HUD" parent="." unique_id=37407074 instance=ExtResource("1_h2yge")]
+
+[node name="Office" parent="." unique_id=788639008 instance=ExtResource("1_0xm2m")]
+
+[node name="Player" parent="." unique_id=28115097 instance=ExtResource("2_0xm2m")]
+position = Vector2(568, 952)

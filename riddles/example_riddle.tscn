@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bt7sk5dws12eo"]
+
+[ext_resource type="Script" uid="uid://8wtfha72x0fi" path="res://riddles/example_riddle.gd" id="1_xacqf"]
+
+[node name="ExampleRiddle" type="ColorRect" unique_id=1082954869]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = -64.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xacqf")
+
+[node name="CloseButton" type="Button" parent="." unique_id=1347226442]
+layout_mode = 0
+offset_left = 1704.0
+offset_top = 16.0
+offset_right = 1778.0
+offset_bottom = 72.0
+text = "X"
+
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

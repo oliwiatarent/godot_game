@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://3ttce3y31klv"]
+
+[ext_resource type="Script" uid="uid://dcb0aj24lshda" path="res://hud/equipment/equipment.gd" id="1_v83qj"]
+[ext_resource type="PackedScene" uid="uid://d0x6uydaywmbl" path="res://hud/slot/slot.tscn" id="2_nd5oq"]
+
+[node name="EquipmentMargin" type="MarginContainer" unique_id=873110049 groups=["equipment"]]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -436.0
+offset_top = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("1_v83qj")
+
+[node name="EquipmentSmall" type="PanelContainer" parent="." unique_id=948282853]
+layout_mode = 2
+
+[node name="SlotsContainer" type="HBoxContainer" parent="EquipmentSmall" unique_id=1515693827]
+layout_mode = 2
+
+[node name="Slot1" parent="EquipmentSmall/SlotsContainer" unique_id=1370446212 instance=ExtResource("2_nd5oq")]
+layout_mode = 2
+
+[node name="Slot2" parent="EquipmentSmall/SlotsContainer" unique_id=669120377 instance=ExtResource("2_nd5oq")]
+layout_mode = 2
+
+[node name="Slot3" parent="EquipmentSmall/SlotsContainer" unique_id=1476401494 instance=ExtResource("2_nd5oq")]
+layout_mode = 2
+
+[node name="Slot4" parent="EquipmentSmall/SlotsContainer" unique_id=517412010 instance=ExtResource("2_nd5oq")]
+layout_mode = 2
+
+[node name="Slot5" parent="EquipmentSmall/SlotsContainer" unique_id=540810816 instance=ExtResource("2_nd5oq")]
+layout_mode = 2

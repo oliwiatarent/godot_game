@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bfkn3d7brjctf"]
+
+[ext_resource type="Script" uid="uid://1felkdmco583" path="res://rooms/action_item.gd" id="1_oghfa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1yu8o"]
+
+[node name="ActionItem" type="Area2D" unique_id=799575145]
+script = ExtResource("1_oghfa")
+metadata/_edit_group_ = true
+
+[node name="ItemIcon" type="Sprite2D" parent="." unique_id=868944005]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=285272896]
+shape = SubResource("CircleShape2D_1yu8o")
