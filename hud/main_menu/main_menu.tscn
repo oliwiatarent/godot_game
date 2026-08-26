@@ -69,12 +69,12 @@ text = "Quit"
 [node name="LobbyPanel" type="VBoxContainer" parent="CenterContainer" unique_id=880628092]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="CenterContainer/LobbyPanel" unique_id=1612671762]
+[node name="StatusLabel" type="Label" parent="CenterContainer/LobbyPanel" unique_id=1612671762]
 layout_mode = 2
 text = "I'm under the water"
 label_settings = SubResource("LabelSettings_yv7nh")
 
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/LobbyPanel" unique_id=1208043441]
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/LobbyPanel" unique_id=758779660]
 custom_minimum_size = Vector2(-1, 30)
 layout_mode = 2
 

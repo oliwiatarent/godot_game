@@ -4,15 +4,13 @@ extends Control
 
 @onready var main_panel: VBoxContainer = $CenterContainer/MainPanel
 @onready var lobby_panel: VBoxContainer = $CenterContainer/LobbyPanel
-
+@onready var status_label: Label = $CenterContainer/LobbyPanel/StatusLabel
 @onready var panels: Array[Control] = [main_panel, lobby_panel]
 
-const PORT = 25565
-
-
 func _ready() -> void:
-	main_panel.visible = true
-	lobby_panel.visible = false
+	show_panel(main_panel)
+	MultiplayerManager.connection_failed.connect(_on_connection_failed)
+	MultiplayerManager.connection_started.connect(_on_connection_started)
 
 func show_panel(target_panel: Control) -> void:
 	for panel in panels:
@@ -20,7 +18,6 @@ func show_panel(target_panel: Control) -> void:
 			panel.visible = false
 			continue
 		panel.visible = true
-
 
 func _on_play_button_pressed() -> void:
 	show_panel(lobby_panel)
@@ -31,18 +28,22 @@ func _on_options_button_pressed() -> void:
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
-
 func _on_host_button_pressed() -> void:
-	var peer = ENetMultiplayerPeer.new()
-	peer.create_server(PORT, 2)
-	multiplayer.multiplayer_peer = peer
-	get_tree().change_scene_to_file(game_scene_path)
+	var err = MultiplayerManager.host_game(game_scene_path)
+	if err != OK:
+		status_label.text = "Could not create server (%d)" % err
 
 func _on_join_button_pressed() -> void:
-	var peer = ENetMultiplayerPeer.new()
-	peer.create_client("127.0.0.1", PORT)
-	multiplayer.multiplayer_peer = peer
-	get_tree().change_scene_to_file(game_scene_path)
+	var ip = "127.0.0.1"
+	var err = MultiplayerManager.join_game(ip, game_scene_path)
+	if err != OK:
+		status_label.text = "Connection error (%d)" % err
 
 func _on_lobby_back_button_pressed() -> void:
 	show_panel(main_panel)
+
+func _on_connection_started() -> void:
+	status_label.text = "Connecting to server..."
+
+func _on_connection_failed(reason: String) -> void:
+	status_label.text = reason
