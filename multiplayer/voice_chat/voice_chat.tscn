@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://ckwo0qpw1rpa7"]
+
+[ext_resource type="Script" uid="uid://duxtiplf4557h" path="res://multiplayer/voice_chat/voice_chat.gd" id="1_w6q3l"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_w6q3l"]
+
+[node name="VoiceChat" type="Node" unique_id=1520986755]
+script = ExtResource("1_w6q3l")
+output_path = NodePath("Output")
+
+[node name="Input" type="AudioStreamPlayer" parent="." unique_id=627856903]
+
+[node name="Output" type="AudioStreamPlayer2D" parent="." unique_id=1486628132]
+stream = SubResource("AudioStreamGenerator_w6q3l")

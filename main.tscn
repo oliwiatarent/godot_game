@@ -2,9 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://bmdxdw868sapv" path="res://rooms/office/office.tscn" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://bmbg4eocm4yd0" path="res://hud/hud.tscn" id="1_h2yge"]
+[ext_resource type="Script" uid="uid://cffwbxe50c6jj" path="res://main.gd" id="1_lquwl"]
 [ext_resource type="PackedScene" uid="uid://dw5l8nuqoafh3" path="res://players/player.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://ckwo0qpw1rpa7" path="res://multiplayer/voice_chat/voice_chat.tscn" id="2_lquwl"]
 
 [node name="Main" type="Node" unique_id=1848455217]
+script = ExtResource("1_lquwl")
+voice_chat = ExtResource("2_lquwl")
 
 [node name="HUD" parent="." unique_id=37407074 instance=ExtResource("1_h2yge")]
 

@@ -1,5 +1,9 @@
 extends Node
 
+@export var line_width: float = 8.0
+@export var line_color: Color = Color.BLACK
+@export var brush_mask: Texture2D = null
+
 @onready var canvas: Canvas = get_parent()
 @onready var net_sync = $"../CanvasSync"
 
@@ -11,6 +15,12 @@ var drawer_peer_id: int = 1 # tylko host może rysować
 func _ready():
 	canvas.gui_input.connect(_on_gui_input)
 
+func set_line_width(width: float) -> void:
+	line_width = width
+
+func set_line_color(color: Color) -> void:
+	line_color = color
+
 func _on_gui_input(event: InputEvent):	
 	var is_network_active = multiplayer.multiplayer_peer and multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
 	if is_network_active and multiplayer.get_unique_id() != drawer_peer_id:
@@ -21,7 +31,7 @@ func _on_gui_input(event: InputEvent):
 			is_drawing = true
 			last_pos = event.position.clamp(Vector2.ZERO, canvas.size)
 			
-			net_sync.start_line(last_pos, canvas.line_color, canvas.line_width)
+			net_sync.start_line(last_pos, line_color, line_width, brush_mask)
 		else:
 			is_drawing = false
 

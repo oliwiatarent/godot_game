@@ -15,6 +15,12 @@ run/main_scene="uid://dwnhjch065ry4"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://co4xdbef1qdkb"
+driver/enable_input=true
+driver/mix_rate=48000
+
 [autoload]
 
 MultiplayerManager="*uid://bpunrb7m7osxo"
