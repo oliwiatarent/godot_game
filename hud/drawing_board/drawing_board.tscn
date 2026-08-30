@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://20vdcnp17lqu"]
+
+[ext_resource type="Script" uid="uid://bfx1n6pkysi1a" path="res://hud/drawing_board/drawing_board.gd" id="1_xghm6"]
+[ext_resource type="Script" uid="uid://bbs5w05ytog2i" path="res://hud/drawing_board/canvas.gd" id="2_xghm6"]
+[ext_resource type="Script" uid="uid://bekkd2ofep1cq" path="res://hud/drawing_board/canvas_input.gd" id="3_xghm6"]
+[ext_resource type="Script" uid="uid://n48dd63i33rj" path="res://hud/drawing_board/canvas_sync.gd" id="4_lp1ro"]
+
+[node name="DrawingBoard" type="Control" unique_id=665837428]
+layout_mode = 3
+anchor_top = 0.8486111
+anchor_right = 0.0836211
+anchor_bottom = 1.0
+offset_top = -320.0
+offset_right = 402.96503
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_force_pass_scroll_events = false
+script = ExtResource("1_xghm6")
+metadata/_edit_use_anchors_ = true
+
+[node name="ToggleBoardButton" type="Button" parent="." unique_id=800517802]
+top_level = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 0
+offset_left = 90.0
+offset_top = 1030.0
+offset_right = 160.0
+offset_bottom = 1061.0
+text = "toggle"
+
+[node name="OuterMarginContainer" type="MarginContainer" parent="." unique_id=771925197]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -460.0
+offset_right = 623.0
+grow_vertical = 0
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="OuterMarginContainer" unique_id=2100919570]
+layout_mode = 2
+
+[node name="InnerMarginContainer" type="MarginContainer" parent="OuterMarginContainer/PanelContainer" unique_id=2046005815]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OuterMarginContainer/PanelContainer/InnerMarginContainer" unique_id=1159271239]
+layout_mode = 2
+
+[node name="CanvasToolbar" type="VBoxContainer" parent="OuterMarginContainer/PanelContainer/InnerMarginContainer/HBoxContainer" unique_id=1252910726]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, -1)
+layout_mode = 2
+
+[node name="CanvasClearButton" type="Button" parent="OuterMarginContainer/PanelContainer/InnerMarginContainer/HBoxContainer/CanvasToolbar" unique_id=777042994]
+layout_mode = 2
+text = "clear
+"
+
+[node name="CanvasUndoButton" type="Button" parent="OuterMarginContainer/PanelContainer/InnerMarginContainer/HBoxContainer/CanvasToolbar" unique_id=480819631]
+layout_mode = 2
+text = "undo
+"
+
+[node name="Spacer" type="Control" parent="OuterMarginContainer/PanelContainer/InnerMarginContainer/HBoxContainer/CanvasToolbar" unique_id=713759677]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Spacer" type="Control" parent="OuterMarginContainer/PanelContainer/InnerMarginContainer/HBoxContainer" unique_id=2135090772]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Canvas" type="ColorRect" parent="OuterMarginContainer/PanelContainer/InnerMarginContainer/HBoxContainer" unique_id=274993721]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_xghm6")
+
+[node name="CanvasInput" type="Node" parent="OuterMarginContainer/PanelContainer/InnerMarginContainer/HBoxContainer/Canvas" unique_id=1370747605]
+script = ExtResource("3_xghm6")
+
+[node name="CanvasSync" type="Node" parent="OuterMarginContainer/PanelContainer/InnerMarginContainer/HBoxContainer/Canvas" unique_id=1027418581]
+unique_name_in_owner = true
+script = ExtResource("4_lp1ro")
+
+[connection signal="pressed" from="ToggleBoardButton" to="." method="_on_toggle_board_button_pressed"]
+[connection signal="pressed" from="OuterMarginContainer/PanelContainer/InnerMarginContainer/HBoxContainer/CanvasToolbar/CanvasClearButton" to="." method="_on_canvas_clear_button_pressed"]
+[connection signal="pressed" from="OuterMarginContainer/PanelContainer/InnerMarginContainer/HBoxContainer/CanvasToolbar/CanvasUndoButton" to="." method="_on_canvas_undo_button_pressed"]

@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="Inżynierka-start"
-run/main_scene="uid://dpfegwuevxcvk"
+run/main_scene="uid://dwnhjch065ry4"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
+MultiplayerManager="*uid://bpunrb7m7osxo"
 EventBus="*uid://cn8sfjgb6g8sl"
 
 [display]

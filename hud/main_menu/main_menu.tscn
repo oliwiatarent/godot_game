@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://dwnhjch065ry4"]
+
+[ext_resource type="Script" uid="uid://41hw0kd3mkxn" path="res://hud/main_menu/main_menu.gd" id="1_1cdh1"]
+[ext_resource type="Texture2D" uid="uid://bv3c3qdcmubuq" path="res://assets/rooms/office/office.png" id="2_2piht"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yv7nh"]
+line_spacing = 6.285
+font_size = 32
+
+[node name="MainMenu" type="Control" unique_id=1473890120]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1cdh1")
+metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="TextureRect" parent="." unique_id=211067118]
+modulate = Color(0.737193, 0.7371929, 0.7371929, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2piht")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=189836079]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainPanel" type="VBoxContainer" parent="CenterContainer" unique_id=1710696835]
+visible = false
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/MainPanel" unique_id=1902643546]
+layout_mode = 2
+text = "I'm under the water"
+label_settings = SubResource("LabelSettings_yv7nh")
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/MainPanel" unique_id=1166533799]
+custom_minimum_size = Vector2(-1, 30)
+layout_mode = 2
+
+[node name="MainButtons" type="VBoxContainer" parent="CenterContainer/MainPanel" unique_id=1804593962]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+
+[node name="PlayButton" type="Button" parent="CenterContainer/MainPanel/MainButtons" unique_id=1382369763]
+layout_mode = 2
+text = "Play"
+
+[node name="OptionsButton" type="Button" parent="CenterContainer/MainPanel/MainButtons" unique_id=1504299093]
+layout_mode = 2
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/MainPanel/MainButtons" unique_id=260685201]
+layout_mode = 2
+text = "Quit"
+
+[node name="LobbyPanel" type="VBoxContainer" parent="CenterContainer" unique_id=880628092]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/LobbyPanel" unique_id=1612671762]
+layout_mode = 2
+text = "I'm under the water"
+label_settings = SubResource("LabelSettings_yv7nh")
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/LobbyPanel" unique_id=758779660]
+custom_minimum_size = Vector2(-1, 30)
+layout_mode = 2
+
+[node name="LobbyButtons" type="VBoxContainer" parent="CenterContainer/LobbyPanel" unique_id=1305246596]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+
+[node name="HostButton" type="Button" parent="CenterContainer/LobbyPanel/LobbyButtons" unique_id=1216906605]
+layout_mode = 2
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="CenterContainer/LobbyPanel/LobbyButtons" unique_id=1511353458]
+layout_mode = 2
+text = "Join"
+
+[node name="LobbyBackButton" type="Button" parent="CenterContainer/LobbyPanel/LobbyButtons" unique_id=1009925106]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="CenterContainer/MainPanel/MainButtons/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CenterContainer/MainPanel/MainButtons/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="CenterContainer/MainPanel/MainButtons/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CenterContainer/LobbyPanel/LobbyButtons/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CenterContainer/LobbyPanel/LobbyButtons/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="CenterContainer/LobbyPanel/LobbyButtons/LobbyBackButton" to="." method="_on_lobby_back_button_pressed"]
