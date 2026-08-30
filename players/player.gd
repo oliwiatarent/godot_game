@@ -24,9 +24,6 @@ func _ready():
 	EventBus.disable_walking.connect(_on_disable_walking)
 	EventBus.enable_walking.connect(_on_enable_walking)
 	
-	#navigation_agent.path_desired_distance = 4.0
-	#navigation_agent.target_desired_distance = 30.0
-	
 
 func _physics_process(_delta):
 	movement_handler()
@@ -41,17 +38,6 @@ func movement_handler():
 		
 	var keyboard_input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 			
-	if Input.is_action_just_pressed("left_mouse_click"):
-		var mouse_pos = get_global_mouse_position()
-		
-		var map = get_world_2d().navigation_map
-		var closest_point = NavigationServer2D.map_get_closest_point(map, mouse_pos)
-		
-		navigation_agent.target_position = closest_point
-		is_navigating_with_mouse = true
-		stuck_frame_count = 0
-
-
 	if keyboard_input != Vector2.ZERO:
 		is_navigating_with_mouse = false
 		velocity = keyboard_input * speed
@@ -87,6 +73,37 @@ func movement_handler():
 		$Animation.flip_h = velocity.x < 0
 	else:
 		$Animation.stop()
+		
+		
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("left_mouse_click") and not is_walking_disabled:
+		var mouse_pos = get_global_mouse_position()
+
+		var space_state = get_world_2d().direct_space_state
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = mouse_pos
+		query.collide_with_areas = true
+		query.collide_with_bodies = false
+
+		var result = space_state.intersect_point(query)
+
+		if result.size() > 0:
+			for item in result:
+				var collider = item["collider"]
+				
+				if collider.has_method("try_pick_up"):
+					collider.try_pick_up()
+					return
+				elif collider.has_method("open_riddle"):
+					collider.open_riddle()
+					return
+					
+		var map = get_world_2d().navigation_map
+		var closest_point = NavigationServer2D.map_get_closest_point(map, mouse_pos)
+		
+		navigation_agent.target_position = closest_point
+		is_navigating_with_mouse = true
+		stuck_frame_count = 0
 	
 	
 func update_perspective_scale():
