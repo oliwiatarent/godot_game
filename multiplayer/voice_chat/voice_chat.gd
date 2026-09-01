@@ -6,7 +6,8 @@ extends Node
 var index: int
 var effect: AudioEffectCapture
 var playback: AudioStreamGeneratorPlayback
-var input_threshold = 0.01
+var input_threshold: float = 0.01
+var receive_buffer: PackedFloat32Array = PackedFloat32Array()
 
 func _ready() -> void:
 	pass
@@ -14,7 +15,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if is_multiplayer_authority():
 		process_mic()
-	pass
+	process_voice()
 	
 func setup_audio(id: int) -> void:
 	input = $Input
@@ -43,4 +44,16 @@ func process_mic():
 		if max_amplitude < input_threshold:
 			return
 		
-		print(data)
+		send_data.rpc(data)
+
+@rpc("any_peer", "call_remote", "unreliable_ordered")
+func send_data(data: PackedFloat32Array):
+	receive_buffer.append_array(data)
+
+func process_voice():
+	if receive_buffer.size() <= 0:
+		return
+	
+	for i in range(min(playback.get_frames_available(), receive_buffer.size())):
+		playback.push_frame(Vector2(receive_buffer[0], receive_buffer[0]))
+		receive_buffer.remove_at(0)
