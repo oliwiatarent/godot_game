@@ -1,4 +1,5 @@
 extends Area2D
+class_name ActionItem
 
 @export_group('Action')
 @export var riddle_file_name = ""
@@ -16,12 +17,14 @@ func open_riddle():
 	if player:
 		var distance = global_position.distance_to(player.global_position)
 		if distance > open_distance:
-			return
+			return false
 
 	if ResourceLoader.exists(file_path):
 		var riddle_scene = load(file_path)
 		var riddle_instance = riddle_scene.instantiate()
 		EventBus.disable_walking.emit()
 		get_tree().root.add_child(riddle_instance)
+		return true
 	else:
 		print("Błąd: Nie znaleziono pliku zagadki pod ścieżką: ", file_path)
+		return false

@@ -1,4 +1,5 @@
 extends Area2D
+class_name PickableItem
 
 @export_group('Pickable Item Properties')
 @export var item_id: String = ""
@@ -14,7 +15,7 @@ func try_pick_up():
 	if player:
 		var distance = global_position.distance_to(player.global_position)
 		if distance > pickup_distance:
-			return
+			return false
 
 	var data = {"id": item_id, "icon": $ItemIcon.texture}
 	var equipment = get_tree().get_first_node_in_group("equipment")
@@ -24,3 +25,6 @@ func try_pick_up():
 		if success:
 			is_picked = true
 			queue_free()
+			return true
+			
+	return false

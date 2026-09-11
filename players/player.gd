@@ -16,6 +16,7 @@ var is_navigating_with_mouse = false
 var is_walking_disabled = false
 var last_position = Vector2.ZERO
 var stuck_frame_count = 0
+var target_item
 
 func _ready():
 	var screen_size = get_viewport_rect().size
@@ -42,6 +43,7 @@ func movement_handler():
 		is_navigating_with_mouse = false
 		velocity = keyboard_input * speed
 	elif is_navigating_with_mouse:
+		handleItemAction()
 		if navigation_agent.is_navigation_finished():
 			is_navigating_with_mouse = false
 			velocity = Vector2.ZERO
@@ -87,16 +89,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		var result = space_state.intersect_point(query)
 
+		target_item = null
 		if result.size() > 0:
 			for item in result:
 				var collider = item["collider"]
 				
-				if collider.has_method("try_pick_up"):
-					collider.try_pick_up()
-					return
-				elif collider.has_method("open_riddle"):
-					collider.open_riddle()
-					return
+				if collider.has_method("try_pick_up") or collider.has_method("open_riddle"):
+					target_item = collider
 					
 		var map = get_world_2d().navigation_map
 		var closest_point = NavigationServer2D.map_get_closest_point(map, mouse_pos)
@@ -111,6 +110,20 @@ func update_perspective_scale():
 	factor = clamp(factor, 0.0, 1.0)
 	var current_scale = lerp(min_scale, max_scale, factor)
 	scale = Vector2(current_scale, current_scale)
+	
+	
+func handleItemAction():
+	print(target_item)
+	if target_item != null:
+			if target_item is PickableItem:
+				if target_item.try_pick_up():
+					target_item = null
+					is_navigating_with_mouse = false
+					
+			if target_item is ActionItem:
+				if target_item.open_riddle():
+					target_item = null
+					is_navigating_with_mouse = false
 	
 	
 func action_handler():
