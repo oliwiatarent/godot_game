@@ -113,17 +113,16 @@ func update_perspective_scale():
 	
 	
 func handleItemAction():
-	print(target_item)
 	if target_item != null:
-			if target_item is PickableItem:
-				if target_item.try_pick_up():
-					target_item = null
-					is_navigating_with_mouse = false
-					
-			if target_item is ActionItem:
-				if target_item.open_riddle():
-					target_item = null
-					is_navigating_with_mouse = false
+		if target_item is PickableItem:
+			if target_item.try_pick_up():
+				target_item = null
+				is_navigating_with_mouse = false
+				
+		if target_item is ActionItem:
+			if target_item.open_riddle():
+				target_item = null
+				is_navigating_with_mouse = false
 	
 	
 func action_handler():
