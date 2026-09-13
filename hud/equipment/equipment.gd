@@ -1,20 +1,40 @@
-extends MarginContainer
+extends CanvasLayer
 
-@onready var slots_container: HBoxContainer = $EquipmentSmall/SlotsContainer
+# Prefixes:
+# seq - Small Equipment
+# leq - Large Equipment
 
+@export_group('Equipment Properties')
+@export var slot_scene: PackedScene
+@export var leq_number_of_slots = 10
+
+@onready var seq_slots_container = $EquipmentSmallMargin/EquipmentSmall/SlotsContainer
+@onready var large_equipment = $EquipmentLargeMargin
+
+var is_equipment_open = false
 var active_slot_index = 1
 var number_of_slots
 
 func _ready():
+	var leq_grid = $EquipmentLargeMargin/EquipmentLarge/GridContainer
+	
+	for i in range(leq_number_of_slots):
+		var new_slot = slot_scene.instantiate()
+		leq_grid.add_child(new_slot)
+	
 	update_equipment_visuals()
-	number_of_slots = len(slots_container.get_children())
+	number_of_slots = len(seq_slots_container.get_children())
 	
 
 func _process(_delta):
 	handle_change_slot()
-	handle_open_equipment()
 	
-
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("equipment_action"):
+		handle_open_equipment()
+		
+		
 func handle_change_slot():
 	for i in range(1, number_of_slots + 1):
 		if Input.is_action_just_pressed("slot_" + str(i)):
@@ -31,7 +51,7 @@ func handle_change_slot():
 			
 
 func update_equipment_visuals():
-	var slots = slots_container.get_children()
+	var slots = seq_slots_container.get_children()
 	for i in range(slots.size()):
 		var slot = slots[i]
 		if i + 1 == active_slot_index:
@@ -41,11 +61,16 @@ func update_equipment_visuals():
 
 
 func handle_open_equipment():
-	pass
+	if !is_equipment_open:
+		large_equipment.show()
+		is_equipment_open = true
+	else:
+		large_equipment.hide()
+		is_equipment_open = false
 	
 	
 func add_item(item_data):
-	var slots = slots_container.get_children()
+	var slots = seq_slots_container.get_children()
 	
 	for slot in slots:
 		var icon_node = slot.get_node_or_null("ItemIcon") as TextureRect

@@ -28,7 +28,6 @@ func _ready():
 
 func _physics_process(_delta):
 	movement_handler()
-	action_handler()
 	
 
 func movement_handler():
@@ -123,11 +122,6 @@ func handleItemAction():
 			if target_item.open_riddle():
 				target_item = null
 				is_navigating_with_mouse = false
-	
-	
-func action_handler():
-	if Input.is_action_just_pressed("action"):
-		print("Nacisnieto przycisk akcji")
 
 
 func _on_disable_walking():
