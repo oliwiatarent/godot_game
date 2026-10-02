@@ -23,8 +23,8 @@ func try_pick_up():
 	if equipment and equipment.has_method("add_item"):
 		var success = equipment.add_item(data)
 		if success:
-			is_picked = true
-			queue_free()
+			#is_picked = true
+			#queue_free()
 			return true
 			
 	return false

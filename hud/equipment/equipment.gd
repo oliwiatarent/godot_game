@@ -8,7 +8,9 @@ extends CanvasLayer
 @export var slot_scene: PackedScene
 @export var leq_number_of_slots = 10
 
-@onready var seq_slots_container = $EquipmentSmallMargin/EquipmentSmall/SlotsContainer
+@onready var seq_slots_container = $EquipmentSmallMargin/EquipmentSmall/SmallSlotsContainer
+@onready var leq_slots_container = $EquipmentLargeMargin/EquipmentLarge/LargeSlotsContainer
+@onready var leq_grid = $EquipmentLargeMargin/EquipmentLarge/LargeSlotsContainer
 @onready var large_equipment = $EquipmentLargeMargin
 
 var is_equipment_open = false
@@ -16,7 +18,6 @@ var active_slot_index = 1
 var number_of_slots
 
 func _ready():
-	var leq_grid = $EquipmentLargeMargin/EquipmentLarge/GridContainer
 	
 	for i in range(leq_number_of_slots):
 		var new_slot = slot_scene.instantiate()
@@ -58,7 +59,7 @@ func update_equipment_visuals():
 			slot.modulate = Color(1.3, 1.3, 1.3, 1.0)
 		else:
 			slot.modulate = Color(0.5, 0.5, 0.5, 0.8)
-
+			
 
 func handle_open_equipment():
 	if !is_equipment_open:
@@ -71,14 +72,28 @@ func handle_open_equipment():
 	
 func add_item(item_data):
 	var slots = seq_slots_container.get_children()
+	var icon_node
 	
 	for slot in slots:
-		var icon_node = slot.get_node_or_null("ItemIcon") as TextureRect
+		icon_node = slot.get_node_or_null("ItemIcon") as TextureRect
 		
 		if icon_node and icon_node.texture == null:
 			icon_node.texture = item_data["icon"]
 			print("Dodano przedmiot: ", item_data["id"])
 			return true
 			
-	print("Ekwipunek jest pełny!")
-	return false
+	slots = leq_slots_container.get_children()
+	
+	for slot in slots:
+		icon_node = slot.get_node_or_null("ItemIcon") as TextureRect
+		
+		if icon_node and icon_node.texture == null:
+			icon_node.texture = item_data["icon"]
+			print("Dodano przedmiot: ", item_data["id"])
+			return true
+			
+	var new_slot = slot_scene.instantiate()
+	icon_node = new_slot.get_node_or_null("ItemIcon") as TextureRect
+	icon_node.texture = item_data["icon"]
+	leq_grid.add_child(new_slot)
+	return true
