@@ -27,15 +27,18 @@ func _ready():
 	
 
 func _process(_delta):
-	handle_change_slot()
+	change_slot()
 	
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("equipment_action"):
-		handle_open_equipment()
+		open_equipment()
+	
+	if event.is_action_pressed("use_item"):
+		use_item()
 		
 		
-func handle_change_slot():
+func change_slot():
 	for i in range(1, number_of_slots + 1):
 		if Input.is_action_just_pressed("slot_" + str(i)):
 			active_slot_index = i
@@ -60,7 +63,7 @@ func update_equipment_visuals():
 			slot.modulate = Color(0.5, 0.5, 0.5, 0.8)
 			
 
-func handle_open_equipment():
+func open_equipment():
 	if !is_equipment_open:
 		large_equipment.show()
 		is_equipment_open = true
@@ -75,14 +78,23 @@ func add_item(item_data):
 		if slot.item_data.is_empty():
 			slot.set_item(item_data)
 			#print("Dodano przedmiot do SEQ: ", item_data.get("id"))
+			return true
 			
 	slots = leq_slots_container.get_children()
 	for slot in slots:
 		if slot.item_data.is_empty():
 			slot.set_item(item_data)
 			#print("Dodano przedmiot do LEQ: ", item_data.get("id"))
+			return true
 			
 	var new_slot = slot_scene.instantiate()
 	leq_grid.add_child(new_slot)
 	new_slot.set_item(item_data)
 	#print("Dodano przedmiot do nowego slotu LEQ: ", item_data.get("id"))
+	return true
+	
+
+func use_item():
+	var active_slot = seq_slots_container.get_children()[active_slot_index - 1]
+	print("Uzyto przedmiot: " + active_slot.item_data["id"])
+	active_slot.clear_slot()
