@@ -18,7 +18,6 @@ var active_slot_index = 1
 var number_of_slots
 
 func _ready():
-	
 	for i in range(leq_number_of_slots):
 		var new_slot = slot_scene.instantiate()
 		leq_grid.add_child(new_slot)
@@ -72,28 +71,18 @@ func handle_open_equipment():
 	
 func add_item(item_data):
 	var slots = seq_slots_container.get_children()
-	var icon_node
-	
 	for slot in slots:
-		icon_node = slot.get_node_or_null("ItemIcon") as TextureRect
-		
-		if icon_node and icon_node.texture == null:
-			icon_node.texture = item_data["icon"]
-			print("Dodano przedmiot: ", item_data["id"])
-			return true
+		if slot.item_data.is_empty():
+			slot.set_item(item_data)
+			#print("Dodano przedmiot do SEQ: ", item_data.get("id"))
 			
 	slots = leq_slots_container.get_children()
-	
 	for slot in slots:
-		icon_node = slot.get_node_or_null("ItemIcon") as TextureRect
-		
-		if icon_node and icon_node.texture == null:
-			icon_node.texture = item_data["icon"]
-			print("Dodano przedmiot: ", item_data["id"])
-			return true
+		if slot.item_data.is_empty():
+			slot.set_item(item_data)
+			#print("Dodano przedmiot do LEQ: ", item_data.get("id"))
 			
 	var new_slot = slot_scene.instantiate()
-	icon_node = new_slot.get_node_or_null("ItemIcon") as TextureRect
-	icon_node.texture = item_data["icon"]
 	leq_grid.add_child(new_slot)
-	return true
+	new_slot.set_item(item_data)
+	#print("Dodano przedmiot do nowego slotu LEQ: ", item_data.get("id"))

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bfkn3d7brjctf" path="res://rooms/action_item.tscn" id="4_rnlhv"]
 [ext_resource type="Texture2D" uid="uid://ckg7w3yuhaqgn" path="res://assets/items/item2.png" id="5_c55dk"]
 [ext_resource type="Texture2D" uid="uid://bs6lxf04pghgg" path="res://assets/items/item3.png" id="5_rnlhv"]
+[ext_resource type="Texture2D" uid="uid://d3ly8ovr456ql" path="res://assets/items/item1.png" id="6_c55dk"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8b08o"]
 vertices = PackedVector2Array(850.0625, 962.14844, 1566, 1013.85156, 1665.8203, 1070, 10, 1070, 129.1875, 970.34375, 226, 930, 307.03125, 930, 710, 953.3906, 1306, 922, 1306, 828.46094, 1366.8984, 842, 654, 930, 710, 930, 1446, 842, 1446, 853.35156, 1500.9688, 890, 1566, 890, 10, 890, 70, 890, 70, 960.46875, 578.5703, 826, 654, 826, 418.5703, 914, 331.03125, 914, 930.35156, 922)
@@ -29,13 +30,21 @@ polygon = PackedVector2Array(0, 1080, 1920, 1080, 1920, 1088, 0, 1088)
 [node name="FloorBoundaries" type="NavigationRegion2D" parent="." unique_id=1882325018]
 navigation_polygon = SubResource("NavigationPolygon_8b08o")
 
-[node name="PickableItem" parent="." unique_id=1486615200 instance=ExtResource("4_6t00p")]
+[node name="Arrow" parent="." unique_id=1486615200 instance=ExtResource("4_6t00p")]
 position = Vector2(552, 832)
 scale = Vector2(2, 2)
 item_id = "arrow"
 
-[node name="ItemIcon" parent="PickableItem" index="0" unique_id=1423757491]
+[node name="ItemIcon" parent="Arrow" index="0" unique_id=1423757491]
 texture = ExtResource("5_rnlhv")
+
+[node name="Key" parent="." unique_id=1677656622 instance=ExtResource("4_6t00p")]
+position = Vector2(960, 932)
+scale = Vector2(2, 2)
+item_id = "key"
+
+[node name="ItemIcon" parent="Key" index="0" unique_id=1423757491]
+texture = ExtResource("6_c55dk")
 
 [node name="ActionItem" parent="." unique_id=799575145 instance=ExtResource("4_rnlhv")]
 position = Vector2(1392, 856)
@@ -45,5 +54,6 @@ riddle_file_name = "example_riddle"
 [node name="ItemIcon" parent="ActionItem" index="0" unique_id=868944005]
 texture = ExtResource("5_c55dk")
 
-[editable path="PickableItem"]
+[editable path="Arrow"]
+[editable path="Key"]
 [editable path="ActionItem"]
