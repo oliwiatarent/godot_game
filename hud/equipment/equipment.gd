@@ -96,5 +96,9 @@ func add_item(item_data):
 
 func use_item():
 	var active_slot = seq_slots_container.get_children()[active_slot_index - 1]
+	
+	if active_slot.item_data.is_empty():
+		return
+		
 	print("Uzyto przedmiot: " + active_slot.item_data["id"])
 	active_slot.clear_slot()
