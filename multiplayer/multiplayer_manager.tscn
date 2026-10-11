@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://pak7s5hq51sh"]
+
+[ext_resource type="Script" uid="uid://bpunrb7m7osxo" path="res://multiplayer/multiplayer_manager.gd" id="1_2t7wh"]
+[ext_resource type="PackedScene" uid="uid://ckwo0qpw1rpa7" path="res://multiplayer/voice_chat/voice_chat.tscn" id="2_1owm7"]
+
+[node name="MultiplayerManager" type="Node2D" unique_id=1744659462]
+script = ExtResource("1_2t7wh")
+voice_chat = ExtResource("2_1owm7")

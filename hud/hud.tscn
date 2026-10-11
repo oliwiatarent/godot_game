@@ -2,9 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://3ttce3y31klv" path="res://hud/equipment/equipment.tscn" id="2_2gk58"]
 [ext_resource type="PackedScene" uid="uid://20vdcnp17lqu" path="res://hud/drawing_board/drawing_board.tscn" id="2_318vg"]
+[ext_resource type="PackedScene" uid="uid://bnta1a83nie7g" path="res://hud/voice_chat/voice_chat.tscn" id="3_318vg"]
 
 [node name="HUD" type="CanvasLayer" unique_id=37407074]
 
 [node name="Equipment" parent="." unique_id=980494502 instance=ExtResource("2_2gk58")]
+mouse_filter = 0
+mouse_force_pass_scroll_events = false
 
 [node name="DrawingBoard" parent="." unique_id=1586450134 instance=ExtResource("2_318vg")]
+
+[node name="VoiceChat" parent="." unique_id=2024313841 instance=ExtResource("3_318vg")]
+mouse_force_pass_scroll_events = false

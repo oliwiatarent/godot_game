@@ -3,10 +3,9 @@ extends Node
 @onready var canvas: Canvas = get_parent()
 var active_lines: Dictionary = {}
 
-
-func start_line(pos: Vector2, color: Color, width: float):
+func start_line(pos: Vector2, color: Color, width: float, mask: Texture2D):
 	var my_id = multiplayer.get_unique_id() if multiplayer.has_multiplayer_peer() else 1
-	rpc("rpc_create_line", color, width, my_id)
+	rpc("rpc_create_line", color, width, mask, my_id)
 	rpc("rpc_add_point", pos, multiplayer.get_unique_id())
 
 func add_point(pos: Vector2):
@@ -19,11 +18,10 @@ func request_clear():
 func request_undo():
 	rpc("rpc_undo")
 
-
 @rpc("any_peer", "call_local", "reliable")
-func rpc_create_line(color: Color, width: float, sender_id: int):
+func rpc_create_line(color: Color, width: float, mask: Texture2D, sender_id: int):
 	var l_name = "Line_%d_%d" % [sender_id, Time.get_ticks_msec()]
-	var line = canvas.create_line(color, width, l_name)
+	var line = canvas.create_line(color, width, mask, l_name)
 	active_lines[sender_id] = line
 
 @rpc("any_peer", "call_local", "unreliable_ordered")

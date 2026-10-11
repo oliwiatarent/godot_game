@@ -3,6 +3,10 @@ extends Node
 signal connection_failed(reason: String)
 signal connection_started
 
+@export var voice_chat: PackedScene
+
+var vc: Node = null
+
 const PORT: int = 25565
 
 var target_scene_path: String = ""
@@ -20,19 +24,28 @@ func host_game(scene_path: String) -> Error:
 		return error
 		
 	multiplayer.multiplayer_peer = peer
+	vc = voice_chat.instantiate()
+	add_child(vc)
+	vc.setup_audio(multiplayer.get_unique_id(), false)
+	
 	get_tree().change_scene_to_file(scene_path)
+	
 	return OK
 
 func join_game(ip: String, scene_path: String) -> Error:
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_client(ip, PORT)
-	
 	if error != OK:
 		return error
 			
 	multiplayer.multiplayer_peer = peer
+	vc = voice_chat.instantiate()
+	add_child(vc)
+	vc.setup_audio(multiplayer.get_unique_id(), true)
+	
 	target_scene_path = scene_path
 	connection_started.emit()
+	
 	return OK
 
 func is_network_active() -> bool:
