@@ -7,10 +7,9 @@ mix_rate = 48000.0
 
 [node name="VoiceChat" type="Node" unique_id=1520986755]
 script = ExtResource("1_w6q3l")
-output_path = NodePath("Output")
 
 [node name="Input" type="AudioStreamPlayer" parent="." unique_id=627856903]
 bus = &"Record"
 
-[node name="Output" type="AudioStreamPlayer2D" parent="." unique_id=1486628132]
+[node name="Output" type="AudioStreamPlayer" parent="." unique_id=1222455285]
 stream = SubResource("AudioStreamGenerator_w6q3l")

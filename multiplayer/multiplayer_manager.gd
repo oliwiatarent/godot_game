@@ -5,6 +5,8 @@ signal connection_started
 
 @export var voice_chat: PackedScene
 
+var vc: Node = null
+
 const PORT: int = 25565
 
 var target_scene_path: String = ""
@@ -22,9 +24,9 @@ func host_game(scene_path: String) -> Error:
 		return error
 		
 	multiplayer.multiplayer_peer = peer
-	var vc = voice_chat.instantiate()
+	vc = voice_chat.instantiate()
 	add_child(vc)
-	vc.setup_audio(multiplayer.get_unique_id())
+	vc.setup_audio(multiplayer.get_unique_id(), false)
 	
 	get_tree().change_scene_to_file(scene_path)
 	
@@ -37,9 +39,9 @@ func join_game(ip: String, scene_path: String) -> Error:
 		return error
 			
 	multiplayer.multiplayer_peer = peer
-	var vc = voice_chat.instantiate()
+	vc = voice_chat.instantiate()
 	add_child(vc)
-	vc.setup_audio(multiplayer.get_unique_id())
+	vc.setup_audio(multiplayer.get_unique_id(), true)
 	
 	target_scene_path = scene_path
 	connection_started.emit()

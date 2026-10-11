@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bnta1a83nie7g"]
+
+[ext_resource type="Script" uid="uid://ddwhfjvlcp7i7" path="res://hud/voice_chat/voice_chat.gd" id="1_wnq0v"]
+
+[node name="VoiceChat" type="Control" unique_id=2024313841]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_wnq0v")
+
+[node name="PushToTalkButton" type="Button" parent="." unique_id=196973378]
+layout_mode = 0
+offset_left = 934.0
+offset_top = 1014.0
+offset_right = 1034.0
+offset_bottom = 1045.0
+text = "Push to talk"
+
+[connection signal="button_down" from="PushToTalkButton" to="." method="_on_push_to_talk_button_button_down"]
+[connection signal="button_up" from="PushToTalkButton" to="." method="_on_push_to_talk_button_button_up"]
