@@ -7,7 +7,10 @@
 [node name="HUD" type="CanvasLayer" unique_id=37407074]
 
 [node name="Equipment" parent="." unique_id=980494502 instance=ExtResource("2_2gk58")]
+mouse_filter = 0
+mouse_force_pass_scroll_events = false
 
 [node name="DrawingBoard" parent="." unique_id=1586450134 instance=ExtResource("2_318vg")]
 
 [node name="VoiceChat" parent="." unique_id=2024313841 instance=ExtResource("3_318vg")]
+mouse_force_pass_scroll_events = false
