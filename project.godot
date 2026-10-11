@@ -24,6 +24,7 @@ driver/mix_rate=48000
 [autoload]
 
 MultiplayerManager="*uid://pak7s5hq51sh"
+EventBus="*uid://cn8sfjgb6g8sl"
 
 [display]
 

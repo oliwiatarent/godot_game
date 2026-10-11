@@ -17,6 +17,7 @@ func open_riddle():
 		if ResourceLoader.exists(file_path):
 			var riddle_scene = load(file_path)
 			var riddle_instance = riddle_scene.instantiate()
+			EventBus.disable_walking.emit()
 			get_tree().root.add_child(riddle_instance)
 		else:
 			print("Błąd: Nie znaleziono pliku zagadki pod ścieżką: ", file_path)

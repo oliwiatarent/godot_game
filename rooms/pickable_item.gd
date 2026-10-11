@@ -1,7 +1,5 @@
 extends Area2D
 
-signal item_picked_up(item_data)
-
 @export_group('Pickable Item Properties')
 @export var item_id: String = ""
 	
