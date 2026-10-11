@@ -29,6 +29,8 @@ func movement_handler():
 	var keyboard_input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	
 	if Input.is_action_just_pressed("left_mouse_click"):
+		if get_viewport().gui_get_hovered_control() != null:
+			return
 		navigation_agent.target_position = get_global_mouse_position()
 		
 		if (navigation_agent.is_target_reachable()):
