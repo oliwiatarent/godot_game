@@ -70,3 +70,10 @@ layout_mode = 2
 
 [node name="Slot5" parent="EquipmentSmallMargin/EquipmentSmall/SmallSlotsContainer" unique_id=540810816 instance=ExtResource("2_nd5oq")]
 layout_mode = 2
+
+[node name="FollowingIcon" type="TextureRect" parent="." unique_id=718767626]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+expand_mode = 1

@@ -18,6 +18,7 @@ var last_position = Vector2.ZERO
 var stuck_frame_count = 0
 var target_item
 
+
 func _ready():
 	var screen_size = get_viewport_rect().size
 	screen_height = screen_size.y

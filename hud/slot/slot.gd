@@ -5,41 +5,14 @@ class_name InventorySlot
 
 var item_data: Dictionary = {}
 
-func _get_drag_data(_at_position: Vector2):
-	if item_data.is_empty() or icon_node.texture == null:
-		return null
-	
-	var drag_data = {
-		"origin_slot": self,
-		"item_data": item_data
-	}
-	
-	var preview_rect = TextureRect.new()
-	preview_rect.texture = icon_node.texture
-	preview_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	preview_rect.custom_minimum_size = Vector2(40, 40)
-	
-	var preview = Control.new()
-	preview.add_child(preview_rect)
-	preview_rect.position = -preview_rect.custom_minimum_size / 2
-	
-	set_drag_preview(preview)
-	return drag_data
-	
+signal slot_clicked(slot)
 
-func _can_drop_data(_at_position, data):
-	return typeof(data) == TYPE_DICTIONARY and data.has("origin_slot")
+func _gui_input(event):
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if not item_data.is_empty():
+				slot_clicked.emit(self)
 
-
-func _drop_data(_at_position, data):
-	var origin_slot = data["origin_slot"] as InventorySlot
-	if origin_slot == self:
-		return
-		
-	var temp_data = item_data
-	self.set_item(origin_slot.item_data)
-	origin_slot.set_item(temp_data)
-	
 
 func set_item(data):
 	item_data = data
