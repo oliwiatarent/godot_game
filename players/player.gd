@@ -44,7 +44,7 @@ func movement_handler():
 	if Input.is_action_just_pressed("left_mouse_click"):
 		if get_viewport().gui_get_hovered_control() != null:
 			return
-		navigation_agent.target_position = get_global_mouse_position()
+			
 		var mouse_pos = get_global_mouse_position()
 		
 		var map = get_world_2d().navigation_map
@@ -72,16 +72,22 @@ func movement_handler():
 	update_perspective_scale()
 	
 	if is_navigating_with_mouse:
-		var moved_distance = global_position.distance_to(last_position)
-		
-		if moved_distance < min_movement_threshold:
-			stuck_frame_count += 1
-			if stuck_frame_count == max_stuck_frames:
-				is_navigating_with_mouse = false
-				velocity = Vector2.ZERO
-				stuck_frame_count = 0
+		if is_on_wall():
+			# Sprawdzenie, czy w move_and_slide napotkana została kolizja
+			print(is_on_wall())
+			is_navigating_with_mouse = false
+			velocity = Vector2.ZERO
 		else:
-			stuck_frame_count = 0
+			# Zabezpieczenie, sprawdzanie ilosci klatek ktore postać stoi w miejscu, gdyby zablokowała się bez kolizji
+			var moved_distance = global_position.distance_to(last_position)
+			if moved_distance < min_movement_threshold:
+				stuck_frame_count += 1
+				if stuck_frame_count == max_stuck_frames:
+					is_navigating_with_mouse = false
+					velocity = Vector2.ZERO
+					stuck_frame_count = 0
+			else:
+				stuck_frame_count = 0
 			
 	last_position = global_position
 
