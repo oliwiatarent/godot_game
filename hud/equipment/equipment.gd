@@ -27,7 +27,7 @@ func _ready():
 		add_new_slot()
 		
 	for slot in seq_slots_container.get_children():
-		slot.slot_clicked.connect(_on_slot_clicked)
+		connect_slot_signals(slot)
 		
 	#update_equipment_visuals()
 	number_of_slots = len(seq_slots_container.get_children())
@@ -41,74 +41,26 @@ func _process(_delta):
 		following_icon.global_position = mouse_pos + Vector2(-16, -45)
 	
 	
-func reset_cursor():
-	Input.set_custom_mouse_cursor(null, Input.CURSOR_ARROW)
-	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
-	
-	
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("equipment_action"):
-		open_equipment()
-	
-	#if event.is_action_pressed("use_item"):
-		#use_item()
-		
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
-		if not selected_item.is_empty():
-			selected_item = {}
-			selected_slot = null
-			following_icon.texture = null
-			following_icon.hide()
-			
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		if not selected_item.is_empty():
-			# TODO: Logika sprawdzania co jest pod kursorem
-			
-			if selected_slot:
-				selected_slot.clear_slot()
-			
-			selected_item = {}
-			selected_slot = null
-			following_icon.texture = null
-			following_icon.hide()
-
-
-func _on_slot_clicked(slot):
-	selected_item = slot.item_data
-	selected_slot = slot
-
-	if is_equipment_open:
-		open_equipment()
-
-	if selected_item.has("icon") and selected_item["icon"] is Texture2D:
-		following_icon.texture = selected_item["icon"]
-		following_icon.show()
-
-
 func add_new_slot(item_data = null):
 	var new_slot = slot_scene.instantiate()
-	new_slot.slot_clicked.connect(_on_slot_clicked)
+	connect_slot_signals(new_slot)
 	leq_grid.add_child(new_slot)
 	
 	if item_data:
 		new_slot.set_item(item_data)
 
 
-func change_slot():
-	for i in range(1, number_of_slots + 1):
-		if Input.is_action_just_pressed("slot_" + str(i)):
-			active_slot_index = i
-			update_equipment_visuals()
-			
-	if Input.is_action_just_pressed("next_item"):
-		active_slot_index = clamp(active_slot_index + 1, 1, number_of_slots)
-		update_equipment_visuals()
-		
-	if Input.is_action_just_pressed("prev_item"):
-		active_slot_index = clamp(active_slot_index - 1, 1, number_of_slots)
-		update_equipment_visuals()
-			
+func connect_slot_signals(slot):
+	slot.slot_clicked.connect(_on_slot_clicked)
+	slot.dragging_started.connect(_on_dragging_started)
+	slot.dragging_ended.connect(_on_dragging_ended)
 
+
+func reset_cursor():
+	Input.set_custom_mouse_cursor(null, Input.CURSOR_ARROW)
+	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+	
+	
 func update_equipment_visuals():
 	var slots = seq_slots_container.get_children()
 	for i in range(slots.size()):
@@ -143,6 +95,76 @@ func add_item(item_data):
 			
 	add_new_slot(item_data)
 	return true
+	
+	
+func setup_following_icon(texture):
+	following_icon.texture = texture
+	following_icon.show()
+	
+	
+func clear_active_item():
+	if selected_slot != null:
+		selected_slot = null
+		
+	selected_item = {}
+	following_icon.texture = null
+	following_icon.hide()
+	
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("equipment_action"):
+		open_equipment()
+	
+	#if event.is_action_pressed("use_item"):
+		#use_item()
+		
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+		if not selected_item.is_empty():
+			clear_active_item()
+			
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if not selected_item.is_empty():
+			# TODO: Logika sprawdzania co jest pod kursorem
+			
+			if selected_slot:
+				selected_slot.clear_slot()
+			
+			clear_active_item()
+
+
+func _on_slot_clicked(slot):
+	selected_item = slot.item_data
+	selected_slot = slot
+
+	if is_equipment_open:
+		open_equipment()
+
+	if selected_item.has("icon") and selected_item["icon"] is Texture2D:
+		setup_following_icon(selected_item["icon"])
+
+
+func change_slot():
+	for i in range(1, number_of_slots + 1):
+		if Input.is_action_just_pressed("slot_" + str(i)):
+			active_slot_index = i
+			update_equipment_visuals()
+			
+	if Input.is_action_just_pressed("next_item"):
+		active_slot_index = clamp(active_slot_index + 1, 1, number_of_slots)
+		update_equipment_visuals()
+		
+	if Input.is_action_just_pressed("prev_item"):
+		active_slot_index = clamp(active_slot_index - 1, 1, number_of_slots)
+		update_equipment_visuals()
+	
+	
+func _on_dragging_started(item_data):
+	selected_item = item_data
+	setup_following_icon(item_data["icon"])
+	
+	
+func _on_dragging_ended():
+	clear_active_item()
 
 
 #func use_item():
