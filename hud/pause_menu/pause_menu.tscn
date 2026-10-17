@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://qt0mis8400vl"]
+
+[ext_resource type="Script" uid="uid://crokw4wigypnv" path="res://hud/pause_menu/pause_menu.gd" id="1_ior63"]
+
+[sub_resource type="Theme" id="Theme_ior63"]
+Button/font_sizes/font_size = 30
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ior63"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=150079563]
+process_mode = 3
+script = ExtResource("1_ior63")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1894782811]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.577)
+
+[node name="VerticalContainer" type="VBoxContainer" parent="." unique_id=1242568649]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+theme = SubResource("Theme_ior63")
+
+[node name="ResumeButton" type="Button" parent="VerticalContainer" unique_id=1552177530]
+layout_mode = 2
+text = "Resume"
+icon = SubResource("ViewportTexture_ior63")
+
+[node name="OptionsButton" type="Button" parent="VerticalContainer" unique_id=2042391000]
+layout_mode = 2
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="VerticalContainer" unique_id=1232255766]
+layout_mode = 2
+text = "Quit"
+
+[node name="Label" type="Label" parent="." unique_id=731970279]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -72.5
+offset_top = 340.0
+offset_right = 72.5
+offset_bottom = -668.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Pause"
+
+[connection signal="pressed" from="VerticalContainer/ResumeButton" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VerticalContainer/QuitButton" to="." method="_on_quit_pressed"]
