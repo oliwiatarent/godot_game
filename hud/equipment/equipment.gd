@@ -110,8 +110,17 @@ func clear_active_item():
 	following_icon.texture = null
 	following_icon.hide()
 	
+
+func find_slot_from_control(control):
+	var current = control
+	while current != null:
+		if current is InventorySlot:
+			return current as InventorySlot
+		current = current.get_parent() as Control
+	return null
 	
-func _unhandled_input(event: InputEvent) -> void:
+	
+func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("equipment_action"):
 		open_equipment()
 	
@@ -121,15 +130,30 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
 		if not selected_item.is_empty():
 			clear_active_item()
+			get_viewport().set_input_as_handled()
 			
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if not selected_item.is_empty():
-			# TODO: Logika sprawdzania co jest pod kursorem
+			var hovered_control = get_viewport().gui_get_hovered_control()
 			
-			if selected_slot:
-				selected_slot.clear_slot()
+			var target_slot = find_slot_from_control(hovered_control)
 			
-			clear_active_item()
+			if target_slot != null:
+				if target_slot != selected_slot:
+					var temp_data = target_slot.item_data
+					target_slot.set_item(selected_slot.item_data)
+					selected_slot.set_item(temp_data)
+				
+				clear_active_item()
+				get_viewport().set_input_as_handled()
+			else:
+				if selected_slot:
+					selected_slot.clear_slot()
+				
+				# TODO: Logika sprawdzenia gdzie kliknęlismy
+				
+				clear_active_item()
+				get_viewport().set_input_as_handled()
 
 
 func _on_slot_clicked(slot):
