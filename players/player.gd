@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var speed = 400
 # Wykrywanie zablokowania postaci
 @export var max_stuck_frames = 1
-@export var min_movement_threshold = 0.001
+@export var min_movement_threshold = 0.5
 
 @export_group("Perspective (Scaling)")
 @export var min_scale = 0.5
@@ -24,8 +24,8 @@ func _ready():
 	EventBus.disable_walking.connect(_on_disable_walking)
 	EventBus.enable_walking.connect(_on_enable_walking)
 	
-	#navigation_agent.path_desired_distance = 4.0
-	#navigation_agent.target_desired_distance = 30.0
+	navigation_agent.path_desired_distance = 10.0
+	navigation_agent.target_desired_distance = 60.0
 	
 
 func _physics_process(_delta):
@@ -44,7 +44,7 @@ func movement_handler():
 	if Input.is_action_just_pressed("left_mouse_click"):
 		if get_viewport().gui_get_hovered_control() != null:
 			return
-		navigation_agent.target_position = get_global_mouse_position()
+			
 		var mouse_pos = get_global_mouse_position()
 		
 		var map = get_world_2d().navigation_map
@@ -53,7 +53,6 @@ func movement_handler():
 		navigation_agent.target_position = closest_point
 		is_navigating_with_mouse = true
 		stuck_frame_count = 0
-
 
 	if keyboard_input != Vector2.ZERO:
 		is_navigating_with_mouse = false
@@ -73,7 +72,6 @@ func movement_handler():
 	
 	if is_navigating_with_mouse:
 		var moved_distance = global_position.distance_to(last_position)
-		
 		if moved_distance < min_movement_threshold:
 			stuck_frame_count += 1
 			if stuck_frame_count == max_stuck_frames:
