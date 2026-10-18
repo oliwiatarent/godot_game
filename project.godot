@@ -25,6 +25,7 @@ driver/mix_rate=48000
 
 MultiplayerManager="*uid://pak7s5hq51sh"
 EventBus="*uid://cn8sfjgb6g8sl"
+GameState="*uid://bq1ehucj4fl2b"
 
 [display]
 
