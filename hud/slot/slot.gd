@@ -5,6 +5,7 @@ class_name InventorySlot
 
 var item_data: Dictionary = {}
 var is_dragging = false
+var is_being_dragged = false
 
 signal slot_clicked(slot)
 signal dragging_started(item_data)
@@ -77,4 +78,20 @@ func _drop_data(_at_position, data):
 	self.set_item(origin_slot.item_data)
 	origin_slot.set_item(temp_data)
 	
+	dragging_ended.emit()
+	
+	
+func _notification(what):
+	if what == NOTIFICATION_DRAG_END:
+		if is_dragging:
+			is_dragging = false
+			
+			if not get_viewport().gui_is_drag_successful():
+				_on_item_dropped_outside()
+				
+				
+func _on_item_dropped_outside():
+	# TODO: sprawdzenie w ktorym miejscu opuszczony został przedmiot
+	
+	clear_slot()
 	dragging_ended.emit()
