@@ -43,9 +43,13 @@ icon = SubResource("ViewportTexture_ior63")
 layout_mode = 2
 text = "Options"
 
+[node name="MainMenuButton" type="Button" parent="VerticalContainer" unique_id=171918297]
+layout_mode = 2
+text = "Exit to Main Menu"
+
 [node name="QuitButton" type="Button" parent="VerticalContainer" unique_id=1232255766]
 layout_mode = 2
-text = "Quit"
+text = "Exit"
 
 [node name="Label" type="Label" parent="." unique_id=731970279]
 anchors_preset = 13
@@ -62,4 +66,5 @@ theme_override_font_sizes/font_size = 50
 text = "Pause"
 
 [connection signal="pressed" from="VerticalContainer/ResumeButton" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VerticalContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="VerticalContainer/QuitButton" to="." method="_on_quit_pressed"]
