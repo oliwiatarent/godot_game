@@ -46,7 +46,8 @@ animations = [{
 radius = 11.0
 height = 68.0
 
-[node name="Player" type="CharacterBody2D" unique_id=2132114453]
+[node name="Player" type="CharacterBody2D" unique_id=2132114453 groups=["player"]]
+input_pickable = true
 script = ExtResource("1_0yn0j")
 speed = 600
 metadata/_edit_group_ = true
