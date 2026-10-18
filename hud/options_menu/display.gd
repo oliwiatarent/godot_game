@@ -16,9 +16,6 @@ func _ready() -> void:
 	_setup_resolution_options()
 	_update_ui_state()
 	
-	fullscreen_check_box.toggled.connect(_on_fullscreen_toggled)
-	resolution_option_button.item_selected.connect(_on_resolution_selected)
-	
 
 func _setup_resolution_options() -> void:
 	resolution_option_button.clear()
