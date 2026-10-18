@@ -27,7 +27,7 @@ func create_key_nodes():
 		
 		var action_events = InputMap.action_get_events(event)
 		if action_events.size() > 0:
-			button.text = action_events[0].as_text().trim_suffix(" (Physical)")
+			button.text = action_events[0].as_text().trim_suffix("- Physical")
 		else:
 			button.text = "Brak"
 			
@@ -42,12 +42,15 @@ func create_key_nodes():
 func update_button_text() -> void:
 	var events = InputMap.action_get_events(action_name)
 	if events.size() > 0:
-		clicked_button.text = events[0].as_text().trim_suffix(" (Physical)")
+		clicked_button.text = events[0].as_text().trim_suffix("- Physical")
 	else:
 		clicked_button.text = "Brak"
 
 
 func _on_button_pressed(button, event) -> void:
+	if is_remapping:
+		update_button_text()
+			
 	is_remapping = true
 	button.text = "Press a new button..."
 	action_name = event
