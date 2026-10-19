@@ -5,6 +5,23 @@ extends MarginContainer
 var is_remapping: bool = false
 var action_name: String = ''
 var clicked_button: Button = null
+var action_display_names: Dictionary = {
+	"move_up": "Move Up",
+	"move_right": "Move Right",
+	"move_down": "Move Down",
+	"move_left": "Move Left",
+	"left_mouse_click": "Left Mouse Click",
+	"action": "Action",
+	"slot_1": "Slot 1",
+	"slot_2": "Slot 2",
+	"slot_3": "Slot 3",
+	"slot_4": "Slot 4",
+	"slot_5": "Slot 5",
+	"next_item": "Next Item",
+	"prev_item": "Previous Item",
+	"pause": "Pause"
+}
+
 
 func _ready() -> void:
 	create_key_nodes()
@@ -21,7 +38,7 @@ func create_key_nodes():
 		var label = Label.new()
 		var button = Button.new()
 		
-		label.text = event
+		label.text = action_display_names[event]
 		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		
@@ -29,7 +46,7 @@ func create_key_nodes():
 		if action_events.size() > 0:
 			button.text = action_events[0].as_text().trim_suffix("- Physical")
 		else:
-			button.text = "Brak"
+			button.text = "None"
 			
 		button.pressed.connect(_on_button_pressed.bind(button, event))
 		
@@ -44,7 +61,7 @@ func update_button_text() -> void:
 	if events.size() > 0:
 		clicked_button.text = events[0].as_text().trim_suffix("- Physical")
 	else:
-		clicked_button.text = "Brak"
+		clicked_button.text = "None"
 
 
 func _on_button_pressed(button, event) -> void:
