@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var speed = 400
 # Wykrywanie zablokowania postaci
 @export var max_stuck_frames = 1
-@export var min_movement_threshold = 0.001
+@export var min_movement_threshold = 0.5
 
 @export_group("Perspective (Scaling)")
 @export var min_scale = 0.5
@@ -16,6 +16,8 @@ var is_navigating_with_mouse = false
 var is_walking_disabled = false
 var last_position = Vector2.ZERO
 var stuck_frame_count = 0
+var target_item
+
 
 func _ready():
 	var screen_size = get_viewport_rect().size
@@ -24,13 +26,12 @@ func _ready():
 	EventBus.disable_walking.connect(_on_disable_walking)
 	EventBus.enable_walking.connect(_on_enable_walking)
 	
-	#navigation_agent.path_desired_distance = 4.0
-	#navigation_agent.target_desired_distance = 30.0
+	navigation_agent.path_desired_distance = 10.0
+	navigation_agent.target_desired_distance = 60.0
 	
 
 func _physics_process(_delta):
 	movement_handler()
-	action_handler()
 	
 
 func movement_handler():
@@ -44,7 +45,7 @@ func movement_handler():
 	if Input.is_action_just_pressed("left_mouse_click"):
 		if get_viewport().gui_get_hovered_control() != null:
 			return
-		navigation_agent.target_position = get_global_mouse_position()
+			
 		var mouse_pos = get_global_mouse_position()
 		
 		var map = get_world_2d().navigation_map
@@ -54,11 +55,11 @@ func movement_handler():
 		is_navigating_with_mouse = true
 		stuck_frame_count = 0
 
-
 	if keyboard_input != Vector2.ZERO:
 		is_navigating_with_mouse = false
 		velocity = keyboard_input * speed
 	elif is_navigating_with_mouse:
+		handleItemAction()
 		if navigation_agent.is_navigation_finished():
 			is_navigating_with_mouse = false
 			velocity = Vector2.ZERO
@@ -73,7 +74,6 @@ func movement_handler():
 	
 	if is_navigating_with_mouse:
 		var moved_distance = global_position.distance_to(last_position)
-		
 		if moved_distance < min_movement_threshold:
 			stuck_frame_count += 1
 			if stuck_frame_count == max_stuck_frames:
@@ -90,6 +90,34 @@ func movement_handler():
 		$Animation.flip_h = velocity.x < 0
 	else:
 		$Animation.stop()
+		
+		
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("left_mouse_click") and not is_walking_disabled:
+		var mouse_pos = get_global_mouse_position()
+
+		var space_state = get_world_2d().direct_space_state
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = mouse_pos
+		query.collide_with_areas = true
+		query.collide_with_bodies = false
+
+		var result = space_state.intersect_point(query)
+
+		target_item = null
+		if result.size() > 0:
+			for item in result:
+				var collider = item["collider"]
+				
+				if collider.has_method("try_pick_up") or collider.has_method("open_riddle"):
+					target_item = collider
+					
+		var map = get_world_2d().navigation_map
+		var closest_point = NavigationServer2D.map_get_closest_point(map, mouse_pos)
+		
+		navigation_agent.target_position = closest_point
+		is_navigating_with_mouse = true
+		stuck_frame_count = 0
 	
 	
 func update_perspective_scale():
@@ -99,9 +127,17 @@ func update_perspective_scale():
 	scale = Vector2(current_scale, current_scale)
 	
 	
-func action_handler():
-	if Input.is_action_just_pressed("action"):
-		print("Nacisnieto przycisk akcji")
+func handleItemAction():
+	if target_item != null:
+		if target_item is PickableItem:
+			if target_item.try_pick_up():
+				target_item = null
+				is_navigating_with_mouse = false
+				
+		if target_item is ActionItem:
+			if target_item.open_riddle():
+				target_item = null
+				is_navigating_with_mouse = false
 
 
 func _on_disable_walking():
