@@ -19,7 +19,9 @@ var action_display_names: Dictionary = {
 	"slot_5": "Slot 5",
 	"next_item": "Next Item",
 	"prev_item": "Previous Item",
-	"pause": "Pause"
+	"pause": "Pause",
+	"equipment_action": "Open Equipment",
+	"use_item": "Use Item"
 }
 
 
@@ -38,7 +40,7 @@ func create_key_nodes():
 		var label = Label.new()
 		var button = Button.new()
 		
-		label.text = action_display_names[event]
+		label.text = action_display_names.get(event, event)
 		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		
