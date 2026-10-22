@@ -13,10 +13,12 @@ extends CanvasLayer
 @onready var leq_grid = $EquipmentLargeMargin/EquipmentLarge/LargeSlotsContainer
 @onready var large_equipment = $EquipmentLargeMargin
 @onready var following_icon: TextureRect = $FollowingIcon
+@onready var icon_button: TextureButton = $EquipmentIcon
 
 var is_equipment_open = false
 var active_slot_index = 1
 var number_of_slots
+var is_animating = false
 
 var selected_item: Dictionary = {}
 var selected_slot = null
@@ -94,6 +96,8 @@ func add_item(item_data):
 		if slot.item_data.is_empty():
 			slot.set_item(item_data)
 			
+			animate_equipment_icon()
+			
 			# Dodatkowy slot, jesli wszystkie zapelnimy
 			if i == leq_number_of_slots:
 				add_new_slot()
@@ -101,6 +105,7 @@ func add_item(item_data):
 			return true
 			
 	add_new_slot(item_data)
+	animate_equipment_icon()
 	
 	# Dodatkowy slot, jesli wszystkie zapelnimy
 	var leq_len = len(leq_slots_container.get_children())
@@ -133,6 +138,43 @@ func find_slot_from_control(control):
 			return current as InventorySlot
 		current = current.get_parent() as Control
 	return null
+	
+	
+func change_slot():
+	for i in range(1, number_of_slots + 1):
+		if Input.is_action_just_pressed("slot_" + str(i)):
+			active_slot_index = i
+			update_equipment_visuals()
+			
+	if Input.is_action_just_pressed("next_item"):
+		active_slot_index = clamp(active_slot_index + 1, 1, number_of_slots)
+		update_equipment_visuals()
+		
+	if Input.is_action_just_pressed("prev_item"):
+		active_slot_index = clamp(active_slot_index - 1, 1, number_of_slots)
+		update_equipment_visuals()
+		
+		
+func animate_equipment_icon():
+	if not is_equipment_open:
+		if icon_button == null or not is_instance_valid(icon_button) or is_animating:
+			return
+			
+		is_animating = true
+		
+		var original_y = icon_button.position.y
+		
+		var tween = create_tween().set_parallel(true)
+		tween.tween_property(icon_button, "position:y", original_y - 15, 0.12)
+		
+		await tween.finished
+		
+		var tween_fall = create_tween().set_parallel(true)
+		tween_fall.tween_property(icon_button, "position:y", original_y, 0.12)
+		
+		await tween_fall.finished
+		
+		is_animating = false
 	
 	
 func _input(event: InputEvent) -> void:
@@ -180,21 +222,6 @@ func _on_slot_clicked(slot):
 
 	if selected_item.has("icon") and selected_item["icon"] is Texture2D:
 		setup_following_icon(selected_item["icon"])
-
-
-func change_slot():
-	for i in range(1, number_of_slots + 1):
-		if Input.is_action_just_pressed("slot_" + str(i)):
-			active_slot_index = i
-			update_equipment_visuals()
-			
-	if Input.is_action_just_pressed("next_item"):
-		active_slot_index = clamp(active_slot_index + 1, 1, number_of_slots)
-		update_equipment_visuals()
-		
-	if Input.is_action_just_pressed("prev_item"):
-		active_slot_index = clamp(active_slot_index - 1, 1, number_of_slots)
-		update_equipment_visuals()
 	
 	
 func _on_dragging_started(item_data):
@@ -214,3 +241,7 @@ func _on_dragging_ended():
 		#
 	#print("Uzyto przedmiot: " + active_slot.item_data["id"])
 	#active_slot.clear_slot()
+
+
+func _on_equipment_icon_pressed() -> void:
+	open_equipment()
