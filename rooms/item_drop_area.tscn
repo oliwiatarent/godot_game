@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cdsuv2jyuyllw"]
+
+[ext_resource type="Script" path="res://rooms/item_drop_area.gd" id="1_xmrkj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1yu8o"]
+size = Vector2(87, 85)
+
+[node name="ItemDropArea" type="Area2D" unique_id=753373900]
+script = ExtResource("1_xmrkj")
+
+[node name="CollisionArea" type="CollisionShape2D" parent="." unique_id=1218123080]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_1yu8o")

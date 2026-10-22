@@ -19,15 +19,19 @@ func _process(_delta):
 
 func set_item(data):
 	item_data = data
+	
+	tooltip_text = item_data['label']
 	if icon_node:
 		if item_data.has("icon") and item_data["icon"] != null:
 			icon_node.texture = item_data["icon"]
 		else:
 			icon_node.texture = null
+			
 
 
 func clear_slot():
 	item_data = {}
+	tooltip_text = ''
 	if icon_node:
 		icon_node.texture = null
 
