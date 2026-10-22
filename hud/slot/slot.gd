@@ -10,6 +10,7 @@ var is_being_dragged = false
 signal slot_clicked(slot)
 signal dragging_started(item_data)
 signal dragging_ended()
+signal item_dropped_outside()
 
 
 func _process(_delta):
@@ -59,7 +60,7 @@ func _get_drag_data(_at_position: Vector2):
 	}
 	
 	if item_data.has("icon") and item_data["icon"] is Texture2D:
-		dragging_started.emit(item_data)
+		dragging_started.emit(drag_data)
 	
 	return drag_data
 	
@@ -91,7 +92,5 @@ func _notification(what):
 				
 				
 func _on_item_dropped_outside():
-	# TODO: sprawdzenie w ktorym miejscu opuszczony został przedmiot
+	item_dropped_outside.emit()
 	
-	clear_slot()
-	dragging_ended.emit()

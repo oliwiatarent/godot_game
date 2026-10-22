@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ckg7w3yuhaqgn" path="res://assets/items/item2.png" id="5_c55dk"]
 [ext_resource type="Texture2D" uid="uid://bs6lxf04pghgg" path="res://assets/items/item3.png" id="5_rnlhv"]
 [ext_resource type="Texture2D" uid="uid://d3ly8ovr456ql" path="res://assets/items/item1.png" id="6_c55dk"]
+[ext_resource type="PackedScene" uid="uid://by5kmeqssli5g" path="res://rooms/item_drop_area.tscn" id="7_auegb"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8b08o"]
 vertices = PackedVector2Array(848, 952, 1576, 1008, 1704, 1080, 0, 1080, 128, 960, 224, 920, 304, 920, 720, 944, 1296, 912, 1296, 816, 1368, 832, 664, 912, 720, 912, 1456, 832, 1456, 848, 1504, 880, 1576, 880, 0, 880, 80, 880, 80, 952, 576, 816, 664, 816, 416, 904, 328, 904, 928, 912)
@@ -32,7 +33,7 @@ polygon = PackedVector2Array(0, 1080, 1920, 1080, 1920, 1088, 0, 1088)
 navigation_polygon = SubResource("NavigationPolygon_8b08o")
 
 [node name="Arrow" parent="." unique_id=1486615200 instance=ExtResource("4_6t00p")]
-position = Vector2(552, 832)
+position = Vector2(1179, 935)
 scale = Vector2(2, 2)
 item_id = "arrow"
 
@@ -54,6 +55,14 @@ riddle_file_name = "example_riddle"
 
 [node name="ItemIcon" parent="ActionItem" index="0" unique_id=868944005]
 texture = ExtResource("5_c55dk")
+
+[node name="ItemDropArea" parent="." unique_id=753373900 instance=ExtResource("7_auegb")]
+position = Vector2(1457, 599)
+required_item_id = "key"
+
+[node name="ItemDropArea2" parent="." unique_id=1249981844 instance=ExtResource("7_auegb")]
+position = Vector2(461, 600)
+required_item_id = "arrow"
 
 [editable path="Arrow"]
 [editable path="Key"]
