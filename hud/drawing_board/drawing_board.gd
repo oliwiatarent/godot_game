@@ -1,12 +1,12 @@
 extends Control
 
 @export var animation_duration: float = 0.3
+@export var is_open: bool = false
 
 @onready var panel_container: Control = $OuterMarginContainer/PanelContainer
 @onready var toggle_button: Button = $ToggleBoardButton
 @onready var canvas_toolbar: Control = %CanvasToolbar
 
-var is_open: bool = true
 var tween: Tween
 var visible_y: float
 var hidden_y: float
@@ -19,6 +19,10 @@ func _ready() -> void:
 		
 	visible_y = panel_container.position.y
 	hidden_y = get_viewport_rect().size.y
+	
+	if not is_open:
+		panel_container.position.y = hidden_y
+		panel_container.visible = false
 
 func _on_canvas_undo_button_pressed() -> void:
 	%CanvasSync.request_undo()
