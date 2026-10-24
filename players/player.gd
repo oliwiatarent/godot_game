@@ -16,6 +16,8 @@ var is_navigating_with_mouse = false
 var is_walking_disabled = false
 var last_position = Vector2.ZERO
 var stuck_frame_count = 0
+var target_item
+
 
 func _ready():
 	var screen_size = get_viewport_rect().size
@@ -30,7 +32,6 @@ func _ready():
 
 func _physics_process(_delta):
 	movement_handler()
-	action_handler()
 	
 
 func movement_handler():
@@ -58,6 +59,7 @@ func movement_handler():
 		is_navigating_with_mouse = false
 		velocity = keyboard_input * speed
 	elif is_navigating_with_mouse:
+		handleItemAction()
 		if navigation_agent.is_navigation_finished():
 			is_navigating_with_mouse = false
 			velocity = Vector2.ZERO
@@ -88,6 +90,34 @@ func movement_handler():
 		$Animation.flip_h = velocity.x < 0
 	else:
 		$Animation.stop()
+		
+		
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("left_mouse_click") and not is_walking_disabled:
+		var mouse_pos = get_global_mouse_position()
+
+		var space_state = get_world_2d().direct_space_state
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = mouse_pos
+		query.collide_with_areas = true
+		query.collide_with_bodies = false
+
+		var result = space_state.intersect_point(query)
+
+		target_item = null
+		if result.size() > 0:
+			for item in result:
+				var collider = item["collider"]
+				
+				if collider.has_method("try_pick_up") or collider.has_method("open_riddle"):
+					target_item = collider
+					
+		var map = get_world_2d().navigation_map
+		var closest_point = NavigationServer2D.map_get_closest_point(map, mouse_pos)
+		
+		navigation_agent.target_position = closest_point
+		is_navigating_with_mouse = true
+		stuck_frame_count = 0
 	
 	
 func update_perspective_scale():
@@ -97,9 +127,17 @@ func update_perspective_scale():
 	scale = Vector2(current_scale, current_scale)
 	
 	
-func action_handler():
-	if Input.is_action_just_pressed("action"):
-		print("Nacisnieto przycisk akcji")
+func handleItemAction():
+	if target_item != null:
+		if target_item is PickableItem:
+			if target_item.try_pick_up():
+				target_item = null
+				is_navigating_with_mouse = false
+				
+		if target_item is ActionItem:
+			if target_item.open_riddle():
+				target_item = null
+				is_navigating_with_mouse = false
 
 
 func _on_disable_walking():

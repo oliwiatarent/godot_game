@@ -1,20 +1,38 @@
 extends Area2D
+class_name PickableItem
 
 @export_group('Pickable Item Properties')
 @export var item_id: String = ""
-	
-func _ready():
-	input_event.connect(_on_input_event)
+@export var pickup_distance: float = 100.0
 
-func _on_input_event(_viewport, event, _shape_idx):
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		try_pick_up()
+var is_picked: bool = false
 
 func try_pick_up():
+	if is_picked:
+		return false
+		
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		var distance = global_position.distance_to(player.global_position)
+		if distance > pickup_distance:
+			return false
+
 	var data = {"id": item_id, "icon": $ItemIcon.texture}
-	
 	var equipment = get_tree().get_first_node_in_group("equipment")
+	
 	if equipment and equipment.has_method("add_item"):
 		var success = equipment.add_item(data)
 		if success:
-			queue_free()
+			#is_picked = true
+			#queue_free()
+			return true
+			
+	return false
+	
+
+func _on_mouse_entered():
+	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+	
+	
+func _on_mouse_exited():
+	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
