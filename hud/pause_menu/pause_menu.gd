@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @onready var pause_container = $PauseContainer
 @onready var options_menu = $OptionsMenu
-@onready var options_back_button = $OptionsMenu/VerticalContainer/BackButton
+@onready var options_back_button = $OptionsMenu/VerticalContainer/HBoxContainer/BackButton
 
 func _ready():
 	hide_pause_menu()
@@ -64,5 +64,7 @@ func _on_options_pressed() -> void:
 	
 
 func _on_back_button_pressed() -> void:
+	SettingsManager.load_settings()
+	
 	options_menu.hide()
 	pause_container.show()

@@ -20,7 +20,7 @@ func _ready() -> void:
 func _setup_resolution_options() -> void:
 	resolution_option_button.clear()
 	
-	var current_size = DisplayServer.window_get_size()
+	var current_size = SettingsManager.settings_data.resolution
 	var selected_index = 0
 	
 	for i in range(resolutions.size()):
@@ -43,21 +43,11 @@ func _update_ui_state() -> void:
 	
 	
 func _on_fullscreen_toggled(toggled_on: bool) -> void:
-	if toggled_on:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		
+	SettingsManager.settings_data.fullscreen = toggled_on
 	resolution_option_button.disabled = toggled_on
+	SettingsManager.apply_settings()
 	
 
 func _on_resolution_selected(index: int) -> void:
-	var target_resolution = resolutions[index]
-	
-	DisplayServer.window_set_size(target_resolution)
-	
-	@warning_ignore("integer_division")
-	var screen_center = DisplayServer.screen_get_position() + (DisplayServer.screen_get_size() / 2)
-	@warning_ignore("integer_division")
-	var window_position = screen_center - (target_resolution / 2)
-	DisplayServer.window_set_position(window_position)
+	SettingsManager.settings_data.resolution = resolutions[index]
+	SettingsManager.apply_settings()

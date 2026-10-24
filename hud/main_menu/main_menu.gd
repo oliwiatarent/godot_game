@@ -6,7 +6,7 @@ extends Control
 @onready var lobby_panel: VBoxContainer = $CenterContainer/LobbyPanel
 @onready var status_label: Label = $CenterContainer/LobbyPanel/StatusLabel
 @onready var options_menu = $CenterContainer/OptionsMenu
-@onready var options_back_button = $CenterContainer/OptionsMenu/VerticalContainer/BackButton
+@onready var options_back_button = $CenterContainer/OptionsMenu/VerticalContainer/HBoxContainer/BackButton
 @onready var panels: Array[Control] = [main_panel, lobby_panel]
 
 func _ready() -> void:
@@ -53,5 +53,7 @@ func _on_connection_failed(reason: String) -> void:
 	status_label.text = reason
 	
 func _on_back_button_pressed() -> void:
+	SettingsManager.load_settings()
+	
 	options_menu.hide()
 	main_panel.show()

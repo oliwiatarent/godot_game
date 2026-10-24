@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bfx1n6pkysi1a" path="res://hud/drawing_board/drawing_board.gd" id="1_xghm6"]
 [ext_resource type="Script" uid="uid://bbs5w05ytog2i" path="res://hud/drawing_board/canvas.gd" id="2_xghm6"]
 [ext_resource type="Script" uid="uid://bekkd2ofep1cq" path="res://hud/drawing_board/canvas_input.gd" id="3_xghm6"]
+[ext_resource type="Texture2D" uid="uid://bqtkvc7dcuw28" path="res://assets/drawing_board/masks/1.png" id="4_bagqs"]
 [ext_resource type="Script" uid="uid://n48dd63i33rj" path="res://hud/drawing_board/canvas_sync.gd" id="4_lp1ro"]
 
 [node name="DrawingBoard" type="Control" unique_id=665837428]
@@ -85,6 +86,7 @@ script = ExtResource("2_xghm6")
 
 [node name="CanvasInput" type="Node" parent="OuterMarginContainer/PanelContainer/InnerMarginContainer/HBoxContainer/Canvas" unique_id=1370747605]
 script = ExtResource("3_xghm6")
+brush_mask = ExtResource("4_bagqs")
 
 [node name="CanvasSync" type="Node" parent="OuterMarginContainer/PanelContainer/InnerMarginContainer/HBoxContainer/Canvas" unique_id=1027418581]
 unique_name_in_owner = true
