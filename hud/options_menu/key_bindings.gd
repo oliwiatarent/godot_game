@@ -84,7 +84,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		InputMap.action_erase_events(action_name)
 		InputMap.action_add_event(action_name, event)
 		
-		SettingsManager.settings_data.keybindings[action_name] = event.keycode
+		if event is InputEventKey:
+			SettingsManager.settings_data.keybindings[action_name] = event.keycode
+		elif event is InputEventMouseButton:
+			SettingsManager.settings_data.keybindings[action_name] = -event.button_index
 		
 		is_remapping = false
 		update_button_text()
