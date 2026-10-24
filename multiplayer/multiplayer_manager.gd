@@ -48,6 +48,11 @@ func join_game(ip: String, scene_path: String) -> Error:
 	
 	return OK
 
+func close_game() -> void:
+	if multiplayer.multiplayer_peer:
+		multiplayer.multiplayer_peer.close()
+		multiplayer.multiplayer_peer = null
+
 func is_network_active() -> bool:
 	return multiplayer.has_multiplayer_peer() and \
 		   multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
