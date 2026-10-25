@@ -90,6 +90,7 @@ func add_item(item_data):
 			return true
 			
 	slots = leq_slots_container.get_children()
+	
 	var i = 0
 	for slot in slots:
 		i += 1
@@ -98,21 +99,22 @@ func add_item(item_data):
 			
 			animate_equipment_icon()
 			
-			# Dodatkowy slot, jesli wszystkie zapelnimy
+			# Dodatkowy rzad slotow, jesli wszystkie zapelnimy
 			if i == leq_number_of_slots:
-				add_new_slot()
+				for j in range(len(seq_slots_container.get_children())):
+					add_new_slot()
 			
 			return true
 			
-	add_new_slot(item_data)
 	animate_equipment_icon()
 	
-	# Dodatkowy slot, jesli wszystkie zapelnimy
+	# Dodatkowy rzad slotow, jesli wszystkie zapelnimy
 	var leq_len = len(leq_slots_container.get_children())
 	var seq_len = len(seq_slots_container.get_children())
 	
 	if leq_len > leq_number_of_slots and leq_len % seq_len == 0:
-		add_new_slot()
+		for j in range(seq_len):	
+			add_new_slot()
 		
 	return true
 	
