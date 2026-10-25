@@ -90,33 +90,32 @@ func add_item(item_data):
 			return true
 			
 	slots = leq_slots_container.get_children()
-	
-	var i = 0
+			
 	for slot in slots:
-		i += 1
 		if slot.item_data.is_empty():
 			slot.set_item(item_data)
-			
 			animate_equipment_icon()
-			
-			# Dodatkowy rzad slotow, jesli wszystkie zapelnimy
-			if i == leq_number_of_slots:
-				for j in range(len(seq_slots_container.get_children())):
-					add_new_slot()
-			
-			return true
-			
-	animate_equipment_icon()
-	
-	# Dodatkowy rzad slotow, jesli wszystkie zapelnimy
-	var leq_len = len(leq_slots_container.get_children())
+			break
+		
 	var seq_len = len(seq_slots_container.get_children())
+	var filled_slots = count_filled_slots()
 	
-	if leq_len > leq_number_of_slots and leq_len % seq_len == 0:
-		for j in range(seq_len):	
+	if filled_slots >= leq_number_of_slots and filled_slots % seq_len == 0:
+		for j in range(len(seq_slots_container.get_children())):
 			add_new_slot()
 		
 	return true
+	
+	
+func count_filled_slots():
+	var slots = leq_slots_container.get_children()
+	var count = 0
+	
+	for slot in slots:
+		if not slot.item_data.is_empty():
+			count += 1
+			
+	return count
 	
 	
 func setup_following_icon(texture):
