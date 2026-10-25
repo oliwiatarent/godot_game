@@ -199,7 +199,11 @@ func _input(event: InputEvent) -> void:
 				if target_slot != selected_slot:
 					var temp_data = target_slot.item_data
 					target_slot.set_item(selected_slot.item_data)
-					selected_slot.set_item(temp_data)
+					
+					if temp_data.is_empty():
+						selected_slot.clear_slot()
+					else:
+						selected_slot.set_item(temp_data)
 				
 				clear_active_item()
 				get_viewport().set_input_as_handled()
