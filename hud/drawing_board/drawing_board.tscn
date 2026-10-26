@@ -15,6 +15,7 @@ offset_right = 402.96503
 grow_vertical = 0
 size_flags_horizontal = 8
 size_flags_vertical = 0
+mouse_filter = 2
 mouse_force_pass_scroll_events = false
 script = ExtResource("1_xghm6")
 metadata/_edit_use_anchors_ = true
@@ -37,6 +38,7 @@ anchor_bottom = 1.0
 offset_top = -460.0
 offset_right = 623.0
 grow_vertical = 0
+mouse_filter = 2
 theme_override_constants/margin_left = 80
 theme_override_constants/margin_bottom = 10
 
