@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dydf3mqy0ts27"
-path="res://.godot/imported/character_malePerson_walk5.png-2a04142ab32114823b5ae7246bea269a.ctex"
+uid="uid://ciberkkjnlb8g"
+path="res://.godot/imported/Sam_pokoj_drzwi.png-7da2342d5142635ead93ccd03b9240c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/players/male/character_malePerson_walk5.png"
-dest_files=["res://.godot/imported/character_malePerson_walk5.png-2a04142ab32114823b5ae7246bea269a.ctex"]
+source_file="res://assets/rooms/Sam_room_1/Sam_pokoj_drzwi.png"
+dest_files=["res://.godot/imported/Sam_pokoj_drzwi.png-7da2342d5142635ead93ccd03b9240c9.ctex"]
 
 [params]
 

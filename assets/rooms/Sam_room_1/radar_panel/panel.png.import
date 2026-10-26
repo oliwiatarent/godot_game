@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw1yoeangq67b"
-path="res://.godot/imported/character_malePerson_walk1.png-e31d5f67fc5bdefc969c6a166c3e32b0.ctex"
+uid="uid://cl181jkdgnqfh"
+path="res://.godot/imported/panel.png-7b7b3aef44e6449ac0aec9917e0fc01a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/players/male/character_malePerson_walk1.png"
-dest_files=["res://.godot/imported/character_malePerson_walk1.png-e31d5f67fc5bdefc969c6a166c3e32b0.ctex"]
+source_file="res://assets/rooms/Sam_room_1/radar_panel/panel.png"
+dest_files=["res://.godot/imported/panel.png-7b7b3aef44e6449ac0aec9917e0fc01a.ctex"]
 
 [params]
 
