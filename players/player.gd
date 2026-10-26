@@ -93,6 +93,9 @@ func movement_handler():
 		
 		
 func _unhandled_input(event: InputEvent) -> void:
+	if get_viewport().gui_get_hovered_control() != null:
+		return
+	
 	if event.is_action_pressed("left_mouse_click") and not is_walking_disabled:
 		var mouse_pos = get_global_mouse_position()
 
