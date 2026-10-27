@@ -35,6 +35,7 @@ navigation_polygon = SubResource("NavigationPolygon_8b08o")
 position = Vector2(552, 832)
 scale = Vector2(2, 2)
 item_id = "arrow"
+label = "Arrow"
 
 [node name="ItemIcon" parent="Arrow" index="0" unique_id=1423757491]
 texture = ExtResource("5_rnlhv")
@@ -43,6 +44,7 @@ texture = ExtResource("5_rnlhv")
 position = Vector2(960, 932)
 scale = Vector2(2, 2)
 item_id = "key"
+label = "Key"
 
 [node name="ItemIcon" parent="Key" index="0" unique_id=1423757491]
 texture = ExtResource("6_c55dk")

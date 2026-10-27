@@ -3,6 +3,7 @@ class_name PickableItem
 
 @export_group('Pickable Item Properties')
 @export var item_id: String = ""
+@export var label: String = ""
 @export var pickup_distance: float = 100.0
 
 var is_picked: bool = false
@@ -17,7 +18,7 @@ func try_pick_up():
 		if distance > pickup_distance:
 			return false
 
-	var data = {"id": item_id, "icon": $ItemIcon.texture}
+	var data = {"id": item_id, "label": label, "icon": $ItemIcon.texture}
 	var equipment = get_tree().get_first_node_in_group("equipment")
 	
 	if equipment and equipment.has_method("add_item"):

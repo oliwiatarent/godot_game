@@ -19,6 +19,12 @@ func _process(_delta):
 
 func set_item(data):
 	item_data = data
+	
+	if item_data['label'] == null:
+		tooltip_text = item_data['label']
+	else:
+		tooltip_text = ''
+		
 	if icon_node:
 		if item_data.has("icon") and item_data["icon"] != null:
 			icon_node.texture = item_data["icon"]
@@ -28,6 +34,7 @@ func set_item(data):
 
 func clear_slot():
 	item_data = {}
+	tooltip_text = ''
 	if icon_node:
 		icon_node.texture = null
 
@@ -76,7 +83,11 @@ func _drop_data(_at_position, data):
 		
 	var temp_data = item_data
 	self.set_item(origin_slot.item_data)
-	origin_slot.set_item(temp_data)
+	
+	if temp_data.is_empty():
+		origin_slot.clear_slot()
+	else:
+		origin_slot.set_item(temp_data)
 	
 	dragging_ended.emit()
 	
