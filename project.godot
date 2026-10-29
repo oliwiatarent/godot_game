@@ -25,11 +25,13 @@ driver/mix_rate=48000
 
 MultiplayerManager="*uid://pak7s5hq51sh"
 EventBus="*uid://cn8sfjgb6g8sl"
+CursorManager="*uid://cor8fhw7fo5a1"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

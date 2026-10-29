@@ -1,4 +1,4 @@
-extends Area2D
+extends BaseItem
 class_name ActionItem
 
 @export_group('Action')
@@ -28,11 +28,3 @@ func open_riddle():
 	else:
 		print("Błąd: Nie znaleziono pliku zagadki pod ścieżką: ", file_path)
 		return false
-
-
-func _on_mouse_entered():
-	Input.set_default_cursor_shape(Input.CURSOR_CROSS)
-
-
-func _on_mouse_exited():
-	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
