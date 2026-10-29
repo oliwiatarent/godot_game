@@ -23,6 +23,7 @@ var action_display_names: Dictionary = {
 	"equipment_action": "Open Equipment",
 	"use_item": "Use Item"
 }
+var excluded = ['pause']
 
 
 func _ready() -> void:
@@ -33,7 +34,7 @@ func create_key_nodes():
 	var events = InputMap.get_actions()
 	
 	for event in events:
-		if event.begins_with("ui_"):
+		if event.begins_with("ui_") or event in excluded:
 			continue
 		
 		var horizontal_container = HBoxContainer.new()
