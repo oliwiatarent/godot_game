@@ -145,13 +145,7 @@ func _input(event: InputEvent) -> void:
 				clear_active_item()
 				get_viewport().set_input_as_handled()
 			else:
-				var item_used = try_use_item()
-				
-				if item_used:
-					if selected_slot:
-						selected_slot.clear_slot()
-						clear_active_item()
-						
+				handle_item_usage()
 				get_viewport().set_input_as_handled()
 
 
@@ -192,11 +186,20 @@ func _on_dragging_ended():
 	
 	
 func _on_item_dropped_outside():
-	if try_use_item():
-		if selected_slot:
-			selected_slot.clear_slot()
-		
+	handle_item_usage()
 	clear_active_item()
+	
+	
+func handle_item_usage():
+	var usage_info = try_use_item()
+	var item_used = usage_info[0]
+	var multiuse = usage_info[1]
+	
+	if item_used:
+		if selected_slot:
+			if not multiuse:
+				selected_slot.clear_slot()
+			clear_active_item()
 
 
 func try_use_item():
@@ -216,8 +219,12 @@ func try_use_item():
 		
 		if collider is ItemDropArea:
 			var item_id = selected_item.get("id", "")
+			var multiuse = selected_item.get("multiuse", "")
 
 			if collider.receive_dropped_item(item_id):
-				return true
+				if multiuse:
+					return [true, true]
+				else:
+					return [true, false]
 				
-	return false
+	return [false, false]
