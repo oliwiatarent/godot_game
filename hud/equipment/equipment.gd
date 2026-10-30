@@ -150,8 +150,8 @@ func _input(event: InputEvent) -> void:
 				if item_used:
 					if selected_slot:
 						selected_slot.clear_slot()
-				
-				clear_active_item()
+						clear_active_item()
+						
 				get_viewport().set_input_as_handled()
 
 
