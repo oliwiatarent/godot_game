@@ -32,22 +32,29 @@ func _setup_resolution_options() -> void:
 			selected_index = i
 			
 	resolution_option_button.selected = selected_index
-	
-	
+
+
 func _update_ui_state() -> void:
-	var mode = DisplayServer.window_get_mode()
-	var is_fullscreen = (mode == DisplayServer.WINDOW_MODE_FULLSCREEN or mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+	var current_resolution = SettingsManager.settings_data.resolution
+	var is_fullscreen = SettingsManager.settings_data.fullscreen
+	
+	for i in range(resolutions.size()):
+		if resolutions[i] == current_resolution:
+			resolution_option_button.selected = i
+			break
 	
 	fullscreen_check_box.button_pressed = is_fullscreen
 	resolution_option_button.disabled = is_fullscreen
-	
-	
+
+
 func _on_fullscreen_toggled(toggled_on: bool) -> void:
 	SettingsManager.settings_data.fullscreen = toggled_on
 	resolution_option_button.disabled = toggled_on
 	SettingsManager.apply_settings()
+	SettingsManager.is_modified = true
 	
 
 func _on_resolution_selected(index: int) -> void:
 	SettingsManager.settings_data.resolution = resolutions[index]
 	SettingsManager.apply_settings()
+	SettingsManager.is_modified = true

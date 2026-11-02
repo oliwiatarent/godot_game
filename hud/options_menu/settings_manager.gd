@@ -3,12 +3,15 @@ extends Node
 const SETTINGS_FILE = "user://settings.tres"
 
 var settings_data: SettingsData = SettingsData.new()
+var is_modified: bool = false
 
 func _ready() -> void:
 	load_settings()
 
 func save_settings() -> void:
 	ResourceSaver.save(settings_data, SETTINGS_FILE)
+	apply_settings()
+	is_modified = false
 
 func load_settings():
 	if not FileAccess.file_exists(SETTINGS_FILE):
@@ -16,6 +19,7 @@ func load_settings():
 	settings_data = ResourceLoader.load(SETTINGS_FILE).duplicate(true)
 	
 	apply_settings()
+	is_modified = false
 
 func apply_settings() -> void:
 	if settings_data.fullscreen:
