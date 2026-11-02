@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://r1m5yjqj24vo"
-path="res://.godot/imported/character_malePerson_walk0.png-c3dd3267bf5ab146d99cf90bf6cec649.ctex"
+uid="uid://b5b21eederswr"
+path="res://.godot/imported/ellie_idle.png-2504674421e2d6d09637fc23998b95dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/players/male/character_malePerson_walk0.png"
-dest_files=["res://.godot/imported/character_malePerson_walk0.png-c3dd3267bf5ab146d99cf90bf6cec649.ctex"]
+source_file="res://assets/players/Ellie/ellie_idle.png"
+dest_files=["res://.godot/imported/ellie_idle.png-2504674421e2d6d09637fc23998b95dd.ctex"]
 
 [params]
 
