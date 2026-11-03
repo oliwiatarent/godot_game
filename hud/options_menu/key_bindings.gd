@@ -23,6 +23,7 @@ var action_display_names: Dictionary = {
 	"equipment_action": "Open Equipment",
 	"use_item": "Use Item"
 }
+var excluded = ['pause']
 
 
 func _ready() -> void:
@@ -34,9 +35,15 @@ func _update_ui_state() -> void:
 
 
 func create_key_nodes():
-	for child in container.get_children():
+  for child in container.get_children():
 		child.queue_free()
-		
+  
+	var events = InputMap.get_actions()
+	
+	for event in events:
+		if event.begins_with("ui_") or event in excluded:
+			continue
+	
 	for action in action_display_names:
 		var horizontal_container = HBoxContainer.new()
 		var label = Label.new()
@@ -80,16 +87,20 @@ func _on_button_pressed(button, event) -> void:
 	clicked_button = button
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if not is_remapping:
 		return
 		
 	if event is InputEventKey or event is InputEventMouseButton:
-		if event is InputEventKey and event.keycode == KEY_ESCAPE:
+		if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
 			is_remapping = false
 			update_button_text()
+			get_viewport().set_input_as_handled()
 			return
 		
+		if event is InputEventMouseButton and not event.pressed:
+			return
+    
 		if event is InputEventKey:
 			SettingsManager.settings_data.keybindings[action_name] = event.keycode
 		elif event is InputEventMouseButton:
