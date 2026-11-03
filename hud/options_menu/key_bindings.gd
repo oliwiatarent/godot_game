@@ -35,7 +35,7 @@ func _update_ui_state() -> void:
 
 
 func create_key_nodes():
-  for child in container.get_children():
+	for child in container.get_children():
 		child.queue_free()
   
 	var events = InputMap.get_actions()
@@ -100,7 +100,7 @@ func _input(event: InputEvent) -> void:
 		
 		if event is InputEventMouseButton and not event.pressed:
 			return
-    
+		
 		if event is InputEventKey:
 			SettingsManager.settings_data.keybindings[action_name] = event.keycode
 		elif event is InputEventMouseButton:
@@ -111,4 +111,3 @@ func _input(event: InputEvent) -> void:
 		update_button_text()
 		
 		get_viewport().set_input_as_handled()
-		
