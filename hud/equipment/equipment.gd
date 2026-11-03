@@ -266,7 +266,7 @@ func try_use_item():
 		
 		if collider is ItemDropArea:
 			var item_id = selected_item.get("id", "")
-			var multiuse = selected_item.get("multiuse", "")
+			var multiuse = selected_item.get("multiuse", false)
 
 			if collider.receive_dropped_item(item_id):
 				if multiuse:
