@@ -19,7 +19,7 @@ func try_pick_up():
 		if distance > pickup_distance:
 			return false
 
-	var data = {"id": item_id, "icon": $ItemIcon.texture, "multiuse": multiuse}
+	var data = {"id": item_id, "icon": $ItemIcon.texture, "label": label, "multiuse": multiuse}
 	var equipment = get_tree().get_first_node_in_group("equipment")
 	
 	if equipment and equipment.has_method("add_item"):
