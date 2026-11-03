@@ -56,6 +56,7 @@ func connect_slot_signals(slot):
 	slot.slot_clicked.connect(_on_slot_clicked)
 	slot.dragging_started.connect(_on_dragging_started)
 	slot.dragging_ended.connect(_on_dragging_ended)
+	slot.item_dropped_outside.connect(_on_item_dropped_outside)
 
 
 func reset_cursor():
@@ -181,9 +182,6 @@ func animate_equipment_icon():
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("equipment_action"):
 		open_equipment()
-	
-	#if event.is_action_pressed("use_item"):
-		#use_item()
 		
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
 		if not selected_item.is_empty():
@@ -209,12 +207,7 @@ func _input(event: InputEvent) -> void:
 				clear_active_item()
 				get_viewport().set_input_as_handled()
 			else:
-				if selected_slot:
-					selected_slot.clear_slot()
-				
-				# TODO: Logika sprawdzenia gdzie kliknęlismy
-				
-				clear_active_item()
+				handle_item_usage()
 				get_viewport().set_input_as_handled()
 
 
@@ -229,23 +222,59 @@ func _on_slot_clicked(slot):
 		setup_following_icon(selected_item["icon"])
 	
 	
-func _on_dragging_started(item_data):
-	selected_item = item_data
-	setup_following_icon(item_data["icon"])
+func _on_dragging_started(slot_data):
+	selected_slot = slot_data['origin_slot']
+	selected_item = slot_data['item_data']
+	setup_following_icon(slot_data['item_data']['icon'])
 	
 	
 func _on_dragging_ended():
 	clear_active_item()
+	
+	
+func _on_item_dropped_outside():
+	handle_item_usage()
+	clear_active_item()
+	
+	
+func handle_item_usage():
+	var usage_info = try_use_item()
+	var item_used = usage_info[0]
+	var multiuse = usage_info[1]
+	
+	if item_used:
+		if selected_slot:
+			if not multiuse:
+				selected_slot.clear_slot()
+			clear_active_item()
 
 
-#func use_item():
-	#var active_slot = seq_slots_container.get_children()[active_slot_index - 1]
-	#
-	#if active_slot.item_data.is_empty():
-		#return
-		#
-	#print("Uzyto przedmiot: " + active_slot.item_data["id"])
-	#active_slot.clear_slot()
+func try_use_item():
+	var viewport = get_viewport()
+	var mouse_pos = viewport.get_mouse_position()
+	
+	var space_state = viewport.get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = mouse_pos
+	parameters.collide_with_areas = true
+	parameters.collide_with_bodies = false
+	
+	var results = space_state.intersect_point(parameters)
+	
+	for result in results:
+		var collider = result["collider"]
+		
+		if collider is ItemDropArea:
+			var item_id = selected_item.get("id", "")
+			var multiuse = selected_item.get("multiuse", false)
+
+			if collider.receive_dropped_item(item_id):
+				if multiuse:
+					return [true, true]
+				else:
+					return [true, false]
+				
+	return [false, false]
 
 
 func _on_equipment_icon_pressed() -> void:

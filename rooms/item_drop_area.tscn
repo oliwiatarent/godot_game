@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://cdsuv2jyuyllw"]
+[gd_scene format=3 uid="uid://by5kmeqssli5g"]
 
-[ext_resource type="Script" path="res://rooms/item_drop_area.gd" id="1_xmrkj"]
+[ext_resource type="Script" uid="uid://br3vgwq7go27c" path="res://rooms/item_drop_area.gd" id="1_xmrkj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1yu8o"]
 size = Vector2(87, 85)
