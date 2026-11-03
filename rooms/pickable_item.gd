@@ -3,6 +3,7 @@ class_name PickableItem
 
 @export_group('Pickable Item Properties')
 @export var item_id: String = ""
+@export var label: String = ""
 @export var pickup_distance: float = 100.0
 @export var multiuse: bool = false
 

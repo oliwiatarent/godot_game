@@ -5,12 +5,15 @@ extends Control
 @onready var main_panel: VBoxContainer = $CenterContainer/MainPanel
 @onready var lobby_panel: VBoxContainer = $CenterContainer/LobbyPanel
 @onready var status_label: Label = $CenterContainer/LobbyPanel/StatusLabel
+@onready var options_menu = $CenterContainer/OptionsMenu
+@onready var options_back_button = $CenterContainer/OptionsMenu/VerticalContainer/BackButton
 @onready var panels: Array[Control] = [main_panel, lobby_panel]
 
 func _ready() -> void:
 	show_panel(main_panel)
 	MultiplayerManager.connection_failed.connect(_on_connection_failed)
 	MultiplayerManager.connection_started.connect(_on_connection_started)
+	options_back_button.pressed.connect(_on_back_button_pressed)
 
 func show_panel(target_panel: Control) -> void:
 	for panel in panels:
@@ -23,7 +26,8 @@ func _on_play_button_pressed() -> void:
 	show_panel(lobby_panel)
 
 func _on_options_button_pressed() -> void:
-	pass
+	main_panel.hide()
+	options_menu.show()
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
@@ -47,3 +51,7 @@ func _on_connection_started() -> void:
 
 func _on_connection_failed(reason: String) -> void:
 	status_label.text = reason
+	
+func _on_back_button_pressed() -> void:
+	options_menu.hide()
+	main_panel.show()

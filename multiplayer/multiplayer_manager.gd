@@ -48,6 +48,11 @@ func join_game(ip: String, scene_path: String) -> Error:
 	
 	return OK
 
+func close_game() -> void:
+	if multiplayer.multiplayer_peer:
+		multiplayer.multiplayer_peer.close()
+		multiplayer.multiplayer_peer = null
+
 func is_network_active() -> bool:
 	return multiplayer.has_multiplayer_peer() and \
 		   multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
@@ -67,4 +72,10 @@ func _on_connection_failed() -> void:
 
 func _on_server_disconnected() -> void:
 	multiplayer.multiplayer_peer = null
+	
+	if multiplayer.multiplayer_peer:
+		multiplayer.multiplayer_peer.close()
+		multiplayer.multiplayer_peer = null
+	
+	get_tree().paused = false
 	get_tree().change_scene_to_file("res://hud/main_menu/main_menu.tscn")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwkkkll2tjfol"
-path="res://.godot/imported/character_malePerson_walk7.png-7d7809d6054b9616ff43719deec9be01.ctex"
+uid="uid://ck0i3ju2v3fng"
+path="res://.godot/imported/radar_krecha.png-28a876042bd77de21af702e2d3b6d966.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/players/male/character_malePerson_walk7.png"
-dest_files=["res://.godot/imported/character_malePerson_walk7.png-7d7809d6054b9616ff43719deec9be01.ctex"]
+source_file="res://assets/rooms/Sam_room_1/radar_panel/radar_krecha.png"
+dest_files=["res://.godot/imported/radar_krecha.png-28a876042bd77de21af702e2d3b6d966.ctex"]
 
 [params]
 

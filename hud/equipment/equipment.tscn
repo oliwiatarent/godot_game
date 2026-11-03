@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dcb0aj24lshda" path="res://hud/equipment/equipment.gd" id="1_v83qj"]
 [ext_resource type="PackedScene" uid="uid://d0x6uydaywmbl" path="res://hud/slot/slot.tscn" id="2_nd5oq"]
+[ext_resource type="Texture2D" uid="uid://dyoitybp1hs3f" path="res://assets/equipment/eq.png" id="3_x4rkf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1yu8o"]
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.628)
 
 [node name="Equipment" type="CanvasLayer" unique_id=1069617838 groups=["equipment"]]
 script = ExtResource("1_v83qj")
@@ -77,3 +82,25 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 expand_mode = 1
+
+[node name="EquipmentIcon" type="TextureButton" parent="." unique_id=787244806]
+offset_left = 1397.0
+offset_top = 986.0
+offset_right = 1469.0
+offset_bottom = 1058.0
+texture_normal = ExtResource("3_x4rkf")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="EquipmentIcon" unique_id=725490113]
+layout_mode = 0
+offset_left = -18.0
+offset_top = 38.0
+offset_right = 25.0
+offset_bottom = 85.0
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_1yu8o")
+text = "[I]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="EquipmentIcon" to="." method="_on_equipment_icon_pressed"]

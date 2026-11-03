@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://qt0mis8400vl"]
+
+[ext_resource type="Script" uid="uid://crokw4wigypnv" path="res://hud/pause_menu/pause_menu.gd" id="1_ior63"]
+[ext_resource type="PackedScene" uid="uid://cjo786nrwb2j3" path="res://hud/options_menu/options_menu.tscn" id="2_hn7br"]
+
+[sub_resource type="Theme" id="Theme_ior63"]
+Button/font_sizes/font_size = 30
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ior63"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=150079563]
+process_mode = 3
+script = ExtResource("1_ior63")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1894782811]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.32172796, 0.32172796, 0.32172787, 1)
+
+[node name="PauseContainer" type="VBoxContainer" parent="." unique_id=1242568649]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+theme = SubResource("Theme_ior63")
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseContainer" unique_id=1956580559]
+layout_mode = 2
+theme_override_constants/margin_bottom = 15
+
+[node name="Label" type="Label" parent="PauseContainer/MarginContainer" unique_id=731970279]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Pause"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PauseContainer" unique_id=1552177530]
+layout_mode = 2
+text = "Resume"
+icon = SubResource("ViewportTexture_ior63")
+
+[node name="OptionsButton" type="Button" parent="PauseContainer" unique_id=2042391000]
+layout_mode = 2
+text = "Options"
+
+[node name="MainMenuButton" type="Button" parent="PauseContainer" unique_id=171918297]
+layout_mode = 2
+text = "Exit to Main Menu"
+
+[node name="QuitButton" type="Button" parent="PauseContainer" unique_id=1232255766]
+layout_mode = 2
+text = "Exit"
+
+[node name="OptionsMenu" parent="." unique_id=1300551176 instance=ExtResource("2_hn7br")]
+visible = false
+
+[connection signal="pressed" from="PauseContainer/ResumeButton" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseContainer/OptionsButton" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="PauseContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="PauseContainer/QuitButton" to="." method="_on_quit_pressed"]
