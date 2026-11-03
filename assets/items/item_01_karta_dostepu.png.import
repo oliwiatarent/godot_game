@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2ki6udxnkd68"
-path="res://.godot/imported/character_malePerson_walk6.png-c1ffb8c934535645c5cb83bcceeba93e.ctex"
+uid="uid://b2cl07c7ai2p0"
+path="res://.godot/imported/item_01_karta_dostepu.png-073fb30d06ed6b548a78558cc59bf2fe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/players/male/character_malePerson_walk6.png"
-dest_files=["res://.godot/imported/character_malePerson_walk6.png-c1ffb8c934535645c5cb83bcceeba93e.ctex"]
+source_file="res://assets/items/item_01_karta_dostepu.png"
+dest_files=["res://.godot/imported/item_01_karta_dostepu.png-073fb30d06ed6b548a78558cc59bf2fe.ctex"]
 
 [params]
 
