@@ -1,4 +1,4 @@
-extends BaseItem
+extends Area2D
 class_name ActionItem
 
 @export_group('Action')
@@ -28,3 +28,4 @@ func open_riddle():
 	else:
 		print("Błąd: Nie znaleziono pliku zagadki pod ścieżką: ", file_path)
 		return false
+		

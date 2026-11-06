@@ -1,4 +1,4 @@
-extends BaseItem
+extends Area2D
 class_name PickableItem
 
 @export_group('Pickable Item Properties')
