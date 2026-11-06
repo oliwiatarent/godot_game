@@ -7,12 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://bfkn3d7brjctf" path="res://rooms/action_item.tscn" id="4_rnlhv"]
 [ext_resource type="Texture2D" uid="uid://ckg7w3yuhaqgn" path="res://assets/items/item2.png" id="5_c55dk"]
 [ext_resource type="Texture2D" uid="uid://d3ly8ovr456ql" path="res://assets/items/item1.png" id="6_c55dk"]
-[ext_resource type="PackedScene" uid="uid://cdsuv2jyuyllw" path="res://rooms/item_drop_area.tscn" id="7_auegb"]
+[ext_resource type="PackedScene" uid="uid://by5kmeqssli5g" path="res://rooms/item_drop_area.tscn" id="7_auegb"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8b08o"]
-vertices = PackedVector2Array(848, 952, 1576, 1008, 1704, 1080, 0, 1080, 128, 960, 224, 920, 304, 920, 720, 944, 1296, 912, 1296, 816, 1368, 832, 664, 912, 720, 912, 1456, 832, 1456, 848, 1504, 880, 1576, 880, 0, 880, 80, 880, 80, 952, 576, 816, 664, 816, 416, 904, 328, 904, 928, 912)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6, 7), PackedInt32Array(8, 9, 10), PackedInt32Array(11, 12, 7), PackedInt32Array(10, 13, 14, 8), PackedInt32Array(15, 16, 1, 8), PackedInt32Array(3, 17, 18, 19), PackedInt32Array(20, 21, 11, 22), PackedInt32Array(3, 19, 4), PackedInt32Array(8, 14, 15), PackedInt32Array(7, 6, 23, 22, 11), PackedInt32Array(0, 24, 8, 1)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(0, 880, 80, 880, 80, 952, 128, 960, 224, 920, 304, 920, 328, 904, 416, 904, 576, 816, 664, 816, 664, 912, 720, 912, 720, 944, 848, 952, 928, 912, 1296, 912, 1296, 816, 1368, 832, 1456, 832, 1456, 848, 1504, 880, 1576, 880, 1576, 1008, 1704, 1080, 0, 1080)])
+vertices = PackedVector2Array(1728, 913, 1920, 1003, 1922, 1083, 0, 1080, 1627, 921, 244, 884, 1409, 884, 0, 1006)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 4, 3, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 1006, 244, 884, 1409, 884, 1627, 921, 1728, 913, 1920, 1003, 1922, 1083, 0, 1080)])
 agent_radius = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_irhwn"]
@@ -32,16 +32,14 @@ scale = Vector2(0.7958757, 0.878757)
 texture = ExtResource("2_auegb")
 
 [node name="Boundaries" type="StaticBody2D" parent="." unique_id=1446041254]
-visible = false
-
-[node name="RoomObjects" type="CollisionPolygon2D" parent="Boundaries" unique_id=2081138791]
-polygon = PackedVector2Array(0, 0, 0, 288, 80, 312, 80, 952, 128, 960, 224, 920, 304, 920, 328, 904, 416, 904, 576, 816, 664, 816, 664, 912, 720, 912, 720, 944, 848, 952, 928, 912, 1296, 912, 1296, 816, 1368, 832, 1456, 832, 1456, 856, 1504, 880, 1576, 880, 1576, 1008, 1704, 1080, 1920, 1080, 1920, 0)
 
 [node name="ScreenBoundaries" type="CollisionPolygon2D" parent="Boundaries" unique_id=1456958526]
 polygon = PackedVector2Array(0, 1080, 1920, 1080, 1920, 1088, 0, 1088)
 
+[node name="RoomObjects" type="CollisionPolygon2D" parent="Boundaries" unique_id=1307150337]
+polygon = PackedVector2Array(-1, 1, 1921, 1, 1921, 1005, 1724, 915, 1624, 921, 1399, 886, 241, 885, 2, 1009)
+
 [node name="FloorBoundaries" type="NavigationRegion2D" parent="." unique_id=1882325018]
-visible = false
 navigation_polygon = SubResource("NavigationPolygon_8b08o")
 
 [node name="Card" parent="." unique_id=1486615200 instance=ExtResource("4_6t00p")]
