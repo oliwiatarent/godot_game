@@ -110,6 +110,13 @@ texture = ExtResource("10_thfc0")
 [node name="LockerExtendedCollision" type="CollisionPolygon2D" parent="LockerExtended" unique_id=276990331]
 polygon = PackedVector2Array(660, 86, 663, 1006, 724, 1006, 747, 974, 1168, 974, 1194, 1006, 1252, 1006, 1249, 83)
 
+[node name="LockerCloseButton" type="Button" parent="LockerExtended" unique_id=32256001]
+offset_left = 1265.0
+offset_top = 65.0
+offset_right = 1299.0
+offset_bottom = 96.0
+text = "X"
+
 [node name="LockerOpened" type="Area2D" parent="." unique_id=1367854015]
 visible = false
 z_index = 1
@@ -122,9 +129,18 @@ texture = ExtResource("11_17qua")
 [node name="LockerOpenedCollision" type="CollisionPolygon2D" parent="LockerOpened" unique_id=1292734507]
 polygon = PackedVector2Array(528, 90, 651, 116, 654, 93, 1244, 87, 1244, 110, 1387, 81, 1414, 87, 1408, 1008, 1381, 1005, 1250, 964, 1250, 1017, 1186, 1014, 1168, 979, 750, 976, 724, 1017, 656, 1014, 648, 967, 519, 1005, 499, 1008, 502, 90)
 
+[node name="LockerCloseButton" type="Button" parent="LockerOpened" unique_id=357301254]
+offset_left = 1265.0
+offset_top = 65.0
+offset_right = 1299.0
+offset_bottom = 96.0
+text = "X"
+
 [connection signal="input_event" from="Locker" to="." method="_on_locker_input_event"]
 [connection signal="input_event" from="LockerExtended" to="." method="_on_locker_extended_input_event"]
+[connection signal="pressed" from="LockerExtended/LockerCloseButton" to="." method="_on_locker_close_button_pressed"]
 [connection signal="input_event" from="LockerOpened" to="." method="_on_locker_opened_input_event"]
+[connection signal="pressed" from="LockerOpened/LockerCloseButton" to="." method="_on_locker_close_button_pressed"]
 
 [editable path="Card"]
 [editable path="Key"]

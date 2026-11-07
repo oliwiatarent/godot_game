@@ -20,3 +20,8 @@ func _on_locker_opened_input_event(_viewport: Node, event: InputEvent, _shape_id
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		opened_locker.hide()
 		extended_locker.show()
+
+
+func _on_locker_close_button_pressed() -> void:
+	opened_locker.hide()
+	extended_locker.hide()
