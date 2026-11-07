@@ -6,8 +6,6 @@
 [sub_resource type="Theme" id="Theme_ior63"]
 Button/font_sizes/font_size = 30
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ior63"]
-
 [node name="PauseMenu" type="CanvasLayer" unique_id=150079563]
 process_mode = 3
 script = ExtResource("1_ior63")
@@ -48,7 +46,6 @@ horizontal_alignment = 1
 [node name="ResumeButton" type="Button" parent="PauseContainer" unique_id=1552177530]
 layout_mode = 2
 text = "Resume"
-icon = SubResource("ViewportTexture_ior63")
 
 [node name="OptionsButton" type="Button" parent="PauseContainer" unique_id=2042391000]
 layout_mode = 2
