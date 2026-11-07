@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://by5kmeqssli5g" path="res://rooms/item_drop_area.tscn" id="7_auegb"]
 [ext_resource type="Texture2D" uid="uid://bbegvrjul515t" path="res://assets/rooms/Sam_room_1/Sam_pokoj_1_szafka_CLOSED.png" id="10_thfc0"]
 [ext_resource type="Texture2D" uid="uid://isydy1oaklfe" path="res://assets/rooms/Sam_room_1/Sam_pokoj_1_szafka_OPEN.png" id="11_17qua"]
+[ext_resource type="Texture2D" uid="uid://ciberkkjnlb8g" path="res://assets/rooms/Sam_room_1/Sam_pokoj_drzwi.png" id="12_thfc0"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8b08o"]
 vertices = PackedVector2Array(1728, 913, 1920, 1003, 1922, 1083, 0, 1080, 1627, 921, 244, 884, 1409, 884, 0, 1006)
@@ -93,7 +94,6 @@ z_index = 1
 polygon = PackedVector2Array(1483, 426, 1625, 389, 1719, 389, 1722, 915, 1616, 917, 1480, 843)
 
 [node name="Door" type="Area2D" parent="." unique_id=1253959193]
-visible = false
 
 [node name="DoorCollision" type="CollisionPolygon2D" parent="Door" unique_id=11015390]
 polygon = PackedVector2Array(1759, 323, 1759, 930, 1996, 1046, 1996, 251)
@@ -136,11 +136,29 @@ offset_right = 1299.0
 offset_bottom = 96.0
 text = "X"
 
+[node name="DoorExtended" type="Area2D" parent="." unique_id=686376230]
+visible = false
+z_index = 1
+
+[node name="Texture" type="Sprite2D" parent="DoorExtended" unique_id=400679313]
+position = Vector2(959.3282, 546.2627)
+scale = Vector2(1.2257328, 1.2257328)
+texture = ExtResource("12_thfc0")
+
+[node name="DoorCloseButton" type="Button" parent="DoorExtended" unique_id=1368471091]
+offset_left = 1428.3281
+offset_top = 91.2626
+offset_right = 1462.3281
+offset_bottom = 122.2626
+text = "X"
+
 [connection signal="input_event" from="Locker" to="." method="_on_locker_input_event"]
+[connection signal="input_event" from="Door" to="." method="_on_door_input_event"]
 [connection signal="input_event" from="LockerExtended" to="." method="_on_locker_extended_input_event"]
 [connection signal="pressed" from="LockerExtended/LockerCloseButton" to="." method="_on_locker_close_button_pressed"]
 [connection signal="input_event" from="LockerOpened" to="." method="_on_locker_opened_input_event"]
 [connection signal="pressed" from="LockerOpened/LockerCloseButton" to="." method="_on_locker_close_button_pressed"]
+[connection signal="pressed" from="DoorExtended/DoorCloseButton" to="." method="_on_door_close_button_pressed"]
 
 [editable path="Card"]
 [editable path="Key"]
