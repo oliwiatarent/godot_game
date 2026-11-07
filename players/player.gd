@@ -36,6 +36,7 @@ func _physics_process(_delta):
 
 func movement_handler():
 	if is_walking_disabled:
+		is_navigating_with_mouse = false
 		if $Animation.is_playing():
 			$Animation.stop()
 		return
