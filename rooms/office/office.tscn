@@ -20,7 +20,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(0, 1006, 244, 884, 1409
 agent_radius = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_irhwn"]
-radius = 700.21
+radius = 952.53766
 
 [node name="Office" type="Node" unique_id=1154915183]
 script = ExtResource("1_va3g3")
@@ -49,18 +49,6 @@ polygon = PackedVector2Array(-1, 1, 1921, 1, 1921, 1005, 1724, 915, 1624, 921, 1
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_8b08o")
 
-[node name="Card" parent="." unique_id=1486615200 instance=ExtResource("4_6t00p")]
-position = Vector2(556, 870)
-scale = Vector2(0.05, 0.05)
-item_id = "arrow"
-label = "Arrow"
-
-[node name="ItemIcon" parent="Card" index="0" unique_id=1423757491]
-texture = ExtResource("4_auegb")
-
-[node name="CollisionShape" parent="Card" index="1" unique_id=979193828]
-shape = SubResource("CircleShape2D_irhwn")
-
 [node name="Key" parent="." unique_id=1677656622 instance=ExtResource("4_6t00p")]
 position = Vector2(960, 932)
 scale = Vector2(2, 2)
@@ -72,6 +60,7 @@ multiuse = true
 texture = ExtResource("6_c55dk")
 
 [node name="ActionItem" parent="." unique_id=799575145 instance=ExtResource("4_rnlhv")]
+visible = false
 position = Vector2(1392, 856)
 scale = Vector2(4, 4)
 riddle_file_name = "example_riddle"
@@ -126,6 +115,23 @@ position = Vector2(955, 544)
 scale = Vector2(0.7273277, 0.7273277)
 texture = ExtResource("11_17qua")
 
+[node name="Card" parent="LockerOpened" unique_id=1486615200 instance=ExtResource("4_6t00p")]
+position = Vector2(1097, 548)
+scale = Vector2(0.05, 0.05)
+item_id = "card"
+label = "Access Card"
+multiuse = true
+bypass_distance = true
+
+[node name="ItemIcon" parent="LockerOpened/Card" index="0" unique_id=1423757491]
+position = Vector2(242.5398, 217.5)
+scale = Vector2(2.5564408, 2.5564408)
+texture = ExtResource("4_auegb")
+
+[node name="CollisionShape" parent="LockerOpened/Card" index="1" unique_id=979193828]
+position = Vector2(179.9995, 180.0001)
+shape = SubResource("CircleShape2D_irhwn")
+
 [node name="LockerOpenedCollision" type="CollisionPolygon2D" parent="LockerOpened" unique_id=1292734507]
 polygon = PackedVector2Array(528, 90, 651, 116, 654, 93, 1244, 87, 1244, 110, 1387, 81, 1414, 87, 1408, 1008, 1381, 1005, 1250, 964, 1250, 1017, 1186, 1014, 1168, 979, 750, 976, 724, 1017, 656, 1014, 648, 967, 519, 1005, 499, 1008, 502, 90)
 
@@ -160,6 +166,6 @@ text = "X"
 [connection signal="pressed" from="LockerOpened/LockerCloseButton" to="." method="_on_locker_close_button_pressed"]
 [connection signal="pressed" from="DoorExtended/DoorCloseButton" to="." method="_on_door_close_button_pressed"]
 
-[editable path="Card"]
 [editable path="Key"]
 [editable path="ActionItem"]
+[editable path="LockerOpened/Card"]

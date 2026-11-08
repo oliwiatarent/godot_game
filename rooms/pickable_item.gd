@@ -6,6 +6,7 @@ class_name PickableItem
 @export var label: String = ""
 @export var pickup_distance: float = 100.0
 @export var multiuse: bool = false
+@export var bypass_distance: bool = false
 
 var is_picked: bool = false
 
@@ -13,11 +14,12 @@ func try_pick_up():
 	if is_picked:
 		return false
 		
-	var player = get_tree().get_first_node_in_group("player")
-	if player:
-		var distance = global_position.distance_to(player.global_position)
-		if distance > pickup_distance:
-			return false
+	if not bypass_distance:
+		var player = get_tree().get_first_node_in_group("player")
+		if player:
+			var distance = global_position.distance_to(player.global_position)
+			if distance > pickup_distance:
+				return false
 
 	var data = {"id": item_id, "icon": $ItemIcon.texture, "label": label, "multiuse": multiuse}
 	var equipment = get_tree().get_first_node_in_group("equipment")
@@ -30,3 +32,9 @@ func try_pick_up():
 			return true
 			
 	return false
+	
+
+func _input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if try_pick_up():
+			get_viewport().set_input_as_handled()
