@@ -4,15 +4,30 @@ extends Control
 
 @onready var main_panel: VBoxContainer = $CenterContainer/MainPanel
 @onready var lobby_panel: VBoxContainer = $CenterContainer/LobbyPanel
-@onready var status_label: Label = $CenterContainer/LobbyPanel/StatusLabel
-@onready var options_menu = $CenterContainer/OptionsMenu
-@onready var panels: Array[Control] = [main_panel, lobby_panel, options_menu]
+@onready var options_panel = $CenterContainer/OptionsMenu
+@onready var host_panel = $CenterContainer/HostPanel
+@onready var join_panel = $CenterContainer/JoinPanel
+@onready var panels: Array[Control] = [
+	main_panel, lobby_panel, options_panel, host_panel, join_panel
+]
+
+@onready var host_status_label = $CenterContainer/HostPanel/StatusLabel
+@onready var join_status_label = $CenterContainer/JoinPanel/StatusLabel
+@onready var start_game_button = $CenterContainer/HostPanel/Buttons/StartGameButton
+@onready var code_input = $CenterContainer/JoinPanel/Input/CodeInput
 
 func _ready() -> void:
 	show_panel(main_panel)
+	start_game_button.disabled = true
+	
 	MultiplayerManager.connection_failed.connect(_on_connection_failed)
 	MultiplayerManager.connection_started.connect(_on_connection_started)
-	options_menu.closed.connect(_on_options_closed)
+	MultiplayerManager.host_code_received.connect(_on_host_code_received)
+	MultiplayerManager.api_error.connect(_on_api_error)
+	
+	multiplayer.peer_connected.connect(_on_player_connected)
+	
+	options_panel.closed.connect(_on_options_closed)
 
 func show_panel(target_panel: Control) -> void:
 	for panel in panels:
@@ -21,35 +36,76 @@ func show_panel(target_panel: Control) -> void:
 			continue
 		panel.visible = true
 
+# Main Panel
+
 func _on_play_button_pressed() -> void:
 	show_panel(lobby_panel)
 
 func _on_options_button_pressed() -> void:
-	options_menu._update_ui_state()
-	show_panel(options_menu)
+	options_panel._update_ui_state()
+	show_panel(options_panel)
+
+func _on_options_closed() -> void:
+	show_panel(main_panel)
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
+# Lobby Panel
+
 func _on_host_button_pressed() -> void:
-	var err = MultiplayerManager.host_game(game_scene_path)
-	if err != OK:
-		status_label.text = "Could not create server (%d)" % err
+	show_panel(host_panel)
+	host_status_label.text = "Awaiting server respnse..."
+	start_game_button.disabled = true
+	MultiplayerManager.host_game_with_code(game_scene_path)
 
 func _on_join_button_pressed() -> void:
-	var ip = "127.0.0.1"
-	var err = MultiplayerManager.join_game(ip, game_scene_path)
-	if err != OK:
-		status_label.text = "Connection error (%d)" % err
+	show_panel(join_panel)
 
 func _on_lobby_back_button_pressed() -> void:
 	show_panel(main_panel)
 
+# Host Panel
+
+func _on_start_game_button_pressed() -> void:
+	MultiplayerManager.start_multiplayer_game()
+
+func _on_cancel_host_button_pressed() -> void:
+	MultiplayerManager.close_game()
+	show_panel(lobby_panel)
+
+# Join Panel
+
+func _on_connect_button_pressed() -> void:
+	var code = code_input.text.strip_edges()
+	if code.is_empty():
+		return
+	
+	join_status_label.text = "Connecting..."
+	MultiplayerManager.join_game_with_code(code, game_scene_path)
+
+func _on_join_back_button_pressed() -> void:
+	MultiplayerManager.close_game()
+	show_panel(lobby_panel)
+
+# Signals
+
 func _on_connection_started() -> void:
-	status_label.text = "Connecting to server..."
+	join_status_label.text = "Connecting to host..."
 
 func _on_connection_failed(reason: String) -> void:
-	status_label.text = reason
+	join_status_label.text = "Error: " + reason
 
-func _on_options_closed() -> void:
-	show_panel(main_panel)
+func _on_host_code_received(code: String) -> void:
+	host_status_label.text = "Room code: " + code + "\nWaiting for player..."
+
+func _on_api_error(reason: String) -> void:
+	host_status_label.text = reason
+	join_status_label.text = reason
+
+func _on_player_connected(_id: int) -> void:
+	if multiplayer.is_server():
+		host_status_label.text = "Player connected. Ready to start."
+		start_game_button.disabled = false
+	else:
+		join_status_label.text = "Connected. Waiting for host to start..."

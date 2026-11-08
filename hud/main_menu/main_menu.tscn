@@ -44,6 +44,7 @@ layout_mode = 2
 layout_mode = 2
 text = "I'm under the water"
 label_settings = SubResource("LabelSettings_yv7nh")
+horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/MainPanel" unique_id=1166533799]
 custom_minimum_size = Vector2(-1, 30)
@@ -68,34 +69,103 @@ layout_mode = 2
 text = "Quit"
 
 [node name="LobbyPanel" type="VBoxContainer" parent="CenterContainer" unique_id=880628092]
+visible = false
 layout_mode = 2
 
-[node name="StatusLabel" type="Label" parent="CenterContainer/LobbyPanel" unique_id=1612671762]
+[node name="Title" type="Label" parent="CenterContainer/LobbyPanel" unique_id=1888725987]
 layout_mode = 2
 text = "I'm under the water"
 label_settings = SubResource("LabelSettings_yv7nh")
+horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/LobbyPanel" unique_id=758779660]
 custom_minimum_size = Vector2(-1, 30)
 layout_mode = 2
 
-[node name="LobbyButtons" type="VBoxContainer" parent="CenterContainer/LobbyPanel" unique_id=1305246596]
+[node name="Buttons" type="VBoxContainer" parent="CenterContainer/LobbyPanel" unique_id=1305246596]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 12
 
-[node name="HostButton" type="Button" parent="CenterContainer/LobbyPanel/LobbyButtons" unique_id=1216906605]
+[node name="HostButton" type="Button" parent="CenterContainer/LobbyPanel/Buttons" unique_id=1216906605]
 layout_mode = 2
 text = "Host"
 
-[node name="JoinButton" type="Button" parent="CenterContainer/LobbyPanel/LobbyButtons" unique_id=1511353458]
+[node name="JoinButton" type="Button" parent="CenterContainer/LobbyPanel/Buttons" unique_id=1511353458]
 layout_mode = 2
 text = "Join"
 
-[node name="LobbyBackButton" type="Button" parent="CenterContainer/LobbyPanel/LobbyButtons" unique_id=1009925106]
+[node name="BackButton" type="Button" parent="CenterContainer/LobbyPanel/Buttons" unique_id=1009925106]
 layout_mode = 2
 text = "Back"
+
+[node name="HostPanel" type="VBoxContainer" parent="CenterContainer" unique_id=1470128108]
+visible = false
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/HostPanel" unique_id=883612506]
+layout_mode = 2
+text = "Awaiting server response..."
+label_settings = SubResource("LabelSettings_yv7nh")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/HostPanel" unique_id=188208247]
+custom_minimum_size = Vector2(-1, 30)
+layout_mode = 2
+
+[node name="Buttons" type="VBoxContainer" parent="CenterContainer/HostPanel" unique_id=203009560]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="StartGameButton" type="Button" parent="CenterContainer/HostPanel/Buttons" unique_id=251715294]
+layout_mode = 2
+text = "Start the game"
+
+[node name="CancelButton" type="Button" parent="CenterContainer/HostPanel/Buttons" unique_id=1918364401]
+layout_mode = 2
+text = "Cancel
+"
+
+[node name="JoinPanel" type="VBoxContainer" parent="CenterContainer" unique_id=89110102]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/JoinPanel" unique_id=185261208]
+layout_mode = 2
+text = "Join game"
+label_settings = SubResource("LabelSettings_yv7nh")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/JoinPanel" unique_id=614766693]
+custom_minimum_size = Vector2(-1, 30)
+layout_mode = 2
+
+[node name="Input" type="VBoxContainer" parent="CenterContainer/JoinPanel" unique_id=1566056114]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CodeInput" type="LineEdit" parent="CenterContainer/JoinPanel/Input" unique_id=556294416]
+layout_mode = 2
+placeholder_text = "Enter a code"
+alignment = 1
+max_length = 6
+expand_to_text_length = true
+context_menu_enabled = false
+emoji_menu_enabled = false
+clear_button_enabled = true
+
+[node name="Buttons" type="VBoxContainer" parent="CenterContainer/JoinPanel" unique_id=1129806171]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ConnectButton" type="Button" parent="CenterContainer/JoinPanel/Buttons" unique_id=1646758616]
+layout_mode = 2
+text = "Connect"
+
+[node name="BackButton" type="Button" parent="CenterContainer/JoinPanel/Buttons" unique_id=1231704999]
+layout_mode = 2
+text = "Back
+"
 
 [node name="OptionsMenu" parent="CenterContainer" unique_id=1300551176 instance=ExtResource("3_2piht")]
 visible = false
@@ -104,6 +174,10 @@ layout_mode = 2
 [connection signal="pressed" from="CenterContainer/MainPanel/MainButtons/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MainPanel/MainButtons/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="CenterContainer/MainPanel/MainButtons/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="CenterContainer/LobbyPanel/LobbyButtons/HostButton" to="." method="_on_host_button_pressed"]
-[connection signal="pressed" from="CenterContainer/LobbyPanel/LobbyButtons/JoinButton" to="." method="_on_join_button_pressed"]
-[connection signal="pressed" from="CenterContainer/LobbyPanel/LobbyButtons/LobbyBackButton" to="." method="_on_lobby_back_button_pressed"]
+[connection signal="pressed" from="CenterContainer/LobbyPanel/Buttons/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CenterContainer/LobbyPanel/Buttons/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="CenterContainer/LobbyPanel/Buttons/BackButton" to="." method="_on_lobby_back_button_pressed"]
+[connection signal="pressed" from="CenterContainer/HostPanel/Buttons/StartGameButton" to="." method="_on_start_game_button_pressed"]
+[connection signal="pressed" from="CenterContainer/HostPanel/Buttons/CancelButton" to="." method="_on_cancel_host_button_pressed"]
+[connection signal="pressed" from="CenterContainer/JoinPanel/Buttons/ConnectButton" to="." method="_on_connect_button_pressed"]
+[connection signal="pressed" from="CenterContainer/JoinPanel/Buttons/BackButton" to="." method="_on_join_back_button_pressed"]
