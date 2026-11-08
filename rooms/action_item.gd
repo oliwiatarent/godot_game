@@ -6,6 +6,7 @@ class_name ActionItem
 
 @export_group('Distance')
 @export var open_distance: float = 100.0
+@export var bypass_distance: bool = false
 
 var file_path
 
@@ -13,11 +14,12 @@ func _ready():
 	file_path = "res://riddles/" + riddle_file_name + ".tscn"
 
 func open_riddle():
-	var player = get_tree().get_first_node_in_group("player")
-	if player:
-		var distance = global_position.distance_to(player.global_position)
-		if distance > open_distance:
-			return false
+	if not bypass_distance:
+		var player = get_tree().get_first_node_in_group("player")
+		if player:
+			var distance = global_position.distance_to(player.global_position)
+			if distance > open_distance:
+				return false
 
 	if ResourceLoader.exists(file_path):
 		var riddle_scene = load(file_path)

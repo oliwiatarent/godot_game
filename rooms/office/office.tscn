@@ -19,6 +19,9 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, 1006, 244, 884, 1409, 884, 1627, 921, 1728, 913, 1920, 1003, 1922, 1083, 0, 1080)])
 agent_radius = 0.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_17qua"]
+size = Vector2(166.5, 111)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_irhwn"]
 radius = 952.53766
 
@@ -50,6 +53,7 @@ visible = false
 navigation_polygon = SubResource("NavigationPolygon_8b08o")
 
 [node name="Key" parent="." unique_id=1677656622 instance=ExtResource("4_6t00p")]
+visible = false
 position = Vector2(960, 932)
 scale = Vector2(2, 2)
 item_id = "key"
@@ -57,22 +61,34 @@ label = "Key"
 multiuse = true
 
 [node name="ItemIcon" parent="Key" index="0" unique_id=1423757491]
+visible = false
 texture = ExtResource("6_c55dk")
 
-[node name="ActionItem" parent="." unique_id=799575145 instance=ExtResource("4_rnlhv")]
+[node name="CollisionShape" parent="Key" index="1" unique_id=979193828]
 visible = false
-position = Vector2(1392, 856)
+
+[node name="ActionItem" parent="." unique_id=799575145 instance=ExtResource("4_rnlhv")]
+position = Vector2(731, 708)
 scale = Vector2(4, 4)
 riddle_file_name = "example_riddle"
+open_distance = 300.0
+bypass_distance = true
 
 [node name="ItemIcon" parent="ActionItem" index="0" unique_id=868944005]
+position = Vector2(0, 2.25)
 texture = ExtResource("5_c55dk")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape" parent="ActionItem" index="1" unique_id=285272896]
+position = Vector2(0, -42.25)
+shape = SubResource("RectangleShape2D_17qua")
 
 [node name="ItemDropArea" parent="." unique_id=753373900 instance=ExtResource("7_auegb")]
 position = Vector2(1302, 589)
 required_item_id = "key"
 
 [node name="ItemDropArea2" parent="." unique_id=1249981844 instance=ExtResource("7_auegb")]
+visible = false
 position = Vector2(461, 600)
 required_item_id = "arrow"
 
