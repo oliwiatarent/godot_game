@@ -11,7 +11,7 @@ class_name ActionItem
 var file_path
 
 func _ready():
-	file_path = "res://riddles/" + riddle_file_name + ".tscn"
+	file_path = "res://riddles/" + riddle_file_name + "/" + riddle_file_name + ".tscn"
 
 func open_riddle():
 	if not bypass_distance:

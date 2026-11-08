@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://d0u8c1ve2j4v"]
+
+[ext_resource type="Texture2D" uid="uid://cl181jkdgnqfh" path="res://assets/rooms/Sam_room_1/radar_panel/panel.png" id="1_trkon"]
+[ext_resource type="Texture2D" uid="uid://d2hlfunw6ajy0" path="res://assets/rooms/Sam_room_1/radar_panel/ekran_off.png" id="2_81ulx"]
+[ext_resource type="Texture2D" uid="uid://ife2t0m3d4ys" path="res://assets/rooms/Sam_room_1/radar_panel/radar.png" id="2_sy7ql"]
+[ext_resource type="Texture2D" uid="uid://nouw3nbabekw" path="res://assets/rooms/Sam_room_1/radar_panel/ekran_on.png" id="3_is6ff"]
+[ext_resource type="Texture2D" uid="uid://c72mxsajqcnt6" path="res://assets/rooms/Sam_room_1/radar_panel/przycisk_on.png" id="4_fad1a"]
+[ext_resource type="Texture2D" uid="uid://bkyuunx06pbj" path="res://assets/rooms/Sam_room_1/radar_panel/przycisk_off.png" id="5_sy7ql"]
+
+[node name="Control" type="Control" unique_id=422766175]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CommunicationRiddle" type="TextureRect" parent="." unique_id=130516904]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -818.0
+offset_top = 62.0
+offset_right = 825.43115
+offset_bottom = 932.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_trkon")
+expand_mode = 1
+
+[node name="Radar" type="TextureRect" parent="." unique_id=779623191]
+layout_mode = 0
+offset_left = -612.0
+offset_top = 156.0
+offset_right = -102.0
+offset_bottom = 666.0
+texture = ExtResource("2_sy7ql")
+expand_mode = 1
+
+[node name="DisplayOff" type="TextureRect" parent="." unique_id=215087548]
+layout_mode = 0
+offset_left = 375.93903
+offset_top = 115.0
+offset_right = 752.067
+offset_bottom = 480.0
+texture = ExtResource("2_81ulx")
+expand_mode = 1
+
+[node name="DisplayOn" type="TextureRect" parent="." unique_id=270324536]
+visible = false
+layout_mode = 0
+offset_left = 376.0
+offset_top = 117.0
+offset_right = 750.067
+offset_bottom = 480.0
+texture = ExtResource("3_is6ff")
+expand_mode = 1
+
+[node name="ButtonOn" type="Area2D" parent="." unique_id=1194676006]
+z_index = 1
+
+[node name="Texture" type="Sprite2D" parent="ButtonOn" unique_id=1004193350]
+position = Vector2(-354, 721.00006)
+scale = Vector2(0.43135217, 0.43135217)
+texture = ExtResource("4_fad1a")
+
+[node name="ButtonOff" type="Area2D" parent="." unique_id=2043650995]
+visible = false
+z_index = 1
+
+[node name="Texture" type="Sprite2D" parent="ButtonOff" unique_id=710752905]
+position = Vector2(-360.67545, 755.22754)
+scale = Vector2(0.4376148, 0.4376148)
+texture = ExtResource("5_sy7ql")

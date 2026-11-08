@@ -70,7 +70,7 @@ visible = false
 [node name="ActionItem" parent="." unique_id=799575145 instance=ExtResource("4_rnlhv")]
 position = Vector2(731, 708)
 scale = Vector2(4, 4)
-riddle_file_name = "example_riddle"
+riddle_file_name = "communication_riddle"
 open_distance = 300.0
 
 [node name="ItemIcon" parent="ActionItem" index="0" unique_id=868944005]
