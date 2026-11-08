@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://c4ot2tohx1s1d" path="res://rooms/pickable_item.tscn" id="4_6t00p"]
 [ext_resource type="Texture2D" uid="uid://b2cl07c7ai2p0" path="res://assets/items/item_01_karta_dostepu.png" id="4_auegb"]
 [ext_resource type="PackedScene" uid="uid://bfkn3d7brjctf" path="res://rooms/action_item.tscn" id="4_rnlhv"]
-[ext_resource type="Texture2D" uid="uid://ckg7w3yuhaqgn" path="res://assets/items/item2.png" id="5_c55dk"]
 [ext_resource type="Texture2D" uid="uid://d3ly8ovr456ql" path="res://assets/items/item1.png" id="6_c55dk"]
 [ext_resource type="PackedScene" uid="uid://by5kmeqssli5g" path="res://rooms/item_drop_area.tscn" id="7_auegb"]
 [ext_resource type="Texture2D" uid="uid://bbegvrjul515t" path="res://assets/rooms/Sam_room_1/Sam_pokoj_1_szafka_CLOSED.png" id="10_thfc0"]
@@ -40,13 +39,12 @@ scale = Vector2(0.7958757, 0.878757)
 texture = ExtResource("2_auegb")
 
 [node name="Boundaries" type="StaticBody2D" parent="." unique_id=1446041254]
-visible = false
 
 [node name="ScreenBoundaries" type="CollisionPolygon2D" parent="Boundaries" unique_id=1456958526]
 polygon = PackedVector2Array(0, 1080, 1920, 1080, 1920, 1088, 0, 1088)
 
 [node name="RoomObjects" type="CollisionPolygon2D" parent="Boundaries" unique_id=1307150337]
-polygon = PackedVector2Array(-1, 1, 1921, 1, 1921, 1005, 1724, 915, 1624, 921, 1399, 886, 241, 885, 2, 1009)
+polygon = PackedVector2Array(-1, 1, 1921, 1, 1921, 1005, 1923, 1081, 1912, 1013, 1724, 915, 1624, 921, 1399, 886, 241, 885, 5, 1008, 2, 1081)
 
 [node name="FloorBoundaries" type="NavigationRegion2D" parent="." unique_id=1882325018]
 visible = false
@@ -67,18 +65,17 @@ texture = ExtResource("6_c55dk")
 [node name="CollisionShape" parent="Key" index="1" unique_id=979193828]
 visible = false
 
-[node name="ActionItem" parent="." unique_id=799575145 instance=ExtResource("4_rnlhv")]
+[node name="Panel" parent="." unique_id=799575145 instance=ExtResource("4_rnlhv")]
 position = Vector2(731, 708)
 scale = Vector2(4, 4)
 riddle_file_name = "communication_riddle"
 open_distance = 300.0
 
-[node name="ItemIcon" parent="ActionItem" index="0" unique_id=868944005]
+[node name="ItemIcon" parent="Panel" index="0" unique_id=868944005]
 position = Vector2(0, 2.25)
-texture = ExtResource("5_c55dk")
 metadata/_edit_group_ = true
 
-[node name="CollisionShape" parent="ActionItem" index="1" unique_id=285272896]
+[node name="CollisionShape" parent="Panel" index="1" unique_id=285272896]
 position = Vector2(0, -42.25)
 shape = SubResource("RectangleShape2D_17qua")
 
@@ -100,7 +97,7 @@ polygon = PackedVector2Array(1483, 426, 1625, 389, 1719, 389, 1722, 915, 1616, 9
 [node name="Door" type="Area2D" parent="." unique_id=1253959193]
 
 [node name="DoorCollision" type="CollisionPolygon2D" parent="Door" unique_id=11015390]
-polygon = PackedVector2Array(1759, 323, 1759, 930, 1996, 1046, 1996, 251)
+polygon = PackedVector2Array(1759, 323, 1759, 930, 1862.7867, 980.7986, 1996, 1046, 1996, 251)
 
 [node name="LockerExtended" type="Area2D" parent="." unique_id=1999452425]
 visible = false
@@ -182,5 +179,5 @@ text = "X"
 [connection signal="pressed" from="DoorExtended/DoorCloseButton" to="." method="_on_door_close_button_pressed"]
 
 [editable path="Key"]
-[editable path="ActionItem"]
+[editable path="Panel"]
 [editable path="LockerOpened/Card"]

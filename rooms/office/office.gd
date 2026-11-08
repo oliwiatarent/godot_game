@@ -3,6 +3,7 @@ extends Node
 @onready var extended_locker = $LockerExtended
 @onready var opened_locker = $LockerOpened
 @onready var card = $LockerOpened/Card
+@onready var panel = $Panel
 
 @onready var extended_door = $DoorExtended
 
@@ -17,7 +18,8 @@ func _on_locker_input_event(_viewport: Node, event: InputEvent, _shape_idx: int)
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if window_opened:
 			return
-			
+		
+		set_item_active(panel, false)
 		EventBus.disable_walking.emit()
 		extended_locker.show()
 		window_opened = true
@@ -41,6 +43,7 @@ func _on_locker_close_button_pressed() -> void:
 	opened_locker.hide()
 	extended_locker.hide()
 	set_item_active(card, false)
+	set_item_active(panel, true)
 	window_opened = false
 	EventBus.enable_walking.emit()
 
@@ -51,12 +54,14 @@ func _on_door_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 			return
 			
 		EventBus.disable_walking.emit()
+		set_item_active(panel, false)
 		extended_door.show()
 		window_opened = true
 
 
 func _on_door_close_button_pressed() -> void:
 	extended_door.hide()
+	set_item_active(panel, true)
 	window_opened = false
 	EventBus.enable_walking.emit()
 	
