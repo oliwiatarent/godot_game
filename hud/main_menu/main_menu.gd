@@ -11,6 +11,7 @@ extends Control
 	main_panel, lobby_panel, options_panel, host_panel, join_panel
 ]
 
+@onready var host_code_label = $CenterContainer/HostPanel/CodeLabel
 @onready var host_status_label = $CenterContainer/HostPanel/StatusLabel
 @onready var join_status_label = $CenterContainer/JoinPanel/StatusLabel
 @onready var start_game_button = $CenterContainer/HostPanel/Buttons/StartGameButton
@@ -22,6 +23,7 @@ func _ready() -> void:
 	
 	MultiplayerManager.connection_failed.connect(_on_connection_failed)
 	MultiplayerManager.connection_started.connect(_on_connection_started)
+	MultiplayerManager.player_disconnected.connect(_on_player_disconnected)
 	MultiplayerManager.host_code_received.connect(_on_host_code_received)
 	MultiplayerManager.api_error.connect(_on_api_error)
 	
@@ -97,7 +99,8 @@ func _on_connection_failed(reason: String) -> void:
 	join_status_label.text = "Error: " + reason
 
 func _on_host_code_received(code: String) -> void:
-	host_status_label.text = "Room code: " + code + "\nWaiting for player..."
+	host_code_label.text = "Room code: " + code
+	host_status_label.text = "Waiting for player..."
 
 func _on_api_error(reason: String) -> void:
 	host_status_label.text = reason
@@ -109,3 +112,8 @@ func _on_player_connected(_id: int) -> void:
 		start_game_button.disabled = false
 	else:
 		join_status_label.text = "Connected. Waiting for host to start..."
+
+func _on_player_disconnected() -> void:
+	if multiplayer.is_server():
+		host_status_label.text = "Player left. Room is open again."
+		start_game_button.disabled = true

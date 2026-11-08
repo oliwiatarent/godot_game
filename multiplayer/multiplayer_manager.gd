@@ -4,14 +4,20 @@ signal connection_failed(reason: String)
 signal connection_started
 signal host_code_received(code: String)
 signal api_error(reason: String)
+signal player_disconnected
 
 @export var voice_chat: PackedScene
 
 const PORT: int = 25565
 const RELAY_URL = "http://127.0.0.1:8000"
 
+var is_game_started: bool = false
+var current_code: String = ""
+
 var host_http: HTTPRequest
 var join_http: HTTPRequest
+var update_http: HTTPRequest
+
 var target_scene_path: String = ""
 var drawer_peer_id: int = 1 # tylko host może rysować
 var vc: Node = null
@@ -20,6 +26,8 @@ func _ready() -> void:
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
+	multiplayer.peer_connected.connect(_on_peer_connected)
+	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	
 	host_http = HTTPRequest.new()
 	add_child(host_http)
@@ -27,6 +35,8 @@ func _ready() -> void:
 	join_http = HTTPRequest.new()
 	add_child(join_http)
 	join_http.request_completed.connect(_on_join_request_completed)
+	update_http = HTTPRequest.new()
+	add_child(update_http)
 
 func host_game() -> Error:
 	var peer = ENetMultiplayerPeer.new()
@@ -57,7 +67,19 @@ func join_game(ip: String, scene_path: String) -> Error:
 	
 	return OK
 
+func start_multiplayer_game() -> void:
+	if multiplayer.is_server():
+		is_game_started = true
+		rpc_load_game_scene.rpc(target_scene_path)
+
 func close_game() -> void:
+	if multiplayer.is_server():
+		is_game_started = false
+		update_http.request(RELAY_URL + "/close/" + current_code, [], HTTPClient.METHOD_DELETE)
+	else:
+		update_http.request(RELAY_URL + "/leave/" + current_code, [], HTTPClient.METHOD_POST)
+		current_code = ""
+	
 	if multiplayer.multiplayer_peer:
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
@@ -101,7 +123,8 @@ func host_game_with_code(scene_path: String) -> void:
 
 func join_game_with_code(code: String, scene_path: String) -> void:
 	target_scene_path = scene_path
-	join_http.request(RELAY_URL + "/join/" + code, [], HTTPClient.METHOD_GET)
+	current_code = code.to_upper()
+	join_http.request(RELAY_URL + "/join/" + current_code, [], HTTPClient.METHOD_GET)
 
 func _on_host_request_completed(
 	_result: int, 
@@ -111,6 +134,7 @@ func _on_host_request_completed(
 ) -> void:
 	if response_code == 200:
 		var json = JSON.parse_string(body.get_string_from_utf8())
+		current_code = json["code"]
 		host_code_received.emit(json["code"])
 	else:
 		api_error.emit("Failed to register host.")
@@ -132,10 +156,15 @@ func _on_join_request_completed(
 	else:
 		api_error.emit("Connection timed out.")
 
-func start_multiplayer_game() -> void:
-	if multiplayer.is_server():
-		rpc_load_game_scene.rpc(target_scene_path)
-
 @rpc("call_local", "reliable")
 func rpc_load_game_scene(path: String) -> void:
 	get_tree().change_scene_to_file(path)
+
+func _on_peer_connected(id: int) -> void:
+	if multiplayer.is_server() and is_game_started:
+		rpc_load_game_scene.rpc_id(id, target_scene_path)
+
+func _on_peer_disconnected(_id: int) -> void:
+	if multiplayer.is_server() and not current_code.is_empty():
+		update_http.request(RELAY_URL + "/leave/" + current_code, [], HTTPClient.METHOD_POST)
+		player_disconnected.emit()
