@@ -6,14 +6,13 @@ extends Control
 @onready var lobby_panel: VBoxContainer = $CenterContainer/LobbyPanel
 @onready var status_label: Label = $CenterContainer/LobbyPanel/StatusLabel
 @onready var options_menu = $CenterContainer/OptionsMenu
-@onready var options_back_button = $CenterContainer/OptionsMenu/VerticalContainer/HBoxContainer/BackButton
-@onready var panels: Array[Control] = [main_panel, lobby_panel]
+@onready var panels: Array[Control] = [main_panel, lobby_panel, options_menu]
 
 func _ready() -> void:
 	show_panel(main_panel)
 	MultiplayerManager.connection_failed.connect(_on_connection_failed)
 	MultiplayerManager.connection_started.connect(_on_connection_started)
-	options_back_button.pressed.connect(_on_back_button_pressed)
+	options_menu.closed.connect(_on_options_closed)
 
 func show_panel(target_panel: Control) -> void:
 	for panel in panels:
@@ -26,8 +25,8 @@ func _on_play_button_pressed() -> void:
 	show_panel(lobby_panel)
 
 func _on_options_button_pressed() -> void:
-	main_panel.hide()
-	options_menu.show()
+	options_menu._update_ui_state()
+	show_panel(options_menu)
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
@@ -51,9 +50,6 @@ func _on_connection_started() -> void:
 
 func _on_connection_failed(reason: String) -> void:
 	status_label.text = reason
-	
-func _on_back_button_pressed() -> void:
-	SettingsManager.load_settings()
-	
-	options_menu.hide()
-	main_panel.show()
+
+func _on_options_closed() -> void:
+	show_panel(main_panel)
