@@ -72,7 +72,6 @@ position = Vector2(731, 708)
 scale = Vector2(4, 4)
 riddle_file_name = "example_riddle"
 open_distance = 300.0
-bypass_distance = true
 
 [node name="ItemIcon" parent="ActionItem" index="0" unique_id=868944005]
 position = Vector2(0, 2.25)
