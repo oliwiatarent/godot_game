@@ -57,7 +57,7 @@ func _on_quit_button_pressed() -> void:
 
 func _on_host_button_pressed() -> void:
 	show_panel(host_panel)
-	host_status_label.text = "Awaiting server respnse..."
+	host_status_label.text = "Awaiting server response..."
 	start_game_button.disabled = true
 	MultiplayerManager.host_game_with_code(game_scene_path)
 
