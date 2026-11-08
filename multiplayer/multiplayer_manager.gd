@@ -125,6 +125,8 @@ func _on_join_request_completed(
 		var json = JSON.parse_string(body.get_string_from_utf8())
 		var ip = json["ip_address"]
 		join_game(ip, target_scene_path)
+	elif response_code == 403:
+		api_error.emit("Room is full.")
 	elif response_code == 404:
 		api_error.emit("Wrong code.")
 	else:
