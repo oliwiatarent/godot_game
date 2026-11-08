@@ -6,6 +6,7 @@
 mix_rate = 48000.0
 
 [node name="VoiceChat" type="Node" unique_id=1520986755]
+process_mode = 3
 script = ExtResource("1_w6q3l")
 
 [node name="Input" type="AudioStreamPlayer" parent="." unique_id=627856903]
