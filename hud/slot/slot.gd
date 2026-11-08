@@ -21,7 +21,7 @@ func _process(_delta):
 func set_item(data):
 	item_data = data
 	
-	if item_data['label'] == null:
+	if item_data['label'] != null:
 		tooltip_text = item_data['label']
 	else:
 		tooltip_text = ''
