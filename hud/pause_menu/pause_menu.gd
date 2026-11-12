@@ -18,11 +18,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		toggle_pause()
 		
 
-func _notification(what):
-	match what:
-		NOTIFICATION_WM_WINDOW_FOCUS_OUT:
-			if not get_tree().paused:
-				toggle_pause()
+#func _notification(what):
+	#match what:
+		#NOTIFICATION_WM_WINDOW_FOCUS_OUT:
+			#if not get_tree().paused:
+				#toggle_pause()
 
 
 func toggle_pause():
