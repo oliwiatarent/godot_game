@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cru0bysn3gnko"]
+
+[ext_resource type="Texture2D" uid="uid://b5b21eederswr" path="res://assets/players/Ellie/ellie_idle.png" id="1_v74nn"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_v74nn")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 5.0
+}]

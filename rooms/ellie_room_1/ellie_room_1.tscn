@@ -2,9 +2,26 @@
 
 [ext_resource type="Texture2D" uid="uid://bfm1whqpy66yd" path="res://assets/rooms/Ellie_room_1/Ellie_pokoj_1.png" id="1_4l57x"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_4l57x"]
+vertices = PackedVector2Array(1926, 1086, 119, 1086, 331, 960, 617, 980, 1392, 983, 1675, 954, 1459, 951)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4), PackedInt32Array(5, 0, 4, 6)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(331, 960, 617, 980, 1392, 983, 1459, 951, 1675, 954, 1926, 1086, 119, 1086)])
+agent_radius = 0.0
+
 [node name="EllieRoom1" type="Node" unique_id=876153472]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=590275584]
 position = Vector2(971.0833, 540)
 scale = Vector2(0.7096354, 0.70963544)
 texture = ExtResource("1_4l57x")
+
+[node name="Boundaries" type="StaticBody2D" parent="." unique_id=149595868]
+
+[node name="ScreenBoundaries" type="CollisionPolygon2D" parent="Boundaries" unique_id=1837667216]
+polygon = PackedVector2Array(0, 1080, 1920, 1080, 1920, 1088, 0, 1088)
+
+[node name="RoomObjects" type="CollisionPolygon2D" parent="Boundaries" unique_id=76375234]
+polygon = PackedVector2Array(-1, 1, 1921, 1, 1921, 1005, 1923, 1081, 1874, 1081, 1672, 956, 1452, 956, 1389, 982, 605, 980, 323, 960, 111, 1081, 2, 1081)
+
+[node name="FloorBoundaries" type="NavigationRegion2D" parent="." unique_id=1661921660]
+navigation_polygon = SubResource("NavigationPolygon_4l57x")
