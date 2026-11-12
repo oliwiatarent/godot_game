@@ -11,7 +11,7 @@ const ellie_frames = preload("res://players/ellie_frames.tres")
 
 func _ready() -> void:
 	var instance = null
-	if multiplayer.get_unique_id() == SAM:
+	if not multiplayer.get_unique_id() == SAM:
 		instance = sam_room_1.instantiate()
 	else:
 		animated_sprite.sprite_frames = ellie_frames

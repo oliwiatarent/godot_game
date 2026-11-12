@@ -39,6 +39,7 @@ scale = Vector2(0.7958757, 0.878757)
 texture = ExtResource("2_auegb")
 
 [node name="Boundaries" type="StaticBody2D" parent="." unique_id=1446041254]
+visible = false
 
 [node name="ScreenBoundaries" type="CollisionPolygon2D" parent="Boundaries" unique_id=1456958526]
 polygon = PackedVector2Array(0, 1080, 1920, 1080, 1920, 1088, 0, 1088)

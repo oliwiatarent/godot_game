@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cih2jca7k6upv"]
 
 [ext_resource type="Texture2D" uid="uid://bfm1whqpy66yd" path="res://assets/rooms/Ellie_room_1/Ellie_pokoj_1.png" id="1_4l57x"]
+[ext_resource type="Script" uid="uid://bsahq67tosqll" path="res://rooms/ellie_room_1/ellie_room_1.gd" id="1_txf1a"]
+[ext_resource type="Texture2D" uid="uid://hxw6oqsfd6c1" path="res://assets/rooms/Ellie_room_1/pokoj_1_ellie_tablica_pic.png" id="2_f61i1"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_4l57x"]
 vertices = PackedVector2Array(1926, 1086, 119, 1086, 331, 960, 617, 980, 1392, 983, 1675, 954, 1459, 951)
@@ -9,6 +11,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(331, 960, 617, 980, 139
 agent_radius = 0.0
 
 [node name="EllieRoom1" type="Node" unique_id=876153472]
+script = ExtResource("1_txf1a")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=590275584]
 position = Vector2(971.0833, 540)
@@ -16,6 +19,7 @@ scale = Vector2(0.7096354, 0.70963544)
 texture = ExtResource("1_4l57x")
 
 [node name="Boundaries" type="StaticBody2D" parent="." unique_id=149595868]
+visible = false
 
 [node name="ScreenBoundaries" type="CollisionPolygon2D" parent="Boundaries" unique_id=1837667216]
 polygon = PackedVector2Array(0, 1080, 1920, 1080, 1920, 1088, 0, 1088)
@@ -24,4 +28,37 @@ polygon = PackedVector2Array(0, 1080, 1920, 1080, 1920, 1088, 0, 1088)
 polygon = PackedVector2Array(-1, 1, 1921, 1, 1921, 1005, 1923, 1081, 1874, 1081, 1672, 956, 1452, 956, 1389, 982, 605, 980, 323, 960, 111, 1081, 2, 1081)
 
 [node name="FloorBoundaries" type="NavigationRegion2D" parent="." unique_id=1661921660]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_4l57x")
+
+[node name="Board" type="Area2D" parent="." unique_id=1816166209]
+z_index = 1
+
+[node name="BoardCollision" type="CollisionPolygon2D" parent="Board" unique_id=310109756]
+position = Vector2(-1198, -96)
+polygon = PackedVector2Array(1483, 426, 1819, 456, 1820, 764, 1482, 812)
+
+[node name="BoardExtended" type="Area2D" parent="." unique_id=2070237043]
+visible = false
+z_index = 1
+
+[node name="Texture" type="Sprite2D" parent="BoardExtended" unique_id=1955175550]
+position = Vector2(986.00006, 485.99997)
+scale = Vector2(0.63331795, 0.633318)
+texture = ExtResource("2_f61i1")
+
+[node name="PictureCollision" type="CollisionPolygon2D" parent="BoardExtended" unique_id=1418119015]
+position = Vector2(151, 12)
+scale = Vector2(0.87517905, 0.8751791)
+polygon = PackedVector2Array(774, 325, 801, 720, 1123, 694, 1098, 293)
+
+[node name="BoardCloseButton" type="Button" parent="BoardExtended" unique_id=1115745363]
+offset_left = 1408.0
+offset_top = 53.0
+offset_right = 1442.0
+offset_bottom = 84.0
+text = "X"
+
+[connection signal="input_event" from="Board" to="." method="_on_board_input_event"]
+[connection signal="input_event" from="BoardExtended" to="." method="_on_board_extended_input_event"]
+[connection signal="pressed" from="BoardExtended/BoardCloseButton" to="." method="_on_board_close_button_pressed"]
