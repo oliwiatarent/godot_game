@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ck0i3ju2v3fng" path="res://assets/rooms/Sam_room_1/radar_panel/radar_krecha.png" id="4_mrphr"]
 [ext_resource type="Texture2D" uid="uid://b7pdtwsu4yph8" path="res://assets/rooms/Sam_room_1/radar_panel/radar_kropa.png" id="5_mrphr"]
 [ext_resource type="Texture2D" uid="uid://bkyuunx06pbj" path="res://assets/rooms/Sam_room_1/radar_panel/przycisk_off.png" id="5_sy7ql"]
+[ext_resource type="Texture2D" uid="uid://n7ru6wefcouj" path="res://assets/rooms/Sam_room_1/radar_panel/dlugi_ekran_Sam.png" id="7_q6k6o"]
 
 [node name="CommunicationRiddle" type="Control" unique_id=422766175]
 layout_mode = 3
@@ -104,3 +105,8 @@ z_index = 1
 position = Vector2(-360.67545, 755.22754)
 scale = Vector2(0.4376148, 0.4376148)
 texture = ExtResource("5_sy7ql")
+
+[node name="DlugiEkranSam" type="Sprite2D" parent="." unique_id=1343580614]
+position = Vector2(520.5, 717.60034)
+scale = Vector2(0.19097221, 0.17541185)
+texture = ExtResource("7_q6k6o")
