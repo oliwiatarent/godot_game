@@ -1,13 +1,16 @@
 [gd_scene format=3 uid="uid://d0u8c1ve2j4v"]
 
+[ext_resource type="Script" uid="uid://d21bybd0lw4mh" path="res://riddles/communication_riddle/communication_riddle.gd" id="1_h3vm4"]
 [ext_resource type="Texture2D" uid="uid://cl181jkdgnqfh" path="res://assets/rooms/Sam_room_1/radar_panel/panel.png" id="1_trkon"]
 [ext_resource type="Texture2D" uid="uid://d2hlfunw6ajy0" path="res://assets/rooms/Sam_room_1/radar_panel/ekran_off.png" id="2_81ulx"]
 [ext_resource type="Texture2D" uid="uid://ife2t0m3d4ys" path="res://assets/rooms/Sam_room_1/radar_panel/radar.png" id="2_sy7ql"]
 [ext_resource type="Texture2D" uid="uid://nouw3nbabekw" path="res://assets/rooms/Sam_room_1/radar_panel/ekran_on.png" id="3_is6ff"]
 [ext_resource type="Texture2D" uid="uid://c72mxsajqcnt6" path="res://assets/rooms/Sam_room_1/radar_panel/przycisk_on.png" id="4_fad1a"]
+[ext_resource type="Texture2D" uid="uid://ck0i3ju2v3fng" path="res://assets/rooms/Sam_room_1/radar_panel/radar_krecha.png" id="4_mrphr"]
+[ext_resource type="Texture2D" uid="uid://b7pdtwsu4yph8" path="res://assets/rooms/Sam_room_1/radar_panel/radar_kropa.png" id="5_mrphr"]
 [ext_resource type="Texture2D" uid="uid://bkyuunx06pbj" path="res://assets/rooms/Sam_room_1/radar_panel/przycisk_off.png" id="5_sy7ql"]
 
-[node name="Control" type="Control" unique_id=422766175]
+[node name="CommunicationRiddle" type="Control" unique_id=422766175]
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
@@ -18,8 +21,9 @@ offset_bottom = 40.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+script = ExtResource("1_h3vm4")
 
-[node name="CommunicationRiddle" type="TextureRect" parent="." unique_id=130516904]
+[node name="Panel" type="TextureRect" parent="." unique_id=130516904]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -42,6 +46,28 @@ offset_right = -102.0
 offset_bottom = 666.0
 texture = ExtResource("2_sy7ql")
 expand_mode = 1
+
+[node name="RadarStripe" type="TextureRect" parent="." unique_id=696607591]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -8.950001
+anchor_top = 10.250001
+anchor_right = -8.950001
+anchor_bottom = 10.250001
+offset_left = 3.0517578e-05
+offset_top = -193.00003
+offset_right = 200.52441
+offset_bottom = -3.0517578e-05
+texture = ExtResource("4_mrphr")
+expand_mode = 1
+
+[node name="RadarDot" type="TextureRect" parent="." unique_id=1303244421]
+layout_mode = 0
+offset_left = -235.0
+offset_top = 333.0
+offset_right = -194.0
+offset_bottom = 373.0
+texture = ExtResource("5_mrphr")
 
 [node name="DisplayOff" type="TextureRect" parent="." unique_id=215087548]
 layout_mode = 0
