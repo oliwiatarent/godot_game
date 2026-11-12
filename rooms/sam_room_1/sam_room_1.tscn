@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://rjqmvbx5evld"]
+
+[ext_resource type="Texture2D" uid="uid://c84lvs4la7iqv" path="res://assets/rooms/Sam_room_1/Sam_pokoj_1_OFF.png" id="1_c55dk"]
+[ext_resource type="Script" uid="uid://b5n66eyocnorv" path="res://rooms/sam_room_1/sam_room_1.gd" id="1_g2qoj"]
+[ext_resource type="Texture2D" uid="uid://bxobm0vipfs3f" path="res://assets/rooms/Sam_room_1/Sam_pokoj_1_ON.png" id="2_auegb"]
+[ext_resource type="PackedScene" uid="uid://c4ot2tohx1s1d" path="res://rooms/pickable_item.tscn" id="4_6t00p"]
+[ext_resource type="Texture2D" uid="uid://b2cl07c7ai2p0" path="res://assets/items/item_01_karta_dostepu.png" id="4_auegb"]
+[ext_resource type="PackedScene" uid="uid://bfkn3d7brjctf" path="res://rooms/action_item.tscn" id="4_rnlhv"]
+[ext_resource type="Texture2D" uid="uid://d3ly8ovr456ql" path="res://assets/items/item1.png" id="6_c55dk"]
+[ext_resource type="PackedScene" uid="uid://by5kmeqssli5g" path="res://rooms/item_drop_area.tscn" id="7_auegb"]
+[ext_resource type="Texture2D" uid="uid://bbegvrjul515t" path="res://assets/rooms/Sam_room_1/Sam_pokoj_1_szafka_CLOSED.png" id="10_thfc0"]
+[ext_resource type="Texture2D" uid="uid://isydy1oaklfe" path="res://assets/rooms/Sam_room_1/Sam_pokoj_1_szafka_OPEN.png" id="11_17qua"]
+[ext_resource type="Texture2D" uid="uid://ciberkkjnlb8g" path="res://assets/rooms/Sam_room_1/Sam_pokoj_drzwi.png" id="12_thfc0"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_8b08o"]
+vertices = PackedVector2Array(1728, 913, 1920, 1003, 1922, 1083, 0, 1080, 1627, 921, 244, 884, 1409, 884, 0, 1006)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 4, 3, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 1006, 244, 884, 1409, 884, 1627, 921, 1728, 913, 1920, 1003, 1922, 1083, 0, 1080)])
+agent_radius = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_17qua"]
+size = Vector2(166.5, 111)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_irhwn"]
+radius = 952.53766
+
+[node name="SamRoom1" type="Node" unique_id=1154915183]
+script = ExtResource("1_g2qoj")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=770633200]
+visible = false
+position = Vector2(958, 540)
+scale = Vector2(0.7959666, 0.87855387)
+texture = ExtResource("1_c55dk")
+
+[node name="Background_on" type="Sprite2D" parent="." unique_id=230037533]
+position = Vector2(957.875, 540.12494)
+scale = Vector2(0.7958757, 0.878757)
+texture = ExtResource("2_auegb")
+
+[node name="Boundaries" type="StaticBody2D" parent="." unique_id=1446041254]
+
+[node name="ScreenBoundaries" type="CollisionPolygon2D" parent="Boundaries" unique_id=1456958526]
+polygon = PackedVector2Array(0, 1080, 1920, 1080, 1920, 1088, 0, 1088)
+
+[node name="RoomObjects" type="CollisionPolygon2D" parent="Boundaries" unique_id=1307150337]
+polygon = PackedVector2Array(-1, 1, 1921, 1, 1921, 1005, 1923, 1081, 1912, 1013, 1724, 915, 1624, 921, 1399, 886, 241, 885, 5, 1008, 2, 1081)
+
+[node name="FloorBoundaries" type="NavigationRegion2D" parent="." unique_id=1882325018]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_8b08o")
+
+[node name="Key" parent="." unique_id=1677656622 instance=ExtResource("4_6t00p")]
+visible = false
+position = Vector2(960, 932)
+scale = Vector2(2, 2)
+item_id = "key"
+label = "Key"
+multiuse = true
+
+[node name="ItemIcon" parent="Key" index="0" unique_id=1423757491]
+visible = false
+texture = ExtResource("6_c55dk")
+
+[node name="CollisionShape" parent="Key" index="1" unique_id=979193828]
+visible = false
+
+[node name="Panel" parent="." unique_id=799575145 instance=ExtResource("4_rnlhv")]
+position = Vector2(731, 708)
+scale = Vector2(4, 4)
+riddle_file_name = "communication_riddle"
+open_distance = 300.0
+
+[node name="ItemIcon" parent="Panel" index="0" unique_id=868944005]
+position = Vector2(0, 2.25)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape" parent="Panel" index="1" unique_id=285272896]
+position = Vector2(0, -42.25)
+shape = SubResource("RectangleShape2D_17qua")
+
+[node name="ItemDropArea" parent="." unique_id=753373900 instance=ExtResource("7_auegb")]
+position = Vector2(1302, 589)
+required_item_id = "key"
+
+[node name="ItemDropArea2" parent="." unique_id=1249981844 instance=ExtResource("7_auegb")]
+visible = false
+position = Vector2(461, 600)
+required_item_id = "arrow"
+
+[node name="Locker" type="Area2D" parent="." unique_id=1813518461]
+z_index = 1
+
+[node name="LockerCollision" type="CollisionPolygon2D" parent="Locker" unique_id=442081282]
+polygon = PackedVector2Array(1483, 426, 1625, 389, 1719, 389, 1722, 915, 1616, 917, 1480, 843)
+
+[node name="Door" type="Area2D" parent="." unique_id=1253959193]
+
+[node name="DoorCollision" type="CollisionPolygon2D" parent="Door" unique_id=11015390]
+polygon = PackedVector2Array(1759, 323, 1759, 930, 1862.7867, 980.7986, 1996, 1046, 1996, 251)
+
+[node name="LockerExtended" type="Area2D" parent="." unique_id=1999452425]
+visible = false
+z_index = 1
+
+[node name="Texture" type="Sprite2D" parent="LockerExtended" unique_id=1803516771]
+position = Vector2(955, 544)
+scale = Vector2(0.7273277, 0.7273277)
+texture = ExtResource("10_thfc0")
+
+[node name="LockerExtendedCollision" type="CollisionPolygon2D" parent="LockerExtended" unique_id=276990331]
+polygon = PackedVector2Array(660, 86, 663, 1006, 724, 1006, 747, 974, 1168, 974, 1194, 1006, 1252, 1006, 1249, 83)
+
+[node name="LockerCloseButton" type="Button" parent="LockerExtended" unique_id=32256001]
+offset_left = 1265.0
+offset_top = 65.0
+offset_right = 1299.0
+offset_bottom = 96.0
+text = "X"
+
+[node name="LockerOpened" type="Area2D" parent="." unique_id=1367854015]
+visible = false
+z_index = 1
+
+[node name="Texture" type="Sprite2D" parent="LockerOpened" unique_id=270231171]
+position = Vector2(955, 544)
+scale = Vector2(0.7273277, 0.7273277)
+texture = ExtResource("11_17qua")
+
+[node name="Card" parent="LockerOpened" unique_id=1486615200 instance=ExtResource("4_6t00p")]
+position = Vector2(1097, 548)
+scale = Vector2(0.05, 0.05)
+item_id = "card"
+label = "Access Card"
+multiuse = true
+bypass_distance = true
+
+[node name="ItemIcon" parent="LockerOpened/Card" index="0" unique_id=1423757491]
+position = Vector2(242.5398, 217.5)
+scale = Vector2(2.5564408, 2.5564408)
+texture = ExtResource("4_auegb")
+
+[node name="CollisionShape" parent="LockerOpened/Card" index="1" unique_id=979193828]
+position = Vector2(179.9995, 180.0001)
+shape = SubResource("CircleShape2D_irhwn")
+
+[node name="LockerOpenedCollision" type="CollisionPolygon2D" parent="LockerOpened" unique_id=1292734507]
+polygon = PackedVector2Array(528, 90, 651, 116, 654, 93, 1244, 87, 1244, 110, 1387, 81, 1414, 87, 1408, 1008, 1381, 1005, 1250, 964, 1250, 1017, 1186, 1014, 1168, 979, 750, 976, 724, 1017, 656, 1014, 648, 967, 519, 1005, 499, 1008, 502, 90)
+
+[node name="LockerCloseButton" type="Button" parent="LockerOpened" unique_id=357301254]
+offset_left = 1265.0
+offset_top = 65.0
+offset_right = 1299.0
+offset_bottom = 96.0
+text = "X"
+
+[node name="DoorExtended" type="Area2D" parent="." unique_id=686376230]
+visible = false
+z_index = 1
+
+[node name="Texture" type="Sprite2D" parent="DoorExtended" unique_id=400679313]
+position = Vector2(959.3282, 546.2627)
+scale = Vector2(1.2257328, 1.2257328)
+texture = ExtResource("12_thfc0")
+
+[node name="DoorCloseButton" type="Button" parent="DoorExtended" unique_id=1368471091]
+offset_left = 1428.3281
+offset_top = 91.2626
+offset_right = 1462.3281
+offset_bottom = 122.2626
+text = "X"
+
+[connection signal="input_event" from="Locker" to="." method="_on_locker_input_event"]
+[connection signal="input_event" from="Door" to="." method="_on_door_input_event"]
+[connection signal="input_event" from="LockerExtended" to="." method="_on_locker_extended_input_event"]
+[connection signal="pressed" from="LockerExtended/LockerCloseButton" to="." method="_on_locker_close_button_pressed"]
+[connection signal="input_event" from="LockerOpened" to="." method="_on_locker_opened_input_event"]
+[connection signal="pressed" from="LockerOpened/LockerCloseButton" to="." method="_on_locker_close_button_pressed"]
+[connection signal="pressed" from="DoorExtended/DoorCloseButton" to="." method="_on_door_close_button_pressed"]
+
+[editable path="Key"]
+[editable path="Panel"]
+[editable path="LockerOpened/Card"]

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cih2jca7k6upv"]
+
+[ext_resource type="Texture2D" uid="uid://bfm1whqpy66yd" path="res://assets/rooms/Ellie_room_1/Ellie_pokoj_1.png" id="1_4l57x"]
+
+[node name="EllieRoom1" type="Node" unique_id=876153472]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=590275584]
+position = Vector2(971.0833, 540)
+scale = Vector2(0.7096354, 0.70963544)
+texture = ExtResource("1_4l57x")
