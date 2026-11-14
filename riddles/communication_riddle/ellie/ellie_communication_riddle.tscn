@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://cjg4n6yprixqb"]
+
+[ext_resource type="Script" uid="uid://cpye2yudvux12" path="res://riddles/communication_riddle/ellie/ellie_communication_riddle.gd" id="1_6hnvb"]
+[ext_resource type="Texture2D" uid="uid://dmbrnrucwb5pp" path="res://assets/rooms/Ellie_room_1/biurko/pokoj_1_Ellie_zagadka_1.png" id="1_6svtu"]
+[ext_resource type="Texture2D" uid="uid://b0x5hxe6pojsr" path="res://assets/rooms/Ellie_room_1/biurko/pokoj_1_Ellie_zagadka_1_pasek_radaru.png" id="2_2k0cm"]
+[ext_resource type="Texture2D" uid="uid://co7duai6h2kx3" path="res://assets/rooms/Ellie_room_1/biurko/radar_kropa_Ellie.png" id="3_6hnvb"]
+[ext_resource type="Texture2D" uid="uid://doe01r086nay0" path="res://assets/hud/close_button.png" id="4_gfgth"]
+
+[node name="EllieCommunicationRiddle" type="CanvasLayer" unique_id=1350311912]
+script = ExtResource("1_6hnvb")
+
+[node name="Background" type="TextureRect" parent="." unique_id=188255521]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -770.0
+offset_top = 62.0
+offset_right = 770.83325
+offset_bottom = 922.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_6svtu")
+expand_mode = 1
+
+[node name="RadarStripe" type="TextureRect" parent="." unique_id=1476954679]
+anchors_preset = -1
+anchor_left = 0.72200006
+anchor_top = 0.42000002
+anchor_right = 0.72200006
+anchor_bottom = 0.42000002
+offset_left = 0.7598877
+offset_top = -81.217896
+offset_right = 51.759888
+offset_bottom = 1.7089539
+texture = ExtResource("2_2k0cm")
+expand_mode = 1
+
+[node name="RadarDot" type="TextureRect" parent="." unique_id=839209602]
+offset_left = 1353.0
+offset_top = 470.0
+offset_right = 1373.5
+offset_bottom = 490.0
+texture = ExtResource("3_6hnvb")
+expand_mode = 1
+
+[node name="CloseButton" type="TextureButton" parent="." unique_id=802910988]
+custom_maximum_size = Vector2(70, 70)
+offset_left = 1739.0
+offset_top = 54.0
+offset_right = 1809.0
+offset_bottom = 124.0
+texture_normal = ExtResource("4_gfgth")
+stretch_mode = 0
