@@ -1,5 +1,7 @@
 extends BaseRoom
 
+@onready var locker = $Locker
+@onready var door = $Door
 @onready var extended_locker = $LockerExtended
 @onready var opened_locker = $LockerOpened
 @onready var card = $LockerOpened/Card
@@ -13,6 +15,8 @@ var window_opened = false
 
 func _ready() -> void:
 	set_item_active(card, false)
+	set_item_active(locker, false)
+	set_item_active(door, false)
 	riddle.riddle_closed.connect(_on_close_riddle_button_pressed)
 
 
@@ -62,16 +66,6 @@ func _on_door_close_button_pressed() -> void:
 	extended_door.hide()
 	set_item_active(panel, true)
 	window_opened = handle_window_operation(window_opened)
-	
-	
-func set_item_active(item, active: bool) -> void:
-	if item:
-		item.visible = active
-		item.input_pickable = active
-		
-		for child in item.get_children():
-			if child is CollisionShape2D or child is CollisionPolygon2D:
-				child.disabled = not active
 
 
 func _on_panel_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

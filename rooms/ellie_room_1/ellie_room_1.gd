@@ -1,5 +1,6 @@
 extends BaseRoom
 
+@onready var board = $Board
 @onready var board_extended = $BoardExtended
 @onready var board_sprite = $BoardExtended/Texture
 @onready var background = $Background
@@ -14,6 +15,7 @@ var window_opened = false
 
 
 func _ready() -> void:
+	set_item_active(board, false)
 	riddle.riddle_closed.connect(_on_close_riddle_button_pressed)
 
 
