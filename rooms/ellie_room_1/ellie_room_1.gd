@@ -2,8 +2,10 @@ extends Node
 
 @onready var board_extended = $BoardExtended
 @onready var board_sprite = $BoardExtended/Texture
+@onready var background = $Background
 
 const board_texture_without_pic = preload("res://assets/rooms/Ellie_room_1/pokoj_1_ellie_tablica_no_pic.png")
+const background_texture_without_pic = preload("res://assets/rooms/Ellie_room_1/pokoj_ellie_bez_zdj.png")
 const picture_texture = preload("res://assets/items/item_Ellie_zdjecie.png")
 
 var picture_taken = false
@@ -29,4 +31,5 @@ func _on_board_extended_input_event(_viewport: Node, event: InputEvent, _shape_i
 				var success = equipment.add_item(data)
 				if success:
 					board_sprite.texture = board_texture_without_pic
+					background.texture = background_texture_without_pic
 					picture_taken = true

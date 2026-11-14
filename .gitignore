@@ -1,3 +1,4 @@
 .godot/
 *.exe
 .DS_Store
+rooms/.DS_Store
