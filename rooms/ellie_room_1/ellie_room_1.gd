@@ -17,6 +17,7 @@ var window_opened = false
 func _ready() -> void:
 	set_item_active(board, false)
 	riddle.riddle_closed.connect(_on_close_riddle_button_pressed)
+	EventBus.enable_objects.connect(_on_voice_connection_established)
 
 
 func _on_board_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
@@ -59,3 +60,8 @@ func _on_riddle_input_event(_viewport: Node, event: InputEvent, _shape_idx: int)
 func _on_close_riddle_button_pressed():
 	window_opened = handle_window_operation(window_opened)
 	riddle.hide()
+	
+	
+func _on_voice_connection_established():
+	set_item_active(board, true)
+	

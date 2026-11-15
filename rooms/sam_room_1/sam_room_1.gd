@@ -18,6 +18,7 @@ func _ready() -> void:
 	set_item_active(locker, false)
 	set_item_active(door, false)
 	riddle.riddle_closed.connect(_on_close_riddle_button_pressed)
+	EventBus.enable_objects.connect(_on_voice_connection_established)
 
 
 func _on_locker_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
@@ -79,4 +80,9 @@ func _on_panel_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) 
 		
 func _on_close_riddle_button_pressed():
 	riddle.hide()
-	window_opened = handle_window_operation(window_opened)	
+	window_opened = handle_window_operation(window_opened)
+	
+
+func _on_voice_connection_established():
+	set_item_active(locker, true)
+	set_item_active(door, true)

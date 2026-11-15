@@ -79,3 +79,18 @@ func _on_server_disconnected() -> void:
 	
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://hud/main_menu/main_menu.tscn")
+	
+	
+@rpc("any_peer", "reliable")
+func receive_message(_sender_id: int, message: String) -> void:
+	var parts = message.split(";")
+	if parts.size() == 2:
+		var message_name = parts[0]
+		var message_text = parts[1]
+		
+		if message_name == 'CommunicationRiddle':
+			EventBus.communication_riddle.emit(message_text)
+	
+	
+func send_message(text: String) -> void:
+	receive_message.rpc(multiplayer.get_unique_id(), text)

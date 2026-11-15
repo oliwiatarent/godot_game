@@ -52,3 +52,16 @@ offset_right = 1809.0
 offset_bottom = 124.0
 texture_normal = ExtResource("4_gfgth")
 stretch_mode = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1298871813]
+offset_left = 1308.0
+offset_top = 196.0
+offset_right = 1501.0
+offset_bottom = 319.0
+
+[node name="Prompts" type="RichTextLabel" parent="ScrollContainer" unique_id=455706773]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.38039216, 0.81960785, 0.35686275, 1)
+fit_content = true

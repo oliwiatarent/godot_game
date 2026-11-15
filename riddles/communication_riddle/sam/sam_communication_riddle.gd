@@ -18,9 +18,13 @@ var display_long_texture = preload("res://assets/rooms/Sam_room_1/radar_panel/dl
 var dot_angle: float = 0.0
 var fade_speed: float = 1.5
 var flash_tween
+var first_button_pressed = false
+
 
 func _ready() -> void:
 	close_button.pressed.connect(_on_close_button_pressed)
+	EventBus.communication_riddle.connect(_on_message_received)
+
 	dot_angle = calculate_radar_properties(radar_stripe, radar_dot, 0)
 	
 	start_flashing()
@@ -29,6 +33,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	change_radar_objects(radar_stripe, radar_dot, dot_angle, delta, fade_speed, -5.0, 50.0)
 	
+	waiting_log(delta, 'Waiting for the response...')
+	
 	
 func start_flashing() -> void:
 	flash_tween = create_tween().set_loops()
@@ -36,12 +42,41 @@ func start_flashing() -> void:
 	flash_tween.tween_property(button_gradient, "modulate:a", 1.0, 0.6)
 
 
-func _on_button_on_input_event(_viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_button_on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		button_off.show()
 		button_gradient.hide()
 		button_on.hide()
-		display_on.show()
-		display_long_on.show()
-		display_off.hide()
-		display_long_off.hide()
+		
+		if not first_button_pressed:
+			display_on.show()
+			display_long_on.show()
+			display_off.hide()
+			display_long_off.hide()
+			
+			MultiplayerManager.send_message("CommunicationRiddle;sam_button_pressed")
+			append_log('Sent distress call')
+			waiting_for_response = true
+			first_button_pressed = true
+		else:
+			append_log('Response sent')
+			MultiplayerManager.send_message("CommunicationRiddle;sam_second_button_pressed")
+		
+		
+
+func _on_message_received(message: String):
+	if message == 'ellie_responded':
+		waiting_for_response = false
+		
+		append_log('Connecting...')
+		await get_tree().create_timer(4).timeout
+		append_log('ERROR')
+		append_log('Communication system failure')
+		append_log('Connect to the sound system?')
+		
+		button_on.show()
+		button_gradient.show()
+		button_off.hide()
+		
+	if message == 'ellie_connection_established':
+		EventBus.enable_objects.emit()
