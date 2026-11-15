@@ -9,6 +9,8 @@ signal player_disconnected
 
 @export var voice_chat: PackedScene
 
+@onready var heartbeat_timer = $HeartbeatTimer
+
 const PORT: int = 25565
 const RELAY_URL = "http://127.0.0.1:8000"
 
@@ -18,6 +20,7 @@ var current_code: String = ""
 var host_http: HTTPRequest
 var join_http: HTTPRequest
 var update_http: HTTPRequest
+var heartbeat_http: HTTPRequest
 
 var target_scene_path: String = ""
 var drawer_peer_id: int = 1 # tylko host może rysować
@@ -38,6 +41,8 @@ func _ready() -> void:
 	join_http.request_completed.connect(_on_join_request_completed)
 	update_http = HTTPRequest.new()
 	add_child(update_http)
+	heartbeat_http = HTTPRequest.new()
+	add_child(heartbeat_http)
 
 func host_game() -> Error:
 	var peer = ENetMultiplayerPeer.new()
@@ -141,6 +146,7 @@ func _on_host_request_completed(
 		var json = JSON.parse_string(body.get_string_from_utf8())
 		current_code = json["code"]
 		host_code_received.emit(json["code"])
+		heartbeat_timer.start()
 	else:
 		api_error.emit("Failed to register host.")
 
@@ -173,3 +179,7 @@ func _on_peer_disconnected(_id: int) -> void:
 	if multiplayer.is_server() and not current_code.is_empty():
 		update_http.request(RELAY_URL + "/leave/" + current_code, [], HTTPClient.METHOD_POST)
 		player_disconnected.emit()
+
+func _on_heartbeat_timer_timeout() -> void:
+	if multiplayer.is_server() and not current_code.is_empty():
+		heartbeat_http.request(RELAY_URL + "/heartbeat/" + current_code, [], HTTPClient.METHOD_POST)
