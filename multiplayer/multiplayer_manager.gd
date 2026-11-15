@@ -11,7 +11,6 @@ signal player_disconnected
 
 @onready var heartbeat_timer = $HeartbeatTimer
 
-const PORT: int = 25565
 const RELAY_URL = "http://127.0.0.1:8000"
 
 var is_game_started: bool = false
@@ -46,7 +45,7 @@ func _ready() -> void:
 
 func host_game() -> Error:
 	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_server(PORT, 1)
+	var error = peer.create_server(0, 1)
 	if error != OK:
 		return error
 		
@@ -57,9 +56,9 @@ func host_game() -> Error:
 	
 	return OK
 
-func join_game(ip: String, scene_path: String) -> Error:
+func join_game(ip: String, port: int, scene_path: String) -> Error:
 	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_client(ip, PORT)
+	var error = peer.create_client(ip, port)
 	if error != OK:
 		return error
 			
@@ -127,7 +126,8 @@ func host_game_with_code(scene_path: String) -> void:
 		api_error.emit("ENet error: %d" % err)
 		return
 	
-	var body = JSON.stringify({"port": PORT})
+	var port = multiplayer.multiplayer_peer.host.get_local_port()
+	var body = JSON.stringify({"port": port})
 	var headers = ["Content-Type: application/json"]
 	host_http.request(RELAY_URL + "/host", headers, HTTPClient.METHOD_POST, body)
 
@@ -159,7 +159,8 @@ func _on_join_request_completed(
 	if response_code == 200:
 		var json = JSON.parse_string(body.get_string_from_utf8())
 		var ip = json["ip_address"]
-		join_game(ip, target_scene_path)
+		var port = json["port"]
+		join_game(ip, port, target_scene_path)
 	elif response_code == 403:
 		api_error.emit("Room is full.")
 	elif response_code == 404:
