@@ -62,6 +62,7 @@ func _on_host_button_pressed() -> void:
 	MultiplayerManager.host_game_with_code(game_scene_path)
 
 func _on_join_button_pressed() -> void:
+	join_status_label.text = "Join game"
 	show_panel(join_panel)
 
 func _on_lobby_back_button_pressed() -> void:
@@ -81,6 +82,7 @@ func _on_cancel_host_button_pressed() -> void:
 func _on_connect_button_pressed() -> void:
 	var code = code_input.text.strip_edges()
 	if code.is_empty():
+		join_status_label.text = "Please enter a code"
 		return
 	
 	join_status_label.text = "Connecting..."
