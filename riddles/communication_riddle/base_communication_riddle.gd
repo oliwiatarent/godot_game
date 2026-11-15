@@ -7,6 +7,8 @@ class_name BaseCommunicationRiddle
 var waiting_for_response = false
 var time_elapsed = 0.0
 
+const SAM = 1
+
 signal riddle_closed
 
 
@@ -47,7 +49,11 @@ func change_radar_objects(radar_stripe, radar_dot, dot_angle, delta, fade_speed,
 		
 		
 func append_log(new_message: String) -> void:
-	prompts.text += '> ' + new_message + '\n'
+	if multiplayer.get_unique_id() == SAM:
+		prompts.text += "[bgcolor=#19601a] > " + new_message + "[/bgcolor]\n"
+	else:
+		prompts.text += '> ' + new_message + '\n'
+		
 	await get_tree().process_frame
 	await get_tree().process_frame
 	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value

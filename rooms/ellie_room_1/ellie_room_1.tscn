@@ -4,12 +4,17 @@
 [ext_resource type="Script" uid="uid://bsahq67tosqll" path="res://rooms/ellie_room_1/ellie_room_1.gd" id="1_txf1a"]
 [ext_resource type="Texture2D" uid="uid://hxw6oqsfd6c1" path="res://assets/rooms/Ellie_room_1/pokoj_1_ellie_tablica_pic.png" id="2_f61i1"]
 [ext_resource type="PackedScene" uid="uid://cjg4n6yprixqb" path="res://riddles/communication_riddle/ellie/ellie_communication_riddle.tscn" id="4_8gpuk"]
+[ext_resource type="Shader" uid="uid://cbjjevu2tlsu5" path="res://riddles/communication_riddle/sam/sam_communication_riddle.gdshader" id="4_k3gim"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_4l57x"]
 vertices = PackedVector2Array(1926, 1086, 119, 1086, 331, 960, 617, 980, 1392, 983, 1675, 954, 1459, 951)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4), PackedInt32Array(5, 0, 4, 6)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(331, 960, 617, 980, 1392, 983, 1459, 951, 1675, 954, 1926, 1086, 119, 1086)])
 agent_radius = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k3gim"]
+shader = ExtResource("4_k3gim")
+shader_parameter/blur_amount = 2.5
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8gpuk"]
 load_path = "res://.godot/imported/close_button.png-ab99d24f6a639a40194dcc234c899a24.ctex"
@@ -45,6 +50,18 @@ polygon = PackedVector2Array(1483, 426, 1819, 456, 1820, 764, 1482, 812)
 [node name="BoardExtended" type="Area2D" parent="." unique_id=2070237043]
 visible = false
 z_index = 1
+
+[node name="Blur" type="ColorRect" parent="BoardExtended" unique_id=1190214623]
+material = SubResource("ShaderMaterial_k3gim")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.637)
 
 [node name="Texture" type="Sprite2D" parent="BoardExtended" unique_id=1955175550]
 position = Vector2(986.00006, 485.99997)

@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d0u8c1ve2j4v" path="res://riddles/communication_riddle/sam/sam_communication_riddle.tscn" id="10_nc8jo"]
 [ext_resource type="Texture2D" uid="uid://bbegvrjul515t" path="res://assets/rooms/Sam_room_1/Sam_pokoj_1_szafka_CLOSED.png" id="10_thfc0"]
 [ext_resource type="Texture2D" uid="uid://isydy1oaklfe" path="res://assets/rooms/Sam_room_1/Sam_pokoj_1_szafka_OPEN.png" id="11_17qua"]
+[ext_resource type="Shader" uid="uid://cbjjevu2tlsu5" path="res://riddles/communication_riddle/sam/sam_communication_riddle.gdshader" id="12_0scn8"]
 [ext_resource type="Texture2D" uid="uid://ciberkkjnlb8g" path="res://assets/rooms/Sam_room_1/Sam_pokoj_drzwi.png" id="12_thfc0"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8b08o"]
@@ -17,6 +18,10 @@ vertices = PackedVector2Array(1728, 913, 1920, 1003, 1922, 1083, 0, 1080, 1627, 
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 4, 3, 7)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, 1006, 244, 884, 1409, 884, 1627, 921, 1728, 913, 1920, 1003, 1922, 1083, 0, 1080)])
 agent_radius = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crou2"]
+shader = ExtResource("12_0scn8")
+shader_parameter/blur_amount = 2.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_irhwn"]
 radius = 952.53766
@@ -81,6 +86,18 @@ polygon = PackedVector2Array(1759, 323, 1759, 930, 1862.7867, 980.7986, 1996, 10
 visible = false
 z_index = 1
 
+[node name="Blur" type="ColorRect" parent="LockerExtended" unique_id=998480419]
+material = SubResource("ShaderMaterial_crou2")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.637)
+
 [node name="Texture" type="Sprite2D" parent="LockerExtended" unique_id=1803516771]
 position = Vector2(955, 544)
 scale = Vector2(0.7273277, 0.7273277)
@@ -101,6 +118,18 @@ stretch_mode = 0
 [node name="LockerOpened" type="Area2D" parent="." unique_id=1367854015]
 visible = false
 z_index = 1
+
+[node name="Blur" type="ColorRect" parent="LockerOpened" unique_id=73701101]
+material = SubResource("ShaderMaterial_crou2")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.637)
 
 [node name="Texture" type="Sprite2D" parent="LockerOpened" unique_id=270231171]
 position = Vector2(955, 544)
@@ -139,6 +168,18 @@ stretch_mode = 0
 [node name="DoorExtended" type="Area2D" parent="." unique_id=686376230]
 visible = false
 z_index = 1
+
+[node name="Blur" type="ColorRect" parent="DoorExtended" unique_id=1109882031]
+material = SubResource("ShaderMaterial_crou2")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.637)
 
 [node name="Texture" type="Sprite2D" parent="DoorExtended" unique_id=400679313]
 position = Vector2(959.3282, 546.2627)

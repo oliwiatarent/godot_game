@@ -70,7 +70,7 @@ func _on_message_received(message: String):
 		
 		append_log('Connecting...')
 		await get_tree().create_timer(4).timeout
-		append_log('ERROR')
+		append_log('[color=red]ERROR[/color]')
 		append_log('Communication system failure')
 		append_log('Connect to the sound system?')
 		

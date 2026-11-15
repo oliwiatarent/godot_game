@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://c72mxsajqcnt6" path="res://assets/rooms/Sam_room_1/radar_panel/przycisk_on.png" id="11_t68ss"]
 [ext_resource type="Texture2D" uid="uid://bkyuunx06pbj" path="res://assets/rooms/Sam_room_1/radar_panel/przycisk_off.png" id="12_44a37"]
 [ext_resource type="Texture2D" uid="uid://doe01r086nay0" path="res://assets/hud/close_button.png" id="13_jfq70"]
+[ext_resource type="FontFile" uid="uid://bqknx0s5mon3" path="res://assets/fonts/VT323-Regular.ttf" id="14_yjvk0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c0uhf"]
 shader = ExtResource("2_yjvk0")
@@ -173,7 +174,13 @@ offset_bottom = 377.0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_colors/default_color = Color(0.11893565, 0.27799207, 0.10983995, 1)
+theme_override_colors/default_color = Color(0.35686275, 0.8784314, 0.34509805, 1)
+theme_override_colors/table_odd_row_bg = Color(0.09803922, 0.3764706, 0.101960786, 1)
+theme_override_colors/table_even_row_bg = Color(0.09803922, 0.3764706, 0.101960786, 1)
+theme_override_constants/line_separation = 4
+theme_override_fonts/normal_font = ExtResource("14_yjvk0")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
 fit_content = true
 
 [connection signal="input_event" from="ButtonOn" to="." method="_on_button_on_input_event"]
