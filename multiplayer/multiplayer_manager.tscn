@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ckwo0qpw1rpa7" path="res://multiplayer/voice_chat/voice_chat.tscn" id="2_1owm7"]
 
 [node name="MultiplayerManager" type="Node2D" unique_id=1744659462]
+process_mode = 3
 script = ExtResource("1_2t7wh")
 voice_chat = ExtResource("2_1owm7")
 
