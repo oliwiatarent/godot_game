@@ -104,13 +104,21 @@ layout_mode = 2
 text = "Back"
 
 [node name="HostPanel" type="VBoxContainer" parent="CenterContainer" unique_id=1470128108]
-visible = false
 layout_mode = 2
 
-[node name="CodeLabel" type="Label" parent="CenterContainer/HostPanel" unique_id=506371005]
+[node name="CodeBar" type="HBoxContainer" parent="CenterContainer/HostPanel" unique_id=78491640]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CodeLabel" type="Label" parent="CenterContainer/HostPanel/CodeBar" unique_id=506371005]
 layout_mode = 2
 label_settings = SubResource("LabelSettings_pq2sg")
 horizontal_alignment = 1
+
+[node name="CopyCodeButton" type="Button" parent="CenterContainer/HostPanel/CodeBar" unique_id=1664064061]
+layout_mode = 2
+text = "Copy"
+icon_alignment = 1
 
 [node name="StatusLabel" type="Label" parent="CenterContainer/HostPanel" unique_id=883612506]
 layout_mode = 2
@@ -193,6 +201,7 @@ layout_mode = 2
 [connection signal="pressed" from="CenterContainer/LobbyPanel/Buttons/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CenterContainer/LobbyPanel/Buttons/JoinButton" to="." method="_on_join_button_pressed"]
 [connection signal="pressed" from="CenterContainer/LobbyPanel/Buttons/BackButton" to="." method="_on_lobby_back_button_pressed"]
+[connection signal="pressed" from="CenterContainer/HostPanel/CodeBar/CopyCodeButton" to="." method="_on_copy_code_button_pressed"]
 [connection signal="pressed" from="CenterContainer/HostPanel/Buttons/StartGameButton" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="CenterContainer/HostPanel/Buttons/CancelButton" to="." method="_on_cancel_host_button_pressed"]
 [connection signal="pressed" from="CenterContainer/JoinPanel/Buttons/ConnectButton" to="." method="_on_connect_button_pressed"]

@@ -11,7 +11,8 @@ extends Control
 	main_panel, lobby_panel, options_panel, host_panel, join_panel
 ]
 
-@onready var host_code_label = $CenterContainer/HostPanel/CodeLabel
+@onready var host_code_label = $CenterContainer/HostPanel/CodeBar/CodeLabel
+@onready var copy_code_button = $CenterContainer/HostPanel/CodeBar/CopyCodeButton
 @onready var host_status_label = $CenterContainer/HostPanel/StatusLabel
 @onready var join_status_label = $CenterContainer/JoinPanel/StatusLabel
 @onready var start_game_button = $CenterContainer/HostPanel/Buttons/StartGameButton
@@ -40,6 +41,11 @@ func show_panel(target_panel: Control) -> void:
 			continue
 		panel.visible = true
 
+func reset_host_ui():
+	host_status_label.text = "Awaiting server response..."
+	start_game_button.disabled = true
+	copy_code_button.visible = false
+
 func reset_join_ui():
 	connect_button.disabled = false
 	code_input.editable = true
@@ -65,12 +71,10 @@ func _on_quit_button_pressed() -> void:
 
 func _on_host_button_pressed() -> void:
 	show_panel(host_panel)
-	host_status_label.text = "Awaiting server response..."
-	start_game_button.disabled = true
+	reset_host_ui()
 	MultiplayerManager.host_game_with_code(game_scene_path)
 
 func _on_join_button_pressed() -> void:
-	reset_join_ui()
 	show_panel(join_panel)
 
 func _on_lobby_back_button_pressed() -> void:
@@ -83,6 +87,7 @@ func _on_start_game_button_pressed() -> void:
 
 func _on_cancel_host_button_pressed() -> void:
 	MultiplayerManager.close_game()
+	reset_host_ui()
 	show_panel(lobby_panel)
 
 # Join Panel
@@ -126,6 +131,7 @@ func _on_connection_failed(reason: String) -> void:
 func _on_host_code_received(code: String) -> void:
 	host_code_label.text = "Room code: " + code
 	host_status_label.text = "Waiting for player..."
+	copy_code_button.visible = true
 
 func _on_api_error(reason: String) -> void:
 	host_status_label.text = reason
@@ -144,3 +150,8 @@ func _on_player_disconnected() -> void:
 	if multiplayer.is_server():
 		host_status_label.text = "Player left. Room is open again."
 		start_game_button.disabled = true
+
+func _on_copy_code_button_pressed() -> void:
+	if MultiplayerManager.current_code == "":
+		return
+	DisplayServer.clipboard_set(MultiplayerManager.current_code)
