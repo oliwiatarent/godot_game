@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c4ot2tohx1s1d" path="res://rooms/pickable_item.tscn" id="4_6t00p"]
 [ext_resource type="Texture2D" uid="uid://b2cl07c7ai2p0" path="res://assets/items/item_01_karta_dostepu.png" id="4_auegb"]
 [ext_resource type="Texture2D" uid="uid://d3ly8ovr456ql" path="res://assets/items/item1.png" id="6_c55dk"]
+[ext_resource type="Texture2D" uid="uid://doe01r086nay0" path="res://assets/hud/close_button.png" id="10_g2qoj"]
 [ext_resource type="PackedScene" uid="uid://d0u8c1ve2j4v" path="res://riddles/communication_riddle/sam/sam_communication_riddle.tscn" id="10_nc8jo"]
 [ext_resource type="Texture2D" uid="uid://bbegvrjul515t" path="res://assets/rooms/Sam_room_1/Sam_pokoj_1_szafka_CLOSED.png" id="10_thfc0"]
 [ext_resource type="Texture2D" uid="uid://isydy1oaklfe" path="res://assets/rooms/Sam_room_1/Sam_pokoj_1_szafka_OPEN.png" id="11_17qua"]
@@ -88,12 +89,14 @@ texture = ExtResource("10_thfc0")
 [node name="LockerExtendedCollision" type="CollisionPolygon2D" parent="LockerExtended" unique_id=276990331]
 polygon = PackedVector2Array(660, 86, 663, 1006, 724, 1006, 747, 974, 1168, 974, 1194, 1006, 1252, 1006, 1249, 83)
 
-[node name="LockerCloseButton" type="Button" parent="LockerExtended" unique_id=32256001]
-offset_left = 1265.0
-offset_top = 65.0
-offset_right = 1299.0
-offset_bottom = 96.0
-text = "X"
+[node name="LockerCloseButton" type="TextureButton" parent="LockerExtended" unique_id=946234912]
+custom_maximum_size = Vector2(70, 70)
+offset_left = 1270.0
+offset_top = 72.0
+offset_right = 1340.0
+offset_bottom = 142.0
+texture_normal = ExtResource("10_g2qoj")
+stretch_mode = 0
 
 [node name="LockerOpened" type="Area2D" parent="." unique_id=1367854015]
 visible = false
@@ -124,12 +127,14 @@ shape = SubResource("CircleShape2D_irhwn")
 [node name="LockerOpenedCollision" type="CollisionPolygon2D" parent="LockerOpened" unique_id=1292734507]
 polygon = PackedVector2Array(528, 90, 651, 116, 654, 93, 1244, 87, 1244, 110, 1387, 81, 1414, 87, 1408, 1008, 1381, 1005, 1250, 964, 1250, 1017, 1186, 1014, 1168, 979, 750, 976, 724, 1017, 656, 1014, 648, 967, 519, 1005, 499, 1008, 502, 90)
 
-[node name="LockerCloseButton" type="Button" parent="LockerOpened" unique_id=357301254]
-offset_left = 1265.0
+[node name="LockerCloseButton" type="TextureButton" parent="LockerOpened" unique_id=1095338288]
+custom_maximum_size = Vector2(70, 70)
+offset_left = 1427.0
 offset_top = 65.0
-offset_right = 1299.0
-offset_bottom = 96.0
-text = "X"
+offset_right = 1497.0
+offset_bottom = 135.0
+texture_normal = ExtResource("10_g2qoj")
+stretch_mode = 0
 
 [node name="DoorExtended" type="Area2D" parent="." unique_id=686376230]
 visible = false
@@ -140,12 +145,14 @@ position = Vector2(959.3282, 546.2627)
 scale = Vector2(1.2257328, 1.2257328)
 texture = ExtResource("12_thfc0")
 
-[node name="DoorCloseButton" type="Button" parent="DoorExtended" unique_id=1368471091]
-offset_left = 1428.3281
-offset_top = 91.2626
-offset_right = 1462.3281
-offset_bottom = 122.2626
-text = "X"
+[node name="DoorCloseButton" type="TextureButton" parent="DoorExtended" unique_id=2052621480]
+custom_maximum_size = Vector2(70, 70)
+offset_left = 1414.0
+offset_top = 84.0
+offset_right = 1484.0
+offset_bottom = 154.0
+texture_normal = ExtResource("10_g2qoj")
+stretch_mode = 0
 
 [node name="Panel" type="Area2D" parent="." unique_id=996672647]
 

@@ -11,6 +11,9 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(331, 960, 617, 980, 1392, 983, 1459, 951, 1675, 954, 1926, 1086, 119, 1086)])
 agent_radius = 0.0
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8gpuk"]
+load_path = "res://.godot/imported/close_button.png-ab99d24f6a639a40194dcc234c899a24.ctex"
+
 [node name="EllieRoom1" type="Node" unique_id=876153472]
 script = ExtResource("1_txf1a")
 
@@ -53,12 +56,14 @@ position = Vector2(151, 12)
 scale = Vector2(0.87517905, 0.8751791)
 polygon = PackedVector2Array(774, 325, 801, 720, 1123, 694, 1098, 293)
 
-[node name="BoardCloseButton" type="Button" parent="BoardExtended" unique_id=1115745363]
+[node name="BoardCloseButton" type="TextureButton" parent="BoardExtended" unique_id=2120843177]
+custom_maximum_size = Vector2(70, 70)
 offset_left = 1408.0
 offset_top = 53.0
 offset_right = 1442.0
 offset_bottom = 84.0
-text = "X"
+texture_normal = SubResource("CompressedTexture2D_8gpuk")
+stretch_mode = 0
 
 [node name="Riddle" type="Area2D" parent="." unique_id=2046652977]
 

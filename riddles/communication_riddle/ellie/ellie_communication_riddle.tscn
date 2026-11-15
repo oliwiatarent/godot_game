@@ -3,11 +3,25 @@
 [ext_resource type="Script" uid="uid://cpye2yudvux12" path="res://riddles/communication_riddle/ellie/ellie_communication_riddle.gd" id="1_6hnvb"]
 [ext_resource type="Texture2D" uid="uid://dmbrnrucwb5pp" path="res://assets/rooms/Ellie_room_1/biurko/pokoj_1_Ellie_zagadka_1.png" id="1_6svtu"]
 [ext_resource type="Texture2D" uid="uid://b0x5hxe6pojsr" path="res://assets/rooms/Ellie_room_1/biurko/pokoj_1_Ellie_zagadka_1_pasek_radaru.png" id="2_2k0cm"]
+[ext_resource type="Shader" uid="uid://cbjjevu2tlsu5" path="res://riddles/communication_riddle/sam/sam_communication_riddle.gdshader" id="2_gfgth"]
 [ext_resource type="Texture2D" uid="uid://co7duai6h2kx3" path="res://assets/rooms/Ellie_room_1/biurko/radar_kropa_Ellie.png" id="3_6hnvb"]
 [ext_resource type="Texture2D" uid="uid://doe01r086nay0" path="res://assets/hud/close_button.png" id="4_gfgth"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x7hfw"]
+shader = ExtResource("2_gfgth")
+shader_parameter/blur_amount = 2.5
+
 [node name="EllieCommunicationRiddle" type="CanvasLayer" unique_id=1350311912]
 script = ExtResource("1_6hnvb")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1520158193]
+material = SubResource("ShaderMaterial_x7hfw")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.637)
 
 [node name="Background" type="TextureRect" parent="." unique_id=188255521]
 anchors_preset = 5

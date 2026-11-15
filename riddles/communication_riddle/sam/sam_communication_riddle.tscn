@@ -38,7 +38,6 @@ height = 178.0
 script = ExtResource("1_0sref")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=646919174]
-visible = false
 material = SubResource("ShaderMaterial_c0uhf")
 anchors_preset = 15
 anchor_right = 1.0
