@@ -88,12 +88,20 @@ func _on_cancel_host_button_pressed() -> void:
 # Join Panel
 
 func _on_connect_button_pressed() -> void:
-	var code = code_input.text.strip_edges()
+	var code = code_input.text.strip_edges().to_upper()
+	
 	if code.is_empty():
-		join_status_label.text = "Please enter a code"
+		join_status_label.text = "Please enter a code."
+		return
+	
+	var regex = RegEx.new()
+	regex.compile("^[A-Z0-9]+$")
+	if code.length() != 6 or not regex.search(code):
+		join_status_label.text = "Code must be 6 characters long and contain no special characters."
 		return
 	
 	join_status_label.text = "Connecting..."
+	connect_button.disabled = true
 	MultiplayerManager.join_game_with_code(code, game_scene_path)
 
 func _on_join_back_button_pressed() -> void:
