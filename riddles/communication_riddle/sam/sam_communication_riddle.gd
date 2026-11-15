@@ -80,3 +80,4 @@ func _on_message_received(message: String):
 		
 	if message == 'ellie_connection_established':
 		EventBus.enable_objects.emit()
+		EventBus.enable_communication.emit()

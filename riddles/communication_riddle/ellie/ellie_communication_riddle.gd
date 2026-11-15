@@ -41,4 +41,5 @@ func _on_message_received(message: String):
 		append_log('Voice transmission established')
 		waiting_for_response = false
 		EventBus.enable_objects.emit()
+		EventBus.enable_communication.emit()
 		MultiplayerManager.send_message('CommunicationRiddle;ellie_connection_established')

@@ -4,6 +4,11 @@ extends Control
 
 
 func _ready() -> void:
+	push_to_talk_button.visible = false
+	EventBus.enable_communication.connect(_on_communication_established)
+	
+	
+func _on_communication_established():
 	if MultiplayerManager.vc and push_to_talk_button:
 		push_to_talk_button.visible = MultiplayerManager.vc.can_transmit
 
