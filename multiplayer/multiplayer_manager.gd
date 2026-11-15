@@ -2,6 +2,7 @@ extends Node
 
 signal connection_failed(reason: String)
 signal connection_started
+signal connection_succeeded
 signal host_code_received(code: String)
 signal api_error(reason: String)
 signal player_disconnected
@@ -23,8 +24,8 @@ var drawer_peer_id: int = 1 # tylko host może rysować
 var vc: Node = null
 
 func _ready() -> void:
-	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
+	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
@@ -93,12 +94,12 @@ func is_player_drawing() -> bool:
 		return true
 	return multiplayer.get_unique_id() == drawer_peer_id
 
-func _on_connected_to_server() -> void:
-	pass
-
 func _on_connection_failed() -> void:
 	multiplayer.multiplayer_peer = null
 	connection_failed.emit("Could not connect to server.")
+
+func _on_connected_to_server() -> void:
+	connection_succeeded.emit()
 
 func _on_server_disconnected() -> void:
 	multiplayer.multiplayer_peer = null

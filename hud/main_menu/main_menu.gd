@@ -15,12 +15,14 @@ extends Control
 @onready var host_status_label = $CenterContainer/HostPanel/StatusLabel
 @onready var join_status_label = $CenterContainer/JoinPanel/StatusLabel
 @onready var start_game_button = $CenterContainer/HostPanel/Buttons/StartGameButton
+@onready var connect_button = $CenterContainer/JoinPanel/Buttons/ConnectButton
 @onready var code_input = $CenterContainer/JoinPanel/Input/CodeInput
 
 func _ready() -> void:
 	show_panel(main_panel)
 	start_game_button.disabled = true
 	
+	MultiplayerManager.connection_succeeded.connect(_on_connection_succeeded)
 	MultiplayerManager.connection_failed.connect(_on_connection_failed)
 	MultiplayerManager.connection_started.connect(_on_connection_started)
 	MultiplayerManager.player_disconnected.connect(_on_player_disconnected)
@@ -37,6 +39,12 @@ func show_panel(target_panel: Control) -> void:
 			panel.visible = false
 			continue
 		panel.visible = true
+
+func reset_join_ui():
+	connect_button.disabled = false
+	code_input.editable = true
+	join_status_label.text = "Join game"
+	connect_button.text = "Connect"
 
 # Main Panel
 
@@ -62,7 +70,7 @@ func _on_host_button_pressed() -> void:
 	MultiplayerManager.host_game_with_code(game_scene_path)
 
 func _on_join_button_pressed() -> void:
-	join_status_label.text = "Join game"
+	reset_join_ui()
 	show_panel(join_panel)
 
 func _on_lobby_back_button_pressed() -> void:
@@ -90,12 +98,19 @@ func _on_connect_button_pressed() -> void:
 
 func _on_join_back_button_pressed() -> void:
 	MultiplayerManager.close_game()
+	reset_join_ui()
 	show_panel(lobby_panel)
 
 # Signals
 
 func _on_connection_started() -> void:
 	join_status_label.text = "Connecting to host..."
+
+func _on_connection_succeeded() -> void:
+	join_status_label.text = "Connected. Waiting for host to start..."
+	connect_button.text = "Connected"
+	connect_button.disabled = true
+	code_input.editable = false
 
 func _on_connection_failed(reason: String) -> void:
 	join_status_label.text = "Error: " + reason
@@ -107,6 +122,8 @@ func _on_host_code_received(code: String) -> void:
 func _on_api_error(reason: String) -> void:
 	host_status_label.text = reason
 	join_status_label.text = reason
+	if not multiplayer.has_multiplayer_peer():
+		reset_join_ui()
 
 func _on_player_connected(_id: int) -> void:
 	if multiplayer.is_server():
