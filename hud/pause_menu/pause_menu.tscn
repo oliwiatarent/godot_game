@@ -8,6 +8,7 @@ Button/font_sizes/font_size = 30
 
 [node name="PauseMenu" type="CanvasLayer" unique_id=150079563]
 process_mode = 3
+layer = 15
 script = ExtResource("1_ior63")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1894782811]

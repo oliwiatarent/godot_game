@@ -40,6 +40,9 @@ func _on_locker_extended_input_event(_viewport: Node, event: InputEvent, _shape_
 
 func _on_locker_opened_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if is_mouse_over_pickable_item():
+			return
+			
 		opened_locker.hide()
 		extended_locker.show()
 		set_item_active(card, false)

@@ -173,7 +173,7 @@ offset_bottom = 377.0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/default_color = Color(0.11893565, 0.27799207, 0.10983995, 1)
 fit_content = true
 
 [connection signal="input_event" from="ButtonOn" to="." method="_on_button_on_input_event"]
