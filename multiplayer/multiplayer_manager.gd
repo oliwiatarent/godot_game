@@ -74,12 +74,16 @@ func start_multiplayer_game() -> void:
 		rpc_load_game_scene.rpc(target_scene_path)
 
 func close_game() -> void:
+	if multiplayer.multiplayer_peer == null:
+		return
+	
 	if multiplayer.is_server():
 		is_game_started = false
 		update_http.request(RELAY_URL + "/close/" + current_code, [], HTTPClient.METHOD_DELETE)
 	else:
 		update_http.request(RELAY_URL + "/leave/" + current_code, [], HTTPClient.METHOD_POST)
-		current_code = ""
+	
+	current_code = ""
 	
 	if multiplayer.multiplayer_peer:
 		multiplayer.multiplayer_peer.close()
