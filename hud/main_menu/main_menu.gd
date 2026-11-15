@@ -46,11 +46,14 @@ func reset_host_ui():
 	start_game_button.disabled = true
 	copy_code_button.visible = false
 
-func reset_join_ui():
+func unlock_join_ui():
 	connect_button.disabled = false
 	code_input.editable = true
-	join_status_label.text = "Join game"
 	connect_button.text = "Connect"
+
+func reset_join_ui():
+	unlock_join_ui()
+	join_status_label.text = "Join game"
 
 # Main Panel
 
@@ -127,6 +130,7 @@ func _on_connection_succeeded() -> void:
 
 func _on_connection_failed(reason: String) -> void:
 	join_status_label.text = "Error: " + reason
+	unlock_join_ui()
 
 func _on_host_code_received(code: String) -> void:
 	host_code_label.text = "Room code: " + code
@@ -136,8 +140,7 @@ func _on_host_code_received(code: String) -> void:
 func _on_api_error(reason: String) -> void:
 	host_status_label.text = reason
 	join_status_label.text = reason
-	if not multiplayer.has_multiplayer_peer():
-		reset_join_ui()
+	unlock_join_ui()
 
 func _on_player_connected(_id: int) -> void:
 	if multiplayer.is_server():
