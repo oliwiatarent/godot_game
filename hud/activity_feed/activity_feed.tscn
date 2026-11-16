@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dk41hq1mkqp0m"]
+
+[ext_resource type="Script" uid="uid://bg17fdjcpyvue" path="res://hud/activity_feed/activity_feed.gd" id="1_yrv3m"]
+
+[node name="ActivityFeed" type="MarginContainer" unique_id=597294224]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yrv3m")
+
+[node name="MessageFeed" type="VBoxContainer" parent="." unique_id=334585009]
+layout_mode = 2
+alignment = 2

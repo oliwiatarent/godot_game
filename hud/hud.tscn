@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://3ttce3y31klv" path="res://hud/equipment/equipment.tscn" id="2_2gk58"]
 [ext_resource type="PackedScene" uid="uid://20vdcnp17lqu" path="res://hud/drawing_board/drawing_board.tscn" id="2_318vg"]
 [ext_resource type="PackedScene" uid="uid://bnta1a83nie7g" path="res://hud/voice_chat/voice_chat.tscn" id="3_318vg"]
+[ext_resource type="PackedScene" uid="uid://dk41hq1mkqp0m" path="res://hud/activity_feed/activity_feed.tscn" id="5_svhta"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yv7nh"]
 font_color = Color(0.50140655, 0.5014065, 0.5014065, 1)
@@ -26,3 +27,9 @@ text = "123456"
 label_settings = SubResource("LabelSettings_yv7nh")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ActivityFeed" parent="." unique_id=597294224 instance=ExtResource("5_svhta")]
+offset_left = 22.0
+offset_top = 378.0
+offset_right = -1495.0
+offset_bottom = -517.0

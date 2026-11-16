@@ -5,6 +5,7 @@ signal connection_started
 signal connection_succeeded
 signal host_code_received(code: String)
 signal api_error(reason: String)
+signal player_connected
 signal player_disconnected
 
 @export var voice_chat: PackedScene
@@ -176,6 +177,7 @@ func rpc_load_game_scene(path: String) -> void:
 func _on_peer_connected(id: int) -> void:
 	if multiplayer.is_server() and is_game_started:
 		rpc_load_game_scene.rpc_id(id, target_scene_path)
+	player_connected.emit()
 
 func _on_peer_disconnected(_id: int) -> void:
 	if multiplayer.is_server() and not current_code.is_empty():
