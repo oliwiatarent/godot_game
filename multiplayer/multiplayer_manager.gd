@@ -15,6 +15,7 @@ const RELAY_URL = "http://127.0.0.1:8000"
 
 var is_game_started: bool = false
 var current_code: String = ""
+var last_disconnect_reason = ""
 
 var host_http: HTTPRequest
 var join_http: HTTPRequest
@@ -109,12 +110,12 @@ func _on_connection_failed() -> void:
 func _on_connected_to_server() -> void:
 	connection_succeeded.emit()
 
-func _on_server_disconnected() -> void:
-	multiplayer.multiplayer_peer = null
-	
+func _on_server_disconnected() -> void:	
 	if multiplayer.multiplayer_peer:
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
+	
+	last_disconnect_reason = "Host closed the game."
 	
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://hud/main_menu/main_menu.tscn")
