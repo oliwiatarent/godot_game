@@ -129,7 +129,7 @@ func _on_connection_succeeded() -> void:
 	code_input.editable = false
 
 func _on_connection_failed(reason: String) -> void:
-	join_status_label.text = "Error: " + reason
+	join_status_label.text = reason
 	unlock_join_ui()
 
 func _on_host_code_received(code: String) -> void:

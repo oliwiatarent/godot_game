@@ -78,20 +78,23 @@ func start_multiplayer_game() -> void:
 		rpc_load_game_scene.rpc(target_scene_path)
 
 func close_game() -> void:
-	if multiplayer.multiplayer_peer == null:
-		return
+	is_game_started = false
+	heartbeat_timer.stop()
 	
-	if multiplayer.is_server():
-		is_game_started = false
-		update_http.request(RELAY_URL + "/close/" + current_code, [], HTTPClient.METHOD_DELETE)
-	else:
-		update_http.request(RELAY_URL + "/leave/" + current_code, [], HTTPClient.METHOD_POST)
-	
-	current_code = ""
+	if current_code != "":
+		if multiplayer.is_server() and multiplayer.multiplayer_peer != null:
+			update_http.request(RELAY_URL + "/close/" + current_code, [], HTTPClient.METHOD_DELETE)
+		else:
+			update_http.request(RELAY_URL + "/leave/" + current_code, [], HTTPClient.METHOD_POST)
+		current_code = ""
 	
 	if multiplayer.multiplayer_peer:
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
+	
+	if vc != null:
+		vc.queue_free()
+		vc = null
 
 func is_network_active() -> bool:
 	return multiplayer.has_multiplayer_peer() and \
@@ -104,17 +107,23 @@ func is_player_drawing() -> bool:
 
 func _on_connection_failed() -> void:
 	multiplayer.multiplayer_peer = null
+	if vc != null:
+		vc.queue_free()
+		vc = null
 	connection_failed.emit("Could not connect to server.")
 
 func _on_connected_to_server() -> void:
 	connection_succeeded.emit()
 
 func _on_server_disconnected() -> void:
-	multiplayer.multiplayer_peer = null
-	
+	current_code = ""
 	if multiplayer.multiplayer_peer:
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
+	
+	if vc != null:
+		vc.queue_free()
+		vc = null
 	
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://hud/main_menu/main_menu.tscn")
@@ -160,7 +169,9 @@ func _on_join_request_completed(
 		var json = JSON.parse_string(body.get_string_from_utf8())
 		var ip = json["ip_address"]
 		var port = json["port"]
-		join_game(ip, port, target_scene_path)
+		var err = join_game(ip, port, target_scene_path)
+		if err != OK:
+			connection_failed.emit("ENet client error: %s" % error_string(err))
 	elif response_code == 403:
 		api_error.emit("Room is full.")
 	elif response_code == 404:
