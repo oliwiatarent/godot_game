@@ -11,10 +11,10 @@ font_color = Color(0.50140655, 0.5014065, 0.5014065, 1)
 
 [node name="HUD" type="CanvasLayer" unique_id=37407074]
 layer = 10
+script = ExtResource("1_w8tcp")
 
 [node name="Equipment" parent="." unique_id=980494502 instance=ExtResource("2_2gk58")]
 layer = 10
-script = ExtResource("1_w8tcp")
 
 [node name="DrawingBoard" parent="." unique_id=1586450134 instance=ExtResource("2_318vg")]
 

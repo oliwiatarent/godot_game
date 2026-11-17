@@ -207,8 +207,8 @@ func _on_peer_disconnected(_id: int) -> void:
 func _on_heartbeat_timer_timeout() -> void:
 	if multiplayer.is_server() and not current_code.is_empty():
 		heartbeat_http.request(RELAY_URL + "/heartbeat/" + current_code, [], HTTPClient.METHOD_POST)
-    
-    
+	
+	
 @rpc("any_peer", "reliable")
 func receive_message(_sender_id: int, message: String) -> void:
 	var parts = message.split(";")
