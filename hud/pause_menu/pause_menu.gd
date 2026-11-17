@@ -2,15 +2,11 @@ extends CanvasLayer
 
 @onready var pause_container = $PauseContainer
 @onready var options_menu = $OptionsMenu
-@onready var options_back_button = $OptionsMenu/VerticalContainer/HBoxContainer/BackButton
-@onready var save_changes_dialog: ConfirmationDialog = $OptionsMenu/SaveChangesDialog
+
 
 func _ready():
 	hide_pause_menu()
-	
-	options_back_button.pressed.connect(_on_back_button_pressed)
-	save_changes_dialog.confirmed.connect(_on_save_changes_dialog_confirmed)
-	save_changes_dialog.canceled.connect(_on_save_changes_dialog_canceled)
+	options_menu.closed.connect(_on_options_closed)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -67,22 +63,8 @@ func _on_options_pressed() -> void:
 	
 	pause_container.hide()
 	options_menu.show()
-	
 
-func _on_back_button_pressed() -> void:
-	if SettingsManager.is_modified:
-		save_changes_dialog.popup_centered()
-		return
-	
+
+func _on_options_closed() -> void:
 	options_menu.hide()
 	pause_container.show()
-
-
-func _on_save_changes_dialog_canceled() -> void:
-	SettingsManager.load_settings()
-	_on_back_button_pressed()
-
-
-func _on_save_changes_dialog_confirmed() -> void:
-	SettingsManager.save_settings()
-	_on_back_button_pressed()

@@ -2,7 +2,6 @@ extends Node
 
 @export var line_width: float = 8.0
 @export var line_color: Color = Color.BLACK
-@export var brush_mask: Texture2D = null
 
 @onready var canvas: Canvas = get_parent()
 @onready var net_sync = $"../CanvasSync"
@@ -31,7 +30,7 @@ func _on_gui_input(event: InputEvent):
 			is_drawing = true
 			last_pos = event.position.clamp(Vector2.ZERO, canvas.size)
 			
-			net_sync.start_line(last_pos, line_color, line_width, brush_mask)
+			net_sync.start_line(last_pos, line_color, line_width)
 		else:
 			is_drawing = false
 
