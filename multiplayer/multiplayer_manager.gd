@@ -5,6 +5,7 @@ signal connection_started
 signal connection_succeeded
 signal host_code_received(code: String)
 signal api_error(reason: String)
+signal player_connected
 signal player_disconnected
 
 @export var voice_chat: PackedScene
@@ -15,6 +16,7 @@ const RELAY_URL = "http://127.0.0.1:8000"
 
 var is_game_started: bool = false
 var current_code: String = ""
+var last_disconnect_reason = ""
 
 var host_http: HTTPRequest
 var join_http: HTTPRequest
@@ -113,6 +115,23 @@ func is_player_drawing() -> bool:
 		return true
 	return multiplayer.get_unique_id() == drawer_peer_id
 
+func _on_connection_failed() -> void:
+	multiplayer.multiplayer_peer = null
+	connection_failed.emit("Could not connect to server.")
+
+func _on_connected_to_server() -> void:
+	connection_succeeded.emit()
+
+func _on_server_disconnected() -> void:	
+	if multiplayer.multiplayer_peer:
+		multiplayer.multiplayer_peer.close()
+		multiplayer.multiplayer_peer = null
+	
+	last_disconnect_reason = "Host closed the game."
+	
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://hud/main_menu/main_menu.tscn")
+
 # Session codes
 
 func host_game_with_code(scene_path: String) -> void:
@@ -194,6 +213,7 @@ func _on_join_request_completed(
 func _on_peer_connected(id: int) -> void:
 	if multiplayer.is_server() and is_game_started:
 		rpc_load_game_scene.rpc_id(id, target_scene_path)
+	player_connected.emit()
 
 func _on_peer_disconnected(_id: int) -> void:
 	if multiplayer.is_server() and not current_code.is_empty():

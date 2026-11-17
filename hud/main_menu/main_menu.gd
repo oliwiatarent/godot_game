@@ -18,10 +18,10 @@ extends Control
 @onready var start_game_button = $CenterContainer/HostPanel/Buttons/StartGameButton
 @onready var connect_button = $CenterContainer/JoinPanel/Buttons/ConnectButton
 @onready var code_input = $CenterContainer/JoinPanel/Input/CodeInput
+@onready var popup_dialog = $PopupDialog
 
 func _ready() -> void:
 	show_panel(main_panel)
-	start_game_button.disabled = true
 	
 	MultiplayerManager.connection_succeeded.connect(_on_connection_succeeded)
 	MultiplayerManager.connection_failed.connect(_on_connection_failed)
@@ -31,8 +31,13 @@ func _ready() -> void:
 	MultiplayerManager.api_error.connect(_on_api_error)
 	
 	multiplayer.peer_connected.connect(_on_player_connected)
-	
 	options_panel.closed.connect(_on_options_closed)
+	
+	if MultiplayerManager.last_disconnect_reason != "":
+		popup_dialog.title = "Disconnected"
+		popup_dialog.dialog_text = MultiplayerManager.last_disconnect_reason
+		popup_dialog.popup_centered()
+		MultiplayerManager.last_disconnect_reason = ""
 
 func show_panel(target_panel: Control) -> void:
 	for panel in panels:
@@ -158,3 +163,8 @@ func _on_copy_code_button_pressed() -> void:
 	if MultiplayerManager.current_code == "":
 		return
 	DisplayServer.clipboard_set(MultiplayerManager.current_code)
+
+func _on_connection_lost(reason: String) -> void:
+	popup_dialog.dialog_title = "Disconnected"
+	popup_dialog.dialog_text = reason
+	popup_dialog.popup_centered()

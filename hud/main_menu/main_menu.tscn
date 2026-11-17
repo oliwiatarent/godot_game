@@ -31,6 +31,13 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_2piht")
 
+[node name="PopupDialog" type="AcceptDialog" parent="." unique_id=657663551]
+oversampling_override = 1.0
+title = ""
+initial_position = 1
+unresizable = true
+popup_window = true
+
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=189836079]
 layout_mode = 1
 anchors_preset = 15
