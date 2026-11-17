@@ -151,6 +151,7 @@ func _on_connected_to_server() -> void:
 
 func _on_server_disconnected() -> void:
 	_cleanup_network()
+	last_disconnect_reason = "Host closed the game."
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://hud/main_menu/main_menu.tscn")
 
