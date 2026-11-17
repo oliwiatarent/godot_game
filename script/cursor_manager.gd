@@ -43,8 +43,6 @@ func _process(_delta: float) -> void:
 			collider is ActionItem or \
 			collider is Button or \
 			collider is InventorySlot:
-				
-			#if collider.
 			found_interactable = true
 			break
 			

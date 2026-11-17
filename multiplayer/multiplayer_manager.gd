@@ -207,18 +207,3 @@ func _on_peer_disconnected(_id: int) -> void:
 func _on_heartbeat_timer_timeout() -> void:
 	if multiplayer.is_server() and not current_code.is_empty():
 		heartbeat_http.request(RELAY_URL + "/heartbeat/" + current_code, [], HTTPClient.METHOD_POST)
-    
-    
-@rpc("any_peer", "reliable")
-func receive_message(_sender_id: int, message: String) -> void:
-	var parts = message.split(";")
-	if parts.size() == 2:
-		var message_name = parts[0]
-		var message_text = parts[1]
-		
-		if message_name == 'CommunicationRiddle':
-			EventBus.communication_riddle.emit(message_text)
-	
-	
-func send_message(text: String) -> void:
-	receive_message.rpc(multiplayer.get_unique_id(), text)

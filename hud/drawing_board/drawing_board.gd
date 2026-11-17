@@ -12,8 +12,6 @@ var visible_y: float
 var hidden_y: float
 
 func _ready() -> void:
-	toggle_button.visible = false
-	
 	var my_id = multiplayer.get_unique_id()
 	if my_id != 1:
 		for child in canvas_toolbar.get_children():
@@ -25,11 +23,6 @@ func _ready() -> void:
 	if not is_open:
 		panel_container.position.y = hidden_y
 		panel_container.visible = false
-		
-	EventBus.enable_communication.connect(_on_communication_established)
-		
-func _on_communication_established():
-	toggle_button.visible = true
 
 func _on_canvas_undo_button_pressed() -> void:
 	%CanvasSync.request_undo()
