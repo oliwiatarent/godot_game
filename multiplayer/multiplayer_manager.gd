@@ -97,7 +97,7 @@ func start_multiplayer_game() -> void:
 		is_game_started = true
 		rpc_load_game_scene.rpc(target_scene_path)
 
-func close_game() -> void:	
+func close_game() -> void:
 	if not current_code.is_empty():
 		if multiplayer.multiplayer_peer and multiplayer.is_server():
 			update_http.request(RELAY_URL + "/close/" + current_code, [], HTTPClient.METHOD_DELETE)
@@ -114,23 +114,6 @@ func is_player_drawing() -> bool:
 	if not is_network_active():
 		return true
 	return multiplayer.get_unique_id() == drawer_peer_id
-
-func _on_connection_failed() -> void:
-	multiplayer.multiplayer_peer = null
-	connection_failed.emit("Could not connect to server.")
-
-func _on_connected_to_server() -> void:
-	connection_succeeded.emit()
-
-func _on_server_disconnected() -> void:	
-	if multiplayer.multiplayer_peer:
-		multiplayer.multiplayer_peer.close()
-		multiplayer.multiplayer_peer = null
-	
-	last_disconnect_reason = "Host closed the game."
-	
-	get_tree().paused = false
-	get_tree().change_scene_to_file("res://hud/main_menu/main_menu.tscn")
 
 # Session codes
 
