@@ -5,10 +5,10 @@ extends MarginContainer
 @onready var communication_slider: HSlider = %CommunicationVolumeSlider
 
 func _ready() -> void:
+	_update_ui_state()
 	music_slider.value_changed.connect(_on_audio_slider_changed.bind("Music"))
 	sfx_slider.value_changed.connect(_on_audio_slider_changed.bind("SFX"))
 	communication_slider.value_changed.connect(_on_audio_slider_changed.bind("Communication"))
-	_update_ui_state()
 
 func _update_ui_state() -> void:
 	if SettingsManager.settings_data.sound_levels.has("Music"):

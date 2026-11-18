@@ -28,6 +28,12 @@ func apply_settings() -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		DisplayServer.window_set_size(settings_data.resolution)
 		
+		@warning_ignore("integer_division")
+		var screen_center = DisplayServer.screen_get_position() + (DisplayServer.screen_get_size() / 2)
+		@warning_ignore("integer_division")
+		var window_position = screen_center - (settings_data.resolution / 2)
+		DisplayServer.window_set_position(window_position)
+	
 	for action in settings_data.keybindings:
 		var val = settings_data.keybindings[action]
 		InputMap.action_erase_events(action)
