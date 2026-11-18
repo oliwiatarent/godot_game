@@ -13,9 +13,11 @@ func _ready() -> void:
 	var instance = null
 	if multiplayer.get_unique_id() == SAM:
 		instance = sam_room_1.instantiate()
+		DisplayServer.window_set_title('Under The Sea - Sam (Host)')
 	else:
 		animated_sprite.sprite_frames = ellie_frames
 		instance = ellie_room_1.instantiate()
+		DisplayServer.window_set_title('Under The Sea - Ellie (Guest)')
 	
 	add_child(instance)
 	move_child(instance, 1)
