@@ -37,7 +37,6 @@ polygon = PackedVector2Array(0, 1080, 1920, 1080, 1920, 1088, 0, 1088)
 polygon = PackedVector2Array(-1, 1, 1921, 1, 1921, 1005, 1923, 1081, 1874, 1081, 1672, 956, 1452, 956, 1389, 982, 605, 980, 323, 960, 111, 1081, 2, 1081)
 
 [node name="FloorBoundaries" type="NavigationRegion2D" parent="." unique_id=1661921660]
-visible = false
 navigation_polygon = SubResource("NavigationPolygon_4l57x")
 
 [node name="Board" type="Area2D" parent="." unique_id=1816166209]

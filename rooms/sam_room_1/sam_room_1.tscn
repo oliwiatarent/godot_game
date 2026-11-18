@@ -53,7 +53,6 @@ polygon = PackedVector2Array(0, 1080, 1920, 1080, 1920, 1088, 0, 1088)
 polygon = PackedVector2Array(-1, 1, 1921, 1, 1921, 1005, 1923, 1081, 1912, 1013, 1724, 915, 1624, 921, 1399, 886, 241, 885, 5, 1008, 2, 1081)
 
 [node name="FloorBoundaries" type="NavigationRegion2D" parent="." unique_id=1882325018]
-visible = false
 navigation_polygon = SubResource("NavigationPolygon_8b08o")
 
 [node name="Key" parent="." unique_id=1677656622 instance=ExtResource("4_6t00p")]
