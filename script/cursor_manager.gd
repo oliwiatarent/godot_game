@@ -6,7 +6,7 @@ extends Node
 
 var is_hand_active: bool = false
 var is_mouse_button_pressed: bool = false
-var reset_counter: int = 0 # Licznik do unieważniania starych timerów
+
 
 func _ready() -> void:
 	arrow_img = arrow_img.get_image()
@@ -21,8 +21,10 @@ func _ready() -> void:
 	Input.set_custom_mouse_cursor(arrow_img, Input.CURSOR_ARROW, Vector2(0, 0))
 	Input.set_custom_mouse_cursor(hand_img, Input.CURSOR_POINTING_HAND, Vector2(4, 0))
 
+
 func _process(_delta: float) -> void:
 	check_intersection()
+
 
 func check_intersection() -> bool:
 	var viewport = get_viewport()
@@ -61,6 +63,7 @@ func check_intersection() -> bool:
 				Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 				
 	return found_interactable
+
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:

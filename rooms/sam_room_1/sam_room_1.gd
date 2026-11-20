@@ -14,7 +14,7 @@ var window_opened = false
 
 func _ready() -> void:
 	set_item_active(card, false)
-	#set_item_active(locker, false)
+	set_item_active(locker, false)
 	set_item_active(door, false)
 	riddle.riddle_closed.connect(_on_close_riddle_button_pressed)
 	EventBus.enable_objects.connect(_on_voice_connection_established)
