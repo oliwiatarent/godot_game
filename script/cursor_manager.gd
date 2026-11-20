@@ -5,7 +5,8 @@ extends Node
 @onready var hand_clicked_img = preload("res://assets/cursors/cursor_interact_click.png")
 
 var is_hand_active: bool = false
-var is_mouse_button_pressed: bool = false # Śledzimy czy lewy przycisk jest wciśnięty
+var is_mouse_button_pressed: bool = false
+var reset_counter: int = 0 # Licznik do unieważniania starych timerów
 
 func _ready() -> void:
 	arrow_img = arrow_img.get_image()
@@ -19,9 +20,11 @@ func _ready() -> void:
 	
 	Input.set_custom_mouse_cursor(arrow_img, Input.CURSOR_ARROW, Vector2(0, 0))
 	Input.set_custom_mouse_cursor(hand_img, Input.CURSOR_POINTING_HAND, Vector2(4, 0))
-	
-	
+
 func _process(_delta: float) -> void:
+	check_intersection()
+
+func check_intersection() -> bool:
 	var viewport = get_viewport()
 	var mouse_pos = viewport.get_mouse_position()
 	
@@ -41,38 +44,43 @@ func _process(_delta: float) -> void:
 		var collider = result["collider"]
 		if collider is PickableItem or \
 			collider is ActionItem or \
-			collider is Button or \
 			collider is InventorySlot:
 				
-			#if collider.
 			found_interactable = true
 			break
 			
 	if found_interactable != is_hand_active:
 		is_hand_active = found_interactable
 		
-		if is_hand_active:
-			Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
-		else:
-			Input.set_default_cursor_shape(Input.CURSOR_ARROW)
-			
-			if is_mouse_button_pressed:
+		if not is_mouse_button_pressed:
+			if is_hand_active:
 				Input.set_custom_mouse_cursor(hand_img, Input.CURSOR_POINTING_HAND, Vector2(4, 0))
-
+				Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+			else:
+				Input.set_custom_mouse_cursor(arrow_img, Input.CURSOR_ARROW, Vector2(0, 0))
+				Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+				
+	return found_interactable
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		is_mouse_button_pressed = event.pressed
 		
-		if is_hand_active:
-			if event.pressed:
+		if is_mouse_button_pressed:
+			if is_hand_active:
 				Input.set_custom_mouse_cursor(hand_clicked_img, Input.CURSOR_POINTING_HAND, Vector2(4, 0))
-			else:
-				_reset_cursor_delayed()
+		else:
+			_reset_cursor_delayed()
 
 
 func _reset_cursor_delayed() -> void:
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.08).timeout
 	
-	if is_hand_active:
+	if is_mouse_button_pressed:
+		return
+	
+	if check_intersection():
 		Input.set_custom_mouse_cursor(hand_img, Input.CURSOR_POINTING_HAND, Vector2(4, 0))
+		Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+	else:
+		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
