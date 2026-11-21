@@ -117,6 +117,10 @@ func _unhandled_input(event: InputEvent) -> void:
 					target_item = collider
 					
 		var map = get_world_2d().navigation_map
+		
+		if NavigationServer2D.map_get_iteration_id(map) == 0:
+			return
+			
 		var closest_point = NavigationServer2D.map_get_closest_point(map, mouse_pos)
 		
 		navigation_agent.target_position = closest_point
