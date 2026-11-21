@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Under The Sea"
+config/name="Under the Sea"
 run/main_scene="uid://dwnhjch065ry4"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
