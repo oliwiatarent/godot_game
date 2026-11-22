@@ -37,6 +37,10 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 mouse_cursor/tooltip_position_offset=Vector2(-10, -30)
 
+[global_group]
+
+interactive=""
+
 [input]
 
 move_up={

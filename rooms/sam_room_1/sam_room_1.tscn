@@ -70,13 +70,13 @@ texture = ExtResource("6_c55dk")
 [node name="CollisionShape" parent="Key" index="1" unique_id=979193828]
 visible = false
 
-[node name="Locker" type="Area2D" parent="." unique_id=1813518461]
+[node name="Locker" type="Area2D" parent="." unique_id=1813518461 groups=["interactive"]]
 z_index = 1
 
 [node name="LockerCollision" type="CollisionPolygon2D" parent="Locker" unique_id=442081282]
 polygon = PackedVector2Array(1483, 426, 1625, 389, 1719, 389, 1722, 915, 1616, 917, 1480, 843)
 
-[node name="Door" type="Area2D" parent="." unique_id=1253959193]
+[node name="Door" type="Area2D" parent="." unique_id=1253959193 groups=["interactive"]]
 
 [node name="DoorCollision" type="CollisionPolygon2D" parent="Door" unique_id=11015390]
 polygon = PackedVector2Array(1759, 323, 1759, 930, 1862.7867, 980.7986, 1996, 1046, 1996, 251)
@@ -194,7 +194,7 @@ offset_bottom = 154.0
 texture_normal = ExtResource("10_g2qoj")
 stretch_mode = 0
 
-[node name="Panel" type="Area2D" parent="." unique_id=996672647]
+[node name="Panel" type="Area2D" parent="." unique_id=996672647 groups=["interactive"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Panel" unique_id=1257712595]
 position = Vector2(730.5, 539.5)

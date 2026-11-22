@@ -4,6 +4,7 @@ extends BaseRoom
 @onready var board_extended = $BoardExtended
 @onready var board_sprite = $BoardExtended/Texture
 @onready var background = $Background
+@onready var desk = $Riddle
 @onready var riddle = $EllieCommunicationRiddle
 
 const board_texture_without_pic = preload("res://assets/rooms/Ellie_room_1/pokoj_1_ellie_tablica_no_pic.png")
@@ -52,6 +53,8 @@ func _on_riddle_input_event(_viewport: Node, event: InputEvent, _shape_idx: int)
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if window_opened:
 			return
+			
+		change_active_all(false)
 		
 		window_opened = handle_window_operation(window_opened)
 		riddle.show()
@@ -64,4 +67,8 @@ func _on_close_riddle_button_pressed():
 	
 func _on_voice_connection_established():
 	set_item_active(board, true)
-	
+
+
+func change_active_all(active: bool):
+	set_item_active(board, active)
+	set_item_active(desk, active)

@@ -10,6 +10,7 @@ extends BaseRoom
 @onready var extended_door = $DoorExtended
 
 var window_opened = false
+var riddle_completed = false
 
 
 func _ready() -> void:
@@ -76,15 +77,25 @@ func _on_panel_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) 
 		if window_opened:
 			return
 			
+		change_active_all(false)
+			
 		riddle.show()
 		window_opened = handle_window_operation(window_opened)
 		
 		
 func _on_close_riddle_button_pressed():
+	if riddle_completed:
+		change_active_all(true)
+		
 	riddle.hide()
 	window_opened = handle_window_operation(window_opened)
 	
 
 func _on_voice_connection_established():
-	set_item_active(locker, true)
-	set_item_active(door, true)
+	riddle_completed = true
+	
+	
+func change_active_all(active: bool):
+	set_item_active(locker, active)
+	set_item_active(door, active)
+	set_item_active(panel, active)

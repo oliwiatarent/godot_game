@@ -39,7 +39,7 @@ polygon = PackedVector2Array(-1, 1, 1921, 1, 1921, 1005, 1923, 1081, 1874, 1081,
 [node name="FloorBoundaries" type="NavigationRegion2D" parent="." unique_id=1661921660]
 navigation_polygon = SubResource("NavigationPolygon_4l57x")
 
-[node name="Board" type="Area2D" parent="." unique_id=1816166209]
+[node name="Board" type="Area2D" parent="." unique_id=1816166209 groups=["interactive"]]
 z_index = 1
 
 [node name="BoardCollision" type="CollisionPolygon2D" parent="Board" unique_id=310109756]
@@ -67,7 +67,7 @@ position = Vector2(986.00006, 485.99997)
 scale = Vector2(0.63331795, 0.633318)
 texture = ExtResource("2_f61i1")
 
-[node name="PictureCollision" type="CollisionPolygon2D" parent="BoardExtended" unique_id=1418119015]
+[node name="PictureCollision" type="CollisionPolygon2D" parent="BoardExtended" unique_id=1418119015 groups=["interactive"]]
 position = Vector2(151, 12)
 scale = Vector2(0.87517905, 0.8751791)
 polygon = PackedVector2Array(774, 325, 801, 720, 1123, 694, 1098, 293)
@@ -81,7 +81,7 @@ offset_bottom = 84.0
 texture_normal = SubResource("CompressedTexture2D_8gpuk")
 stretch_mode = 0
 
-[node name="Riddle" type="Area2D" parent="." unique_id=2046652977]
+[node name="Riddle" type="Area2D" parent="." unique_id=2046652977 groups=["interactive"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Riddle" unique_id=1591527268]
 polygon = PackedVector2Array(687, 658, 578, 724, 1412, 727, 1308, 658, 1292, 652, 1293, 545, 1279, 535, 1275, 514, 1092, 508, 1087, 657)
