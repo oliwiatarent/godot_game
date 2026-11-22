@@ -19,7 +19,6 @@ func set_line_color(color: Color) -> void:
 	line_color = color
 
 func _on_gui_input(event: InputEvent):
-	var is_network_active = multiplayer.multiplayer_peer and multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
 	if not MultiplayerManager.is_player_drawing():
 		return
 	
