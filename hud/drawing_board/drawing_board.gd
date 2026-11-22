@@ -22,7 +22,7 @@ func _ready() -> void:
 				continue
 			child.visible = false
 	
-	visible_y = get_viewport_rect().size.y * 0.35
+	visible_y = get_viewport_rect().size.y * 0.37
 	hidden_y = get_viewport_rect().size.y - board_peek_height
 	board_body.position.y = visible_y if is_open else hidden_y
 	
