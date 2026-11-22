@@ -4,7 +4,7 @@ extends Node
 @export var line_color: Color = Color.BLACK
 
 @onready var canvas: Canvas = get_parent()
-@onready var net_sync = $"../CanvasSync"
+@onready var net_sync = %CanvasSync
 
 var is_drawing: bool = false
 var last_pos: Vector2

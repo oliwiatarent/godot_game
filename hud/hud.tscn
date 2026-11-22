@@ -13,14 +13,6 @@ font_color = Color(0.50140655, 0.5014065, 0.5014065, 1)
 layer = 10
 script = ExtResource("1_w8tcp")
 
-[node name="Equipment" parent="." unique_id=980494502 instance=ExtResource("2_2gk58")]
-layer = 10
-
-[node name="DrawingBoard" parent="." unique_id=1586450134 instance=ExtResource("2_318vg")]
-
-[node name="VoiceChat" parent="." unique_id=2024313841 instance=ExtResource("3_318vg")]
-mouse_force_pass_scroll_events = false
-
 [node name="RoomCodeLabel" type="Label" parent="." unique_id=166926289]
 offset_left = 1843.0
 offset_right = 1920.0
@@ -31,7 +23,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ActivityFeed" parent="." unique_id=597294224 instance=ExtResource("5_svhta")]
-offset_left = 22.0
-offset_top = 378.0
-offset_right = -1495.0
-offset_bottom = -517.0
+offset_left = 11.0
+offset_top = 205.0
+offset_right = -1506.0
+offset_bottom = -690.0
+
+[node name="Equipment" parent="." unique_id=980494502 instance=ExtResource("2_2gk58")]
+layer = 10
+
+[node name="DrawingBoard" parent="." unique_id=665837428 instance=ExtResource("2_318vg")]
+board_peek_height = 70.0
+
+[node name="VoiceChat" parent="." unique_id=2024313841 instance=ExtResource("3_318vg")]
+mouse_force_pass_scroll_events = false
