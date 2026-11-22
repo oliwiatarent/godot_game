@@ -1,7 +1,7 @@
 extends Control
 
 @export var animation_duration: float = 0.3
-@export var board_peek_height: float = 122.0
+@export var board_peek_height: float = 70.0
 @export var is_open: bool = false
 
 @onready var board_body: Control = %BoardBody
@@ -47,10 +47,9 @@ func _on_panel_container_gui_input(event: InputEvent) -> void:
 			set_board_open(true)
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_TAB:
-			set_board_open(not is_open)
-			get_viewport().set_input_as_handled()
+	if event.is_action_pressed("toggle_drawing_board"):
+		set_board_open(not is_open)
+		get_viewport().set_input_as_handled()
 
 func _on_communication_established():
 	panel_container.visible = true

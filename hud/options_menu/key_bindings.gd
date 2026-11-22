@@ -21,7 +21,8 @@ var action_display_names: Dictionary = {
 	"prev_item": "Previous Item",
 	"pause": "Pause",
 	"equipment_action": "Open Equipment",
-	"use_item": "Use Item"
+	"use_item": "Use Item",
+	"toggle_drawing_board": "Toggle Drawing Board"
 }
 var excluded = ['pause']
 
