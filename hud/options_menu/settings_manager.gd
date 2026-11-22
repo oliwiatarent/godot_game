@@ -21,12 +21,13 @@ func load_settings():
 	apply_settings()
 	is_modified = false
 
-func apply_settings() -> void:
-	if settings_data.fullscreen:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		DisplayServer.window_set_size(settings_data.resolution)
+func apply_settings(change_window_settings: bool = true) -> void:
+	if change_window_settings:
+		if settings_data.fullscreen:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			DisplayServer.window_set_size(settings_data.resolution)
 		
 		@warning_ignore("integer_division")
 		var screen_center = DisplayServer.screen_get_position() + (DisplayServer.screen_get_size() / 2)

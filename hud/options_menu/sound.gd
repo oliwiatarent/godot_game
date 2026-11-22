@@ -20,5 +20,5 @@ func _update_ui_state() -> void:
 
 func _on_audio_slider_changed(value: float, bus_name: String) -> void:
 	SettingsManager.settings_data.sound_levels[bus_name] = value
-	SettingsManager.apply_settings()
+	SettingsManager.apply_settings(false)
 	SettingsManager.is_modified = true
