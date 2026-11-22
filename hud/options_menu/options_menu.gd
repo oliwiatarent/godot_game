@@ -20,7 +20,7 @@ func _on_back_button_pressed() -> void:
 		closed.emit()
 
 func _on_save_changes_dialog_canceled() -> void:
-	SettingsManager.load_settings()
+	SettingsManager.load_settings(false)
 	closed.emit()
 
 func _on_save_changes_dialog_confirmed() -> void:

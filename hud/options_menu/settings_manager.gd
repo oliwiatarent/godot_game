@@ -10,15 +10,15 @@ func _ready() -> void:
 
 func save_settings() -> void:
 	ResourceSaver.save(settings_data, SETTINGS_FILE)
-	apply_settings()
+	apply_settings(false)
 	is_modified = false
 
-func load_settings():
+func load_settings(change_window_settings: bool = true):
 	if not FileAccess.file_exists(SETTINGS_FILE):
 		return
 	settings_data = ResourceLoader.load(SETTINGS_FILE).duplicate(true)
 	
-	apply_settings()
+	apply_settings(change_window_settings)
 	is_modified = false
 
 func apply_settings(change_window_settings: bool = true) -> void:
