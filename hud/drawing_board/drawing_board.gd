@@ -13,6 +13,8 @@ var visible_y: float
 var hidden_y: float
 
 func _ready() -> void:
+	panel_container.visible = false
+	
 	var my_id = multiplayer.get_unique_id()
 	if my_id != 1:
 		for child in canvas_toolbar.get_children():
