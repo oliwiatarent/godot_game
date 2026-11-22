@@ -13,6 +13,7 @@ const picture_texture = preload("res://assets/items/item_Ellie_zdjecie.png")
 
 var picture_taken = false
 var window_opened = false
+var riddle_completed = false
 
 
 func _ready() -> void:
@@ -61,12 +62,20 @@ func _on_riddle_input_event(_viewport: Node, event: InputEvent, _shape_idx: int)
 		
 		
 func _on_close_riddle_button_pressed():
+	if riddle_completed:
+		change_active_all(true)
+	else:
+		set_item_active(desk, true)
+		
 	window_opened = handle_window_operation(window_opened)
 	riddle.hide()
 	
 	
 func _on_voice_connection_established():
-	set_item_active(board, true)
+	riddle_completed = true
+	
+	if not window_opened:
+		change_active_all(true)
 
 
 func change_active_all(active: bool):

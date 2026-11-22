@@ -86,6 +86,8 @@ func _on_panel_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) 
 func _on_close_riddle_button_pressed():
 	if riddle_completed:
 		change_active_all(true)
+	else:
+		set_item_active(panel, true)
 		
 	riddle.hide()
 	window_opened = handle_window_operation(window_opened)
@@ -93,6 +95,9 @@ func _on_close_riddle_button_pressed():
 
 func _on_voice_connection_established():
 	riddle_completed = true
+	
+	if not window_opened:
+		change_active_all(true)
 	
 	
 func change_active_all(active: bool):
