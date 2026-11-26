@@ -10,19 +10,21 @@ func _ready() -> void:
 
 func save_settings() -> void:
 	ResourceSaver.save(settings_data, SETTINGS_FILE)
-	apply_settings(false)
+	apply_settings()
 	is_modified = false
 
-func load_settings(change_window_settings: bool = true):
+func load_settings():
 	if not FileAccess.file_exists(SETTINGS_FILE):
 		return
 	settings_data = ResourceLoader.load(SETTINGS_FILE).duplicate(true)
 	
-	apply_settings(change_window_settings)
+	apply_settings()
 	is_modified = false
 
-func apply_settings(change_window_settings: bool = true) -> void:
-	if change_window_settings:
+func apply_settings() -> void:
+	var current_window_size = DisplayServer.window_get_size()
+	
+	if current_window_size != settings_data.resolution:
 		if settings_data.fullscreen:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 		else:
