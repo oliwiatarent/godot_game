@@ -35,6 +35,7 @@ texture = ExtResource("2_2piht")
 oversampling_override = 1.0
 title = ""
 initial_position = 1
+exclusive = false
 unresizable = true
 popup_window = true
 
